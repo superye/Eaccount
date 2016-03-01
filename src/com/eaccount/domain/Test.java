@@ -18,13 +18,16 @@ public class Test {
         return "l";
     }
 
-    public String ff() {
-        return "ff";
+    public String yy() {
+        return "90";
     }
     public String gg() {
         return "d";
     }
     public String kk() {
         return "kk";
+    }
+    public String rr() {
+        return "sd";
     }
 }
