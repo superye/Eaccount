@@ -24,6 +24,9 @@ public class Test {
     public String gg() {
         return "d";
     }
+    public String kk() {
+        return "kk";
+    }
     public String rr() {
         return "sd";
     }
