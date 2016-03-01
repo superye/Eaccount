@@ -14,4 +14,7 @@ public class Test {
     public String bb() {
         return "n";
     }
+    public String ee() {
+        return "l";
+    }
 }
