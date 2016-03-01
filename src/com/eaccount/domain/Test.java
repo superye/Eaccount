@@ -34,7 +34,8 @@ public class Test {
     public String ll() {
         return "ll";
     }
-    public String pp() {
-        return "sd";
+
+    private String zz() {
+        return "zz";
     }
 }
