@@ -11,4 +11,7 @@ public class Test {
     public String cc() {
         return "cc";
     }
+    public String bb() {
+        return "n";
+    }
 }
