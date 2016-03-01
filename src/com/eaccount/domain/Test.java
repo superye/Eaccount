@@ -5,4 +5,7 @@ package com.eaccount.domain;
  */
 public class Test {
     private String test5;
+    public void testA() {
+        System.out.println("123");
+    }
 }
