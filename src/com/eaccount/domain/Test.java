@@ -9,4 +9,8 @@ public class Test {
     private String zz() {
         return "zz";
     }
+
+    private String bb() {
+        return "bb";
+    }
 }
