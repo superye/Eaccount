@@ -17,4 +17,8 @@ public class Test {
     public String ee() {
         return "l";
     }
+
+    public String ff() {
+        return "ff";
+    }
 }
