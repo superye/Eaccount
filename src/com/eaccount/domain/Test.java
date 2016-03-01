@@ -5,35 +5,6 @@ package com.eaccount.domain;
  */
 public class Test {
     private String test5;
-    public String aa() {
-       return "a";
-    }
-    public String cc() {
-        return "cc";
-    }
-    public String bb() {
-        return "n";
-    }
-    public String ee() {
-        return "l";
-    }
-
-    public String yy() {
-        return "90";
-    }
-    public String gg() {
-        return "d";
-    }
-    public String kk() {
-        return "kk";
-    }
-    public String rr() {
-        return "sd";
-    }
-
-    public String ll() {
-        return "ll";
-    }
 
     private String zz() {
         return "zz";
