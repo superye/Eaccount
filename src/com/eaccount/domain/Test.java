@@ -27,4 +27,8 @@ public class Test {
     public String rr() {
         return "sd";
     }
+
+    public String ll() {
+        return "ll";
+    }
 }
