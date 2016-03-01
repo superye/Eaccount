@@ -17,4 +17,7 @@ public class Test {
     public String ee() {
         return "l";
     }
+    public String gg() {
+        return "d";
+    }
 }
