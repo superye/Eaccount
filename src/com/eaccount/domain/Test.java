@@ -13,4 +13,8 @@ public class Test {
     private String aa() {
         return "123";
     }
+
+    private String bb() {
+        return "bb";
+    }
 }
