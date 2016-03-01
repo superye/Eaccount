@@ -21,4 +21,7 @@ public class Test {
     public String ff() {
         return "ff";
     }
+    public String gg() {
+        return "d";
+    }
 }
