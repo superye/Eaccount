@@ -8,4 +8,7 @@ public class Test {
     public String aa() {
        return "a";
     }
+    public String bb() {
+        return "n";
+    }
 }
