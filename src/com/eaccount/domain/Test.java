@@ -18,7 +18,7 @@ public class Test {
         return "l";
     }
 
-    public String ff() {
+    public String yy() {
         return "ff";
     }
     public String gg() {
