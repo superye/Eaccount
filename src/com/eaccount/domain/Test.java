@@ -10,7 +10,7 @@ public class Test {
         return "zz";
     }
 
-    private String bb() {
-        return "bb";
+    private String aa() {
+        return "123";
     }
 }
