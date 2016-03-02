@@ -10,4 +10,8 @@ public class Order_detail {
     private String unit_price;
     private String quantity_delivery;
     private String quantity_receiving;
+
+    /**
+     * 额外补充属性
+     */
 }
