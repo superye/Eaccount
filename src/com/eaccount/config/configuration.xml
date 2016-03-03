@@ -12,11 +12,15 @@
                 <property name="driver" value="com.mysql.jdbc.Driver" />
                 <property name="url" value="jdbc:mysql://localhost:3306/eaccount?characterEncoding=UTF-8" />
                 <property name="username" value="root" />
-                <property name="password" value="123" />
+                <property name="password" value="123456" />
             </dataSource>
         </environment>
     </environments>
     <!-- 定义SQL映射语句路径 -->
     <mappers>
+        <mapper resource="com/eaccount/config/sqlxml/order.xml" />
+        <mapper resource="com/eaccount/config/sqlxml/order_detail.xml" />
+        <mapper resource="com/eaccount/config/sqlxml/user_company.xml" />
+        <mapper resource="com/eaccount/config/sqlxml/user_profile.xml" />
     </mappers>
 </configuration>

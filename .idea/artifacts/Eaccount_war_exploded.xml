@@ -8,7 +8,6 @@
           <element id="module-output" name="Eaccount" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="asm-commons" />
           <element id="library" level="project" name="jar" />
         </element>
       </element>

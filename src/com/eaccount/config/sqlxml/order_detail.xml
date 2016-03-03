@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Order_detail">
+
+    <resultMap type="com.eaccount.domain.Order_detail" id="Order_detailResult">
+        <!-- Order_detail表 -->
+        <id column="id" jdbcType="int" property="id"/>
+        <result column="order_id" jdbcType="INTEGER" property="order_id"/>
+        <result column="product_id" jdbcType="INTEGER" property="product_id"/>
+        <result column="unit_price" jdbcType="INTEGER" property="unit_price"/>
+        <result column="quantity_delivery" jdbcType="INTEGER" property="quantity_delivery"/>
+        <result column="quantity_receiving" jdbcType="INTEGER" property="quantity_receiving"/>
+    </resultMap>
+
+</mapper>

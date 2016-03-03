@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Order">
+
+    <resultMap type="com.eaccount.domain.Order" id="OrderResult">
+        <!-- Order表 -->
+        <id column="id" jdbcType="int" property="id"/>
+        <result column="order_id" jdbcType="VARCHAR" property="order_id"/>
+        <result column="company_id_seller" jdbcType="INTEGER" property="company_id_seller"/>
+        <result column="company_id_buyer" jdbcType="INTEGER" property="company_id_buyer"/>
+        <result column="user_id_seller" jdbcType="INTEGER" property="user_id_seller"/>
+        <result column="user_id_buyer" jdbcType="INTEGER" property="user_id_buyer"/>
+        <result column="place_order_time" jdbcType="DATE" property="place_order_time"/>
+        <result column="receiving_time" jdbcType="DATE" property="receiving_time"/>
+        <result column="total_price_seller" jdbcType="INTEGER" property="total_price_seller"/>
+        <result column="total_price_buyer" jdbcType="INTEGER" property="total_price_buyer"/>
+        <result column="paid_price" jdbcType="INTEGER" property="paid_price"/>
+        <result column="is_reconciliation" jdbcType="INTEGER" property="is_reconciliation"/>
+        <result column="payment_day" jdbcType="INTEGER" property="payment_day"/>
+
+        <!-- companyINFO -->
+        <result column="company_logo" jdbcType="BLOB" property="company_logo"/>
+        <result column="company_name" jdbcType="VARCHAR" property="company_name"/>
+
+        <!-- 商品种类及数量 -->
+        <result column="type_number" jdbcType="INTEGER" property="type_number"/>
+        <result column="product_number" jdbcType="INTEGER" property="product_number"/>
+    </resultMap>
+
+    <select id="SelectOrderInfoById" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
+        SELECT a.order_id, c.company_logo, c.company_name, a.place_order_time, type_number =  COUNT(*), product_number = COUNT(b.quantity_delivery)
+        FROM table_order a, table_order_detail b, table_company_profile c WHERE 1 = 1
+        AND a.id = #{id}
+        AND a.order_id = b.order_id
+        AND a.company_id_buyer = c.id
+        <if test="receiving_time != null and receiving != ''">
+            AND a.receiving_time = #{receiving_time}
+        </if>
+    </select>
+
+</mapper>

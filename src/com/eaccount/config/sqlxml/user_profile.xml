@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="User_profile">
+
+    <resultMap type="com.eaccount.domain.User_profile" id="User_profileResult">
+        <!-- 用户信息表 -->
+        <id column="id" jdbcType="int" property="id"/>
+        <result column="user_name" jdbcType="VARCHAR" property="user_name"/>
+        <result column="user_photo" jdbcType="BLOB" property="user_photo"/>
+        <result column="user_birthday" jdbcType="DATE" property="user_birthday"/>
+        <result column="user_phone_num" jdbcType="VARCHAR" property="user_phone_num"/>
+        <result column="account" jdbcType="VARCHAR" property="account"/>
+        <result column="user_password" jdbcType="VARCHAR" property="user_password"/>
+        <result column="permission_delivery" jdbcType="int" property="permission_delivery"/>
+        <result column="permission_receiving" jdbcType="int" property="permission_receiving"/>
+        <result column="permission_reconciliation" jdbcType="int" property="permission_reconciliation"/>
+        <result column="permission_settlement" jdbcType="int" property="permission_settlement"/>
+        <result column="designate_delivery" jdbcType="int" property="designate_delivery"/>
+        <result column="designate_receiving" jdbcType="int" property="designate_receiving"/>
+    </resultMap>
+
+</mapper>
