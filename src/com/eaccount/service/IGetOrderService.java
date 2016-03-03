@@ -8,7 +8,7 @@ import java.util.List;
  * Created by spzn on 16-3-3.
  */
 public interface IGetOrderService {
-    public List<Order> GetOrderByUserIdSeller(int id, String type);
+    public List<Order> GetOrderByUserIdSeller(String id, String type);
     public List<Order> GetOrderByUserIdBuyer(int id);
 
     public List<Order> GetOrderDetailByOrderId(int id);

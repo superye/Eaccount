@@ -9,7 +9,7 @@
 
     <resultMap type="com.eaccount.domain.Order_detail" id="Order_detailResult">
         <!-- Order_detail表 -->
-        <id column="id" jdbcType="int" property="id"/>
+        <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="order_id" jdbcType="INTEGER" property="order_id"/>
         <result column="product_id" jdbcType="INTEGER" property="product_id"/>
         <result column="unit_price" jdbcType="INTEGER" property="unit_price"/>

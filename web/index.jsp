@@ -11,9 +11,9 @@
     <title></title>
   </head>
   <body>
-    <form action="order_GetOrderMessage.action">
-      <input type="text" name="id" placeholder="id"/>
-      <input type="text" name="type" placeholder="type">
+    <form action="order_GetOrderMessage.action" enctype="multipart/form-data">
+      <input type="text" id="user_id_seller" name="user_id_seller" placeholder="id"/>
+      <input type="text" id="type" name="type" placeholder="type">
       <input type="submit" value="提交"/>
     </form>
   </body>

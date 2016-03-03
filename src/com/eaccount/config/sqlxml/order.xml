@@ -9,7 +9,7 @@
 
     <resultMap type="com.eaccount.domain.Order" id="OrderResult">
         <!-- Order表 -->
-        <id column="id" jdbcType="int" property="id"/>
+        <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="order_id" jdbcType="VARCHAR" property="order_id"/>
         <result column="company_id_seller" jdbcType="INTEGER" property="company_id_seller"/>
         <result column="company_id_buyer" jdbcType="INTEGER" property="company_id_buyer"/>
@@ -33,15 +33,15 @@
     </resultMap>
 
     <select id="SelectOrderInfoByUserId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
-        SELECT a.order_id, c.company_logo, c.company_name, a.place_order_time, type_number =  COUNT(*), product_number = COUNT(b.quantity_delivery)
+        SELECT a.order_id, c.company_logo, c.company_name, a.place_order_time, COUNT(*) AS type_number, COUNT(b.quantity_delivery) AS product_number
         FROM table_order a, table_order_detail b, table_company_profile c WHERE 1 = 1
         AND a.user_id_seller = #{user_id_seller}
         AND a.order_id = b.order_id
         AND a.company_id_buyer = c.id
-        <if test="'1'.equals(type)">
+        <if test="type == 1">
             AND a.receiving_time IS NOT NULL
         </if>
-        <if test="'2'.equals(type)">
+        <if test="type == 2">
             AND a.receiving_time IS NULL
         </if>
     </select>

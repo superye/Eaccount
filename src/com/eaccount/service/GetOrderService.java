@@ -16,12 +16,13 @@ public class GetOrderService implements IGetOrderService{
      * @param id
      * @return
      */
-    public List<Order> GetOrderByUserIdSeller(int id, String type) {
+    public List<Order> GetOrderByUserIdSeller(String id, String type) {
         List<Order> list = new ArrayList<>();
         IOrderDAO orderDAO = new OrderDAO();
         Order order = new Order();
         order.setUser_id_seller(String.valueOf(id));
         order.setType(type);
+        System.out.println(id + "+" + type);
         list = orderDAO.GetOrderMessage(order);
         return list;
     }

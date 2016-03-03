@@ -15,10 +15,11 @@ public class OrderDAO implements IOrderDAO{
     public List<Order> GetOrderMessage(Order order) {
         DBAccess dbAccess = new DBAccess();
         SqlSession sqlSession = null;
+        dbAccess.GetLog();
         List<Order> list = new ArrayList<Order>();
         try {
             sqlSession = dbAccess.getSqlSession();
-            list = sqlSession.selectList("Order.SelectOrderInfoById", order);
+            list = sqlSession.selectList("Order.SelectOrderInfoByUserId", order);
             sqlSession.commit();
         } catch (IOException e) {
             e.printStackTrace();

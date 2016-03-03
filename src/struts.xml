@@ -10,6 +10,7 @@
         <action name="login" class="com.eaccount.controller.action.SuperAction">
         </action>
         <action name="order_*" class="com.eaccount.controller.action.OrderAction" method="{1}">
+            <result name="GetOrderMessage"/>
         </action>
     </package>
 </struts>
