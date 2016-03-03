@@ -1,5 +1,7 @@
 package com.eaccount.service;
 
+import com.eaccount.dao.IOrderDAO;
+import com.eaccount.dao.OrderDAO;
 import com.eaccount.domain.Order;
 
 import java.util.ArrayList;
@@ -14,12 +16,14 @@ public class GetOrderService implements IGetOrderService{
      * @param id
      * @return
      */
-    public List<Order> GetOrderByUserIdSeller(int id) {
+    public List<Order> GetOrderByUserIdSeller(int id, String type) {
         List<Order> list = new ArrayList<>();
-        /**
-         * operation 按时间降序
-         */
-        return  list;
+        IOrderDAO orderDAO = new OrderDAO();
+        Order order = new Order();
+        order.setUser_id_seller(String.valueOf(id));
+        order.setType(type);
+        list = orderDAO.GetOrderMessage(order);
+        return list;
     }
 
     /**

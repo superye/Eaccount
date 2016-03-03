@@ -33,5 +33,7 @@
     <orderEntry type="library" name="standard" level="project" />
     <orderEntry type="library" name="asm-commons" level="project" />
     <orderEntry type="library" name="struts2-json-plugin-2.1.8.1" level="project" />
+    <orderEntry type="library" name="commons-beanutils-1.7.0" level="project" />
+    <orderEntry type="library" name="struts2-json-plugin-2.3.8.jar" level="project" />
   </component>
 </module>

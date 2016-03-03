@@ -32,14 +32,17 @@
         <result column="product_number" jdbcType="INTEGER" property="product_number"/>
     </resultMap>
 
-    <select id="SelectOrderInfoById" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
+    <select id="SelectOrderInfoByUserId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
         SELECT a.order_id, c.company_logo, c.company_name, a.place_order_time, type_number =  COUNT(*), product_number = COUNT(b.quantity_delivery)
         FROM table_order a, table_order_detail b, table_company_profile c WHERE 1 = 1
-        AND a.id = #{id}
+        AND a.user_id_seller = #{user_id_seller}
         AND a.order_id = b.order_id
         AND a.company_id_buyer = c.id
-        <if test="receiving_time != null and receiving != ''">
-            AND a.receiving_time = #{receiving_time}
+        <if test="'1'.equals(type)">
+            AND a.receiving_time IS NOT NULL
+        </if>
+        <if test="'2'.equals(type)">
+            AND a.receiving_time IS NULL
         </if>
     </select>
 

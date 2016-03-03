@@ -6,7 +6,10 @@
 
 <struts>
     <package name="default" extends="struts-default" namespace="/">
+
         <action name="login" class="com.eaccount.controller.action.SuperAction">
+        </action>
+        <action name="order_*" class="com.eaccount.controller.action.OrderAction" method="{1}">
         </action>
     </package>
 </struts>
