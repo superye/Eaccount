@@ -44,6 +44,7 @@
         <if test="type == 2">
             AND a.receiving_time IS NULL
         </if>
+        ORDER BY a.place_order_time
     </select>
 
 </mapper>

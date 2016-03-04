@@ -22,7 +22,6 @@ public class GetOrderService implements IGetOrderService{
         Order order = new Order();
         order.setUser_id_seller(String.valueOf(id));
         order.setType(type);
-        System.out.println(id + "+" + type);
         list = orderDAO.GetOrderMessage(order);
         return list;
     }

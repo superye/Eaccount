@@ -9,9 +9,23 @@
 <html>
   <head>
     <title></title>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      function test1() {
+          $.ajax({
+            url: "http://localhost:8080/order_GetOrderMessage.action",
+            data: {"user_id_seller" : $("#user_id_seller").val(),
+                  "type" : $("#type").val()},
+            type: "GET",
+            success: function (data) {
+              $("#test2").append(data);
+            }
+          });
+      }
+    </script>
   </head>
   <body>
-    <form action="order_GetOrderMessage.action" enctype="multipart/form-data">
+    <form action="order_GetOrderMessage.action" id="form1">
       <input type="text" id="user_id_seller" name="user_id_seller" placeholder="id"/>
       <input type="text" id="type" name="type" placeholder="type">
       <input type="submit" value="提交"/>
