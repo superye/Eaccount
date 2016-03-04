@@ -35,6 +35,7 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
             jsonObject.put("company_logo", list.get(i).getCompany_logo());
             jsonObject.put("company_name", list.get(i).getCompany_name());
             jsonObject.put("place_order_time", list.get(i).getPlace_order_time());
+            jsonObject.put("receiving_time", list.get(i).getReceiving_time());
             jsonObject.put("type_number", list.get(i).getType_number());
             jsonObject.put("product_number", list.get(i).getProduct_number());
             jsonArray.add(jsonObject);

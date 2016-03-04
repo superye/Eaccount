@@ -33,7 +33,7 @@
     </resultMap>
 
     <select id="SelectOrderInfoByUserId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
-        SELECT a.order_id, c.company_logo, c.company_name, a.place_order_time, COUNT(*) AS type_number, COUNT(b.quantity_delivery) AS product_number
+        SELECT a.order_id, c.company_logo, c.company_name, a.place_order_time, a.receiving_time, COUNT(*) AS type_number, COUNT(b.quantity_delivery) AS product_number
         FROM table_order a, table_order_detail b, table_company_profile c WHERE 1 = 1
         AND a.user_id_seller = #{user_id_seller}
         AND a.order_id = b.order_id
@@ -44,6 +44,7 @@
         <if test="type == 2">
             AND a.receiving_time IS NULL
         </if>
+        GROUP BY a.order_id
         ORDER BY a.place_order_time
     </select>
 
