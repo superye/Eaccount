@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class OrderDAO implements IOrderDAO{
     @Override
-    public List<Order> GetOrderMessage(Order order) {
+    public List<Order> SellerGetOrderMessageByUserId(Order order) {
         DBAccess dbAccess = new DBAccess();
         SqlSession sqlSession = null;
         dbAccess.GetLog();
@@ -20,7 +20,25 @@ public class OrderDAO implements IOrderDAO{
         try {
             sqlSession = dbAccess.getSqlSession();
             list = sqlSession.selectList("Order.SelectOrderInfoByUserId", order);
-            sqlSession.commit();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<Order> SellerGetOrderMessageByOrderId(Order order) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Order> list = new ArrayList<Order>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("Order.SelectOrderInfoByOrderId", order);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

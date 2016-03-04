@@ -15,6 +15,16 @@
         <result column="unit_price" jdbcType="INTEGER" property="unit_price"/>
         <result column="quantity_delivery" jdbcType="INTEGER" property="quantity_delivery"/>
         <result column="quantity_receiving" jdbcType="INTEGER" property="quantity_receiving"/>
+        <result column="product_name" jdbcType="VARCHAR" property="product_name"/>
+        <result column="product_specification" jdbcType="VARCHAR" property="product_specification"/>
+        <result column="money" jdbcType="INTEGER" property="money"/>
     </resultMap>
 
+    <select id="SelectOrderDetailInfoByOrderId" parameterType="com.eaccount.domain.Order_detail" resultMap="Order_detailResult">
+        SELECT a.order_id, a.product_id, a.unit_price, a.quantity_delivery, a.quantity_receiving, b.product_name, b.product_specification, COUNT(a.quantity_receiving * a.unit_price) AS money
+        FROM table_order_detail a, table_product b WHERE 1 = 1
+        AND a.order_id = #{order_id}
+        AND a.product_id = b.id
+        GROUP BY a.product_id
+    </select>
 </mapper>

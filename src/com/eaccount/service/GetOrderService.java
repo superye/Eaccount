@@ -1,8 +1,11 @@
 package com.eaccount.service;
 
 import com.eaccount.dao.IOrderDAO;
+import com.eaccount.dao.IOrderDetailDAO;
 import com.eaccount.dao.OrderDAO;
+import com.eaccount.dao.OrderDetailDAO;
 import com.eaccount.domain.Order;
+import com.eaccount.domain.Order_detail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +25,7 @@ public class GetOrderService implements IGetOrderService{
         Order order = new Order();
         order.setUser_id_seller(String.valueOf(id));
         order.setType(type);
-        list = orderDAO.GetOrderMessage(order);
+        list = orderDAO.SellerGetOrderMessageByUserId(order);
         return list;
     }
 
@@ -39,14 +42,30 @@ public class GetOrderService implements IGetOrderService{
         return  list;
     }
 
+    @Override
+    public List<Order> GetOrderByOrderId(String id) {
+        List<Order> list = new ArrayList<>();
+        IOrderDAO orderDAO = new OrderDAO();
+        Order order = new Order();
+        order.setOrder_id(id);
+        list = orderDAO.SellerGetOrderMessageByOrderId(order);
+        return list;
+    }
+
     /**
      * 通过订单id获取订单详情
      * @param id
      * @return
      */
     @Override
-    public List<Order> GetOrderDetailByOrderId(int id) {
-        List<Order> list = new ArrayList<>();
+    public List<Order_detail> GetOrderDetailByOrderId(String id) {
+
+        List<Order_detail> list = new ArrayList<>();
+        IOrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        Order_detail order_detail = new Order_detail();
+        order_detail.setOrder_id(id);
+        list = orderDetailDAO.SellerGetOrderDetailInfoByOrderId(order_detail);
+
         return list;
     }
 }

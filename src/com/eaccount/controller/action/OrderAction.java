@@ -17,7 +17,8 @@ import java.util.List;
 public class OrderAction extends SuperAction implements ModelDriven<Order>{
     Order order = new Order();
 
-    public String GetOrderMessage() throws IOException {
+    //卖方通过用户id获取已收，未收，全部的订单信息
+    public String SellerGetOrderMessage() throws IOException {
         //获取订单信息
         List<Order> list = new ArrayList<>();
         IGetOrderService getOrderService = new GetOrderService();
@@ -40,13 +41,19 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
             jsonObject.put("product_number", list.get(i).getProduct_number());
             jsonArray.add(jsonObject);
         }
-        System.out.println(jsonArray);
+//        System.out.println(jsonArray);
+//        System.out.println( "!!" + jsonObject1);
         byte[] jsonBytes = jsonArray.toString().getBytes("utf-8");
         response.setContentType("text/html;charset=utf-8");
         response.setContentLength(jsonBytes.length);
         response.getOutputStream().write(jsonBytes);
         response.getOutputStream().flush();
         response.getOutputStream().close();
+        return null;
+    }
+
+    public String SellerGetOrderDetailInfo() {
+
         return null;
     }
 

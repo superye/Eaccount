@@ -1,6 +1,7 @@
 package com.eaccount.service;
 
 import com.eaccount.domain.Order;
+import com.eaccount.domain.Order_detail;
 
 import java.util.List;
 
@@ -9,7 +10,8 @@ import java.util.List;
  */
 public interface IGetOrderService {
     public List<Order> GetOrderByUserIdSeller(String id, String type);
+    public List<Order> GetOrderByOrderId(String id);
     public List<Order> GetOrderByUserIdBuyer(int id);
 
-    public List<Order> GetOrderDetailByOrderId(int id);
+    public List<Order_detail> GetOrderDetailByOrderId(String id);
 }

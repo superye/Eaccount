@@ -20,4 +20,61 @@ public class Product {
      */
     private int quantity_receiving;
     private int money;
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getProduct_name() {
+        return product_name;
+    }
+
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
+    }
+
+    public String getProduct_specification() {
+        return product_specification;
+    }
+
+    public void setProduct_specification(String product_specification) {
+        this.product_specification = product_specification;
+    }
+
+    public int getUnit_price() {
+        return unit_price;
+    }
+
+    public void setUnit_price(int unit_price) {
+        this.unit_price = unit_price;
+    }
+
+    public int getQuantity_delivery() {
+        return quantity_delivery;
+    }
+
+    public void setQuantity_delivery(int quantity_delivery) {
+        this.quantity_delivery = quantity_delivery;
+    }
+
+    public int getQuantity_receiving() {
+        return quantity_receiving;
+    }
+
+    public void setQuantity_receiving(int quantity_receiving) {
+        this.quantity_receiving = quantity_receiving;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
 }

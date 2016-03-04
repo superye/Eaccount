@@ -8,5 +8,6 @@ import java.util.List;
  * Created by spzn on 16-3-3.
  */
 public interface IOrderDAO {
-    public List<Order> GetOrderMessage(Order order);
+    public List<Order> SellerGetOrderMessageByUserId(Order order);
+    public List<Order> SellerGetOrderMessageByOrderId(Order order);
 }

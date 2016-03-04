@@ -34,7 +34,7 @@ public class Order {
      *
      */
     private String user_name;
-    private String user_phone;
+    private String user_phone_number;
     private String company_name;
     private String company_address;
     private String company_logo;
@@ -45,6 +45,19 @@ public class Order {
     * */
     private String type;
 
+    /*
+    * 凭据照片
+    * */
+    private String photo;
+
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 
     public String getId() {
         return id;
@@ -174,12 +187,12 @@ public class Order {
         this.user_name = user_name;
     }
 
-    public String getUser_phone() {
-        return user_phone;
+    public String getUser_phone_number() {
+        return user_phone_number;
     }
 
-    public void setUser_phone(String user_phone) {
-        this.user_phone = user_phone;
+    public void setUser_phone_number(String user_phone_number) {
+        this.user_phone_number = user_phone_number;
     }
 
     public String getCompany_name() {
@@ -221,4 +234,5 @@ public class Order {
     public void setType(String type) {
         this.type = type;
     }
+
 }

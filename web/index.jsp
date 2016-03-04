@@ -25,11 +25,14 @@
     </script>
   </head>
   <body>
-    <form action="order_GetOrderMessage.action" id="form1">
+    <form action="order_SellerGetOrderMessage.action" id="form1">
       <input type="text" id="user_id_seller" name="user_id_seller" placeholder="id"/>
       <input type="text" id="type" name="type" placeholder="type">
       <input type="submit" value="提交"/>
     </form>
-  <h1>测试github中文字体</h1>
+    <form action="orderDetail_SellerGetOrderDetailInfoByOrderId.action" >
+      <input type="text" id="order_id" name="order_id" placeholder="order_id">
+      <input type="submit" value="提交"/>
+    </form>
   </body>
 </html>
