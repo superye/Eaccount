@@ -30,5 +30,6 @@
       <input type="text" id="type" name="type" placeholder="type">
       <input type="submit" value="提交"/>
     </form>
+  <h1>测试github中文字体</h1>
   </body>
 </html>
