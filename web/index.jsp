@@ -22,6 +22,16 @@
             }
           });
       }
+      function test2() {
+        $.ajax({
+          url: "http://localhost:8080/order_GetOrderMessage.action",
+          data: {"id" : $("#id").val(),
+          type: "GET",
+          success: function (data) {
+            $("#test2").append(data);
+          }
+        });
+      }
     </script>
   </head>
   <body>
@@ -32,6 +42,10 @@
     </form>
     <form action="orderDetail_SellerGetOrderDetailInfoByOrderId.action" >
       <input type="text" id="order_id" name="order_id" placeholder="order_id">
+      <input type="submit" value="提交"/>
+    </form>
+    <form action="messageList_GetMessageById.action" >
+      <input type="text" id="id" name="id" placeholder="id">
       <input type="submit" value="提交"/>
     </form>
   </body>

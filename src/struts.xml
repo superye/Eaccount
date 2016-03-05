@@ -15,5 +15,8 @@
         <action name="orderDetail_*" class="com.eaccount.controller.action.Order_detailAction" method="{1}">
             <result name="success"/>
         </action>
+        <action name="messageList_*" class="com.eaccount.controller.action.Message_listAction" method="{1}">
+            <result name="success"/>
+        </action>
     </package>
 </struts>

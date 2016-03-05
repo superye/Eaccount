@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Message_list">
+
+    <resultMap type="com.eaccount.domain.Message_list" id="Message_listResult">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="message_receiver" jdbcType="INTEGER" property="message_receiver"/>
+        <result column="message_sender" jdbcType="INTEGER" property="message_sender"/>
+        <result column="message_title" jdbcType="VARCHAR" property="message_title"/>
+        <result column="message_type" jdbcType="VARCHAR" property="message_type"/>
+        <result column="message_state" jdbcType="VARCHAR" property="message_state"/>
+        <result column="message_remark" jdbcType="VARCHAR" property="message_remark"/>
+        <result column="message_date" jdbcType="DATE" property="message_date"/>
+    </resultMap>
+
+    <select id="SelectMessageByUserId" parameterType="com.eaccount.domain.Order" resultMap="Message_listResult">
+        SELECT * FROM table_message_list WHERE message_receiver=#{id}
+    </select>
+
+</mapper>

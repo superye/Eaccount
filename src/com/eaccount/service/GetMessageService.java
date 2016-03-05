@@ -1,8 +1,13 @@
 package com.eaccount.service;
 
-import com.eaccount.domain.Company_profile;
-import com.eaccount.domain.Product;
-import com.eaccount.domain.User_profile;
+import com.eaccount.dao.IMessageDAO;
+import com.eaccount.dao.IOrderDAO;
+import com.eaccount.dao.MessageDAO;
+import com.eaccount.dao.OrderDAO;
+import com.eaccount.domain.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by yehao on 16/3/2.
@@ -45,4 +50,13 @@ public class GetMessageService implements IGetMessageService{
         return product;
     }
 
+    @Override
+    public List<Message_list> GetMessageById(String id) {
+        List<Message_list> list = new ArrayList<>();
+        IMessageDAO iMessageDAO = new MessageDAO();
+        Order order = new Order();
+        order.setId(id);
+        list = iMessageDAO.SelectMessageByUserId(order);
+        return list;
+    }
 }
