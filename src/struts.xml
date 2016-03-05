@@ -18,5 +18,8 @@
         <action name="messageList_*" class="com.eaccount.controller.action.Message_listAction" method="{1}">
             <result name="success"/>
         </action>
+        <action name="UserProfile_*" class="com.eaccount.controller.action.UserAction" method="{1}">
+            <result name="success"/>
+        </action>
     </package>
 </struts>

@@ -24,4 +24,12 @@
         <result column="designate_receiving" jdbcType="INTEGER" property="designate_receiving"/>
     </resultMap>
 
+    <select id="SelectUserInfoByUserId" parameterType="com.eaccount.domain.User_profile" resultMap="User_profileResult">
+        SELECT a.id, a.user_name FROM table_user_profile a, table_user_company b WHERE 1 = 1
+        AND a.id = b.user_id
+        AND b.company_id = (SELECT b.company_id FROM table_user_profile a, table_user_company b WHERE 1 = 1
+                            AND a.id = #{id}
+                            AND a.id = b.user_id)
+        AND a.id != #{id}
+    </select>
 </mapper>
