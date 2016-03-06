@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface IGetOrderService {
     public List<Order> GetOrderByUserIdSeller(String id, String type);
+    public List<Order> GetOrderByUserIdBuyer(String id, String type);
     public List<Order> GetOrderByOrderId(String id);
     public List<Order> GetOrderByUserIdBuyer(int id);
 

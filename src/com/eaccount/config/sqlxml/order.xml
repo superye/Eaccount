@@ -38,7 +38,7 @@
         <result column="photo" jdbcType="BLOB" property="photo"/>
     </resultMap>
 
-    <select id="SelectOrderInfoByUserId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
+    <select id="SelectOrderInfoByUserSellerId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
         SELECT a.order_id, c.company_logo, c.company_name, a.place_order_time, a.receiving_time, d.user_name, d.user_phone_number, COUNT(*) AS type_number, COUNT(b.quantity_delivery) AS product_number
         FROM table_order a, table_order_detail b, table_company_profile c, table_user_profile d WHERE 1 = 1
         AND a.user_id_seller = #{user_id_seller}
@@ -54,6 +54,24 @@
         GROUP BY a.order_id
         ORDER BY a.place_order_time
     </select>
+
+    <select id="SelectOrderInfoByUserBuyerId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
+        SELECT a.order_id, c.company_logo, c.company_name, a.place_order_time, a.receiving_time, d.user_name, d.user_phone_number, COUNT(*) AS type_number, COUNT(b.quantity_delivery) AS product_number
+        FROM table_order a, table_order_detail b, table_company_profile c , table_user_profile d WHERE 1 = 1
+        AND a.user_id_buyer = #{user_id_buyer}
+        AND a.order_id = b.order_id
+        AND a.company_id_seller = c.id
+        AND a.user_id_seller = d.id
+        <if test="type == 1">
+            AND a.receiving_time IS NOT NULL
+        </if>
+        <if test="type == 2">
+            AND a.receiving_time IS NULL
+        </if>
+        GROUP BY a.order_id
+        ORDER BY a.place_order_time
+    </select>
+
     <select id="SelectOrderInfoByOrderId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
         SELECT c.company_logo, c.company_name, c.company_address, b.user_name, b.user_phone_number, a.place_order_time, a.receiving_time, d.photo
         FROM table_order a, table_user_profile b, table_company_profile c, table_photo d
@@ -65,4 +83,15 @@
         AND photo_type = 1
     </select>
 
+    <update id="UpdateOrderSellerId" parameterType="com.eaccount.domain.Order">
+        UPDATE table_order SET user_id_seller = #{user_id_seller}
+        WHERE order_id = #{order_id}
+    </update>
+
+    <delete id="DeleteOrderByOrderId" parameterType="com.eaccount.domain.Order">
+        DELETE FROM table_order WHERE order_id = #{order_id}
+    </delete>
+    <delete id="DeleteOrderDetailByOrderId" parameterType="com.eaccount.domain.Order">
+        DELETE FROM table_order_detail WHERE order_id = #{order_id}
+    </delete>
 </mapper>
