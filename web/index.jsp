@@ -56,5 +56,21 @@
       <input type="text" id="user_id" name="user_id" placeholder="id">
       <input type="submit" value="提交">
     </form>
+    登录测试
+    <form action="login_Login.action">
+      <input type="text" id="user_phone_number" name="user_phone_number" placeholder="phone">
+      <input type="text" id="user_password" name="user_password" placeholder="password">
+      <input type="submit" value="提交">
+    </form>
+    信息测试
+    <form action="messageList_SendMessage.action">
+      <input type="text" id="message_receiver" name="message_receiver" placeholder="message_receiver">
+      <input type="text" id="message_sender" name="message_sender" placeholder="message_sender">
+      <input type="text" id="message_title" name="message_title" placeholder="message_title">
+      <input type="text" id="message_type" name="message_type" placeholder="message_type">
+      <input type="text" id="message_state" name="message_state" placeholder="message_state">
+      <input type="text" id="message_remark" name="message_remark" placeholder="message_remark">
+      <input type="submit" value="提交">
+    </form>
   </body>
 </html>

@@ -20,4 +20,17 @@ public class GetProfileService implements IGetProfileService{
         list = userDAO.GetUserInfoByUserId(user_profile);
         return list;
     }
+
+    @Override
+    public boolean CheckLogin(String user_phone_number, String user_password) {
+        List<User_profile> list = new ArrayList<>();
+        User_profile user_profile = new User_profile();
+        user_profile.setUser_phone_number(user_phone_number);
+        user_profile.setUser_password(user_password);
+        IUserDAO userDAO = new UserDAO();
+        list = userDAO.CheckLogin(user_profile);
+        if (list.size() > 0)
+            return true;
+        return false;
+    }
 }

@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface IUserDAO {
     public List<User_profile> GetUserInfoByUserId(User_profile user_profile);
+    public List<User_profile> CheckLogin(User_profile user_profile);
 }

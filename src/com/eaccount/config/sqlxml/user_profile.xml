@@ -32,4 +32,8 @@
                             AND a.id = b.user_id)
         AND a.id != #{id}
     </select>
+    <select id="CheckLogin" parameterType="com.eaccount.domain.User_profile" resultMap="User_profileResult">
+        SELECT id FROM table_user_profile WHERE user_phone_number=#{user_phone_number} AND user_password=#{user_password}
+    </select>
+
 </mapper>

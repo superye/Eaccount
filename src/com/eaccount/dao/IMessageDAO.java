@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface IMessageDAO {
     public List<Message_list> SelectMessageByUserId(Order order);
+    public boolean SendMessage(Message_list message_list);
 }

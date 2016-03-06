@@ -4,6 +4,9 @@ import com.eaccount.dao.IMessageDAO;
 import com.eaccount.domain.Message_list;
 import com.eaccount.service.GetMessageService;
 import com.eaccount.service.IGetMessageService;
+import com.eaccount.service.ISendMessageService;
+import com.eaccount.service.SendMessageService;
+import com.eaccount.util.GetNowTime;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -37,5 +40,30 @@ public class Message_listAction extends SuperAction {
         response.getOutputStream().close();
         return null;
 
+    }
+
+    public String SendMessage() {
+        String message_receiver = request.getParameter("message_receiver");
+        String message_sender = request.getParameter("message_sender");
+        String message_title = request.getParameter("message_title");
+        String message_type = request.getParameter("message_type");
+        String message_state = request.getParameter("message_state");
+        String message_remark = request.getParameter("message_remark");
+
+        GetNowTime getNowTime = new GetNowTime();
+        String message_date = getNowTime.GetTime(2).toString();
+
+        Message_list message_list = new Message_list();
+        message_list.setMessage_receiver(message_receiver);
+        message_list.setMessage_sender(message_sender);
+        message_list.setMessage_title(message_title);
+        message_list.setMessage_type(message_type);
+        message_list.setMessage_state(message_state);
+        message_list.setMessage_date(message_date);
+        message_list.setMessage_remark(message_remark);
+
+        ISendMessageService sendMessageService = new SendMessageService();
+        sendMessageService.SendMessage(message_list);
+        return null;
     }
 }

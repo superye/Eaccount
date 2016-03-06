@@ -31,4 +31,23 @@ public class MessageDAO implements IMessageDAO{
         }
         return list;
     }
+
+    @Override
+    public boolean SendMessage(Message_list message_list) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Message_list> list = new ArrayList<Message_list>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("Message_list.InsertMessage", message_list);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        return true;
+    }
 }

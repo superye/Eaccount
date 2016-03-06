@@ -21,5 +21,8 @@
         <action name="UserProfile_*" class="com.eaccount.controller.action.UserAction" method="{1}">
             <result name="success"/>
         </action>
+        <action name="login_*" class="com.eaccount.controller.action.LoginAction" method="{1}">
+            <result name="success"/>
+        </action>
     </package>
 </struts>

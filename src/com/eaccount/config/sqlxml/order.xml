@@ -40,7 +40,7 @@
 
     <select id="SelectOrderInfoByUserId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
         SELECT a.order_id, c.company_logo, c.company_name, a.place_order_time, a.receiving_time, d.user_name, d.user_phone_number, COUNT(*) AS type_number, COUNT(b.quantity_delivery) AS product_number
-        FROM table_order a, table_order_detail b, table_company_profile c , table_user_profile d WHERE 1 = 1
+        FROM table_order a, table_order_detail b, table_company_profile c, table_user_profile d WHERE 1 = 1
         AND a.user_id_seller = #{user_id_seller}
         AND a.order_id = b.order_id
         AND a.company_id_buyer = c.id
