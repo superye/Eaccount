@@ -29,6 +29,17 @@ public class GetOrderService implements IGetOrderService{
         return list;
     }
 
+    @Override
+    public List<Order> GetOrderByUserIdBuyer(String id, String type) {
+        List<Order> list = new ArrayList<>();
+        IOrderDAO orderDAO = new OrderDAO();
+        Order order = new Order();
+        order.setUser_id_buyer(String.valueOf(id));
+        order.setType(type);
+        list = orderDAO.BuyerGetOrderMessageByUserId(order);
+        return list;
+    }
+
     /**
      * 通过买方id获取订单
      * @param id
