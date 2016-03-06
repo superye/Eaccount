@@ -10,4 +10,5 @@ import java.util.List;
 public interface IOrderDAO {
     public List<Order> SellerGetOrderMessageByUserId(Order order);
     public List<Order> SellerGetOrderMessageByOrderId(Order order);
+    public boolean UpdateOrderSellerId(Order order);
 }

@@ -3,6 +3,8 @@ package com.eaccount.controller.action;
 import com.eaccount.domain.Order;
 import com.eaccount.service.GetOrderService;
 import com.eaccount.service.IGetOrderService;
+import com.eaccount.service.IUpdateOrderService;
+import com.eaccount.service.UpdateOrderService;
 import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -54,6 +56,14 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
 
     public String SellerGetOrderDetailInfo() {
 
+        return null;
+    }
+
+    public String UpdateOrderSellerId() {
+        String order_id = request.getParameter("order_id");
+        String user_seller_id = request.getParameter("user_seller_id");
+        IUpdateOrderService updateOrderService = new UpdateOrderService();
+        updateOrderService.UpdateOrderSellerId(order_id, user_seller_id);
         return null;
     }
 

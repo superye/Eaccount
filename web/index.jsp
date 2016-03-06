@@ -10,36 +10,13 @@
   <head>
     <title></title>
     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
-    <script type="text/javascript">
-      function test1() {
-          $.ajax({
-            url: "http://localhost:8080/order_GetOrderMessage.action",
-            data: {"user_id_seller" : $("#user_id_seller").val(),
-                  "type" : $("#type").val()},
-            type: "GET",
-            success: function (data) {
-              $("#test2").append(data);
-            }
-          });
-      }
-      function test2() {
-        $.ajax({
-          url: "http://localhost:8080/order_GetOrderMessage.action",
-          data: {"id" : $("#id").val(),
-          type: "GET",
-          success: function (data) {
-            $("#test2").append(data);
-          }
-        });
-      }
-    </script>
   </head>
   <body>
-    通过用户id获取订单信息测试
+    <!--通过用户id获取订单信息测试
     <form action="order_SellerGetOrderMessage.action" id="form1">
       <input type="text" id="user_id_seller" name="user_id_seller" placeholder="id"/>
       <input type="text" id="type" name="type" placeholder="type">
-      <input type="submit" value="提交"/>
+      <input type="submit" value="提交" />
     </form>
     通过订单id获取订单详细信息测试
     <form action="orderDetail_SellerGetOrderDetailInfoByOrderId.action" >
@@ -55,6 +32,12 @@
     <form action="UserProfile_GetUserInfoByUserId.action">
       <input type="text" id="user_id" name="user_id" placeholder="id">
       <input type="submit" value="提交">
+    </form> -->
+    通过订单Id和用户Id将该订单的user_seller_id修改为该用户Id
+    <form action="order_UpdateOrderSellerId.action">
+      <input type="text" name="user_seller_id" placeholder="user_seller_id">
+      <input type="text" name="order_id" placeholder="order_id">
+      <input type="submit" value="submit">
     </form>
   </body>
 </html>

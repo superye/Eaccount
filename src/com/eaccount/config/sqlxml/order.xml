@@ -65,4 +65,8 @@
         AND photo_type = 1
     </select>
 
+    <update id="UpdateOrderSellerId" parameterType="com.eaccount.domain.Order">
+        UPDATE table_order SET user_id_seller = #{user_id_seller}
+        WHERE order_id = #{order_id}
+    </update>
 </mapper>

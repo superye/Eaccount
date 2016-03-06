@@ -48,4 +48,25 @@ public class OrderDAO implements IOrderDAO{
         }
         return list;
     }
+
+    @Override
+    public boolean UpdateOrderSellerId(Order order) {
+        int flag = 0;
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            flag = sqlSession.update("Order.UpdateOrderSellerId", order);
+            sqlSession.commit();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        if (flag != 0) return true;
+        else return false;
+    }
 }
