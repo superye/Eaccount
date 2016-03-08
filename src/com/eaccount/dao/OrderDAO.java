@@ -109,4 +109,23 @@ public class OrderDAO implements IOrderDAO{
         if (flag != 0) return true;
         else return false;
     }
+
+    @Override
+    public List<Order> GetNoPaidOrderByUserId(Order order) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Order> list = new ArrayList<Order>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("Order.SelectReconciliationByBuyerId", order);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        return list;
+    }
 }

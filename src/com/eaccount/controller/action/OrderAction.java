@@ -1,14 +1,15 @@
 package com.eaccount.controller.action;
 
+import com.eaccount.dao.IMessageDAO;
 import com.eaccount.domain.Order;
 import com.eaccount.service.*;
 import com.opensymphony.xwork2.ModelDriven;
+import com.sun.org.apache.xerces.internal.xs.datatypes.ObjectList;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by spzn on 16-3-3.
@@ -105,6 +106,33 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         String order_id = request.getParameter("order_id");
         IDeleteOrderService deleteOrderService = new DeleteOrderService();
         deleteOrderService.DeleteOrderInfoByOrderId(order_id);
+        return null;
+    }
+
+    public String GetNoPaidOrderByUserId() throws IOException {
+        String id = request.getParameter("user_id_buyer");
+        List<Order> list = new ArrayList<>();
+
+        IGetOrderService getOrderService = new GetOrderService();
+        list = getOrderService.GetNoPaidOrderByUserId(id);
+
+        JSONArray jsonArray = new JSONArray();
+        int len = list.size();
+        for (int i = 0; i < len; i++) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("no_paid_order_number", list.get(i).getNo_paid_order_number());
+            jsonObject.put("no_paid_money", list.get(i).getNo_paid_money());
+            jsonObject.put("company_id_seller", list.get(i).getCompany_id_seller());
+            jsonObject.put("company_logo", list.get(i).getCompany_logo());
+            jsonArray.add(jsonObject);
+        }
+
+        byte[] jsonBytes = jsonArray.toString().getBytes("utf-8");
+        response.setContentType("text/html;charset=utf-8");
+        response.setContentLength(jsonBytes.length);
+        response.getOutputStream().write(jsonBytes);
+        response.getOutputStream().flush();
+        response.getOutputStream().close();
         return null;
     }
 

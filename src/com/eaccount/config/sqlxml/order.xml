@@ -30,6 +30,11 @@
         <!-- 商品种类及数量 -->
         <result column="type_number" jdbcType="INTEGER" property="type_number"/>
         <result column="product_number" jdbcType="INTEGER" property="product_number"/>
+
+        <!-- 未对账订单数量及金额 -->
+        <result column="no_paid_order_number" jdbcType="INTEGER" property="no_paid_order_number"/>
+        <result column="no_paid_money" jdbcType="INTEGER" property="no_paid_money"/>
+
         <!-- 用户信息 -->
         <result column="user_name" jdbcType="VARCHAR" property="user_name"/>
         <result column="user_phone_number" jdbcType="VARCHAR" property="user_phone_number"/>
@@ -94,4 +99,10 @@
     <delete id="DeleteOrderDetailByOrderId" parameterType="com.eaccount.domain.Order">
         DELETE FROM table_order_detail WHERE order_id = #{order_id}
     </delete>
+    <select id="SelectReconciliationByBuyerId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
+        SELECT a.company_id_seller, b.company_logo, COUNT(*) AS no_paid_order_number, sum(total_price_buyer) AS no_paid_money
+        FROM table_order a, table_company_profile b
+        where is_reconciliation=0 AND user_id_buyer=#{user_id_buyer} AND a.company_id_seller=b.id
+        GROUP by user_id_buyer, company_id_seller
+    </select>
 </mapper>

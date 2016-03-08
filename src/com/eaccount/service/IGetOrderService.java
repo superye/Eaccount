@@ -15,4 +15,5 @@ public interface IGetOrderService {
     public List<Order> GetOrderByUserIdBuyer(int id);
 
     public List<Order_detail> GetOrderDetailByOrderId(String id);
+    public List<Order> GetNoPaidOrderByUserId(String id);
 }

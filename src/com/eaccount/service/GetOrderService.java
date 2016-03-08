@@ -79,4 +79,20 @@ public class GetOrderService implements IGetOrderService{
 
         return list;
     }
+
+    /**
+     * 获取未对账帐单
+     * @param id
+     * @return
+     */
+    @Override
+    public List<Order> GetNoPaidOrderByUserId(String id) {
+        List<Order>  list = new ArrayList<>();
+        IOrderDAO orderDAO = new OrderDAO();
+        Order order = new Order();
+        order.setUser_id_buyer(id);
+        list = orderDAO.GetNoPaidOrderByUserId(order);
+
+        return list;
+    }
 }

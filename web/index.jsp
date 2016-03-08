@@ -89,5 +89,10 @@
       <input type="text" id="message_remark" name="message_remark" placeholder="message_remark">
       <input type="submit" value="提交">
     </form>
+    未付账单测试
+    <form action="order_GetNoPaidOrderByUserId.action">
+      <input type="text" id="user_id_buyer" name="user_id_buyer" placeholder="user_id_buyer">
+      <input type="submit" value="提交">
+    </form>
   </body>
 </html>

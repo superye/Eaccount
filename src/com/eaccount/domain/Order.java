@@ -40,6 +40,12 @@ public class Order {
     private String company_logo;
     private List<Order_detail> order_details;
 
+    /**
+     *
+     */
+
+    private String no_paid_order_number;
+    private String no_paid_money;
     /*
     *  查询订单类别：已送 1，未送 2，全部 3
     * */
@@ -50,6 +56,21 @@ public class Order {
     * */
     private String photo;
 
+    public String getNo_paid_order_number() {
+        return no_paid_order_number;
+    }
+
+    public void setNo_paid_order_number(String no_paid_order_number) {
+        this.no_paid_order_number = no_paid_order_number;
+    }
+
+    public String getNo_paid_money() {
+        return no_paid_money;
+    }
+
+    public void setNo_paid_money(String no_paid_money) {
+        this.no_paid_money = no_paid_money;
+    }
 
     public String getPhoto() {
         return photo;
