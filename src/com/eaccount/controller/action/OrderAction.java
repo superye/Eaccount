@@ -114,9 +114,13 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         String id = request.getParameter("user_id");
         String type = request.getParameter("type");
         List<Order> list = new ArrayList<>();
-
-        IGetOrderService getOrderService = new GetOrderService();
-        list = getOrderService.GetNoPaidOrderByUserId(id);
+        if (type.equals("1")) {
+            IGetOrderService getOrderService = new GetOrderService();
+            list = getOrderService.GetNoPaidOrderByUserBuyerId(id);
+        }else {
+            IGetOrderService getOrderService = new GetOrderService();
+            list = getOrderService.GetNoPaidOrderByUserSellerId(id);
+        }
 
         JSONArray jsonArray = new JSONArray();
         int len = list.size();

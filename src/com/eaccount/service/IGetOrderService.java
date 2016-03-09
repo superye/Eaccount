@@ -20,6 +20,4 @@ public interface IGetOrderService {
     public List<Order> GetNoPaidOrderByUserBuyerId(String id);
     public List<Order> GetNoPaidOrderByUserSellerId(String id);
 
-    public List<Order> GetPayListByUserBuyerId(String userId, String companyId);
-
 }

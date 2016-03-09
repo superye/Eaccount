@@ -111,7 +111,7 @@ public class OrderDAO implements IOrderDAO{
     }
 
     @Override
-    public List<Order> GetNoPaidOrderByUserId(Order order) {
+    public List<Order> GetNoPaidOrderByUserBuyerId(Order order) {
         DBAccess dbAccess = new DBAccess();
         SqlSession sqlSession = null;
         dbAccess.GetLog();
@@ -148,29 +148,6 @@ public class OrderDAO implements IOrderDAO{
         return list;
     }
 
-    @Override
-    public List<Order> GetPayListByUserBuyerId(Order order) {
-        DBAccess dbAccess = new DBAccess();
-        SqlSession sqlSession = null;
-        dbAccess.GetLog();
-        List<Order> list = new ArrayList<Order>();
-        try {
-            sqlSession = dbAccess.getSqlSession();
-            list = sqlSession.selectList("Order.SelectPayListByUserBuyerId", order);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (sqlSession != null) {
-                sqlSession.close();
-            }
-        }
-        return list;
-    }
-
-    @Override
-    public List<Order> GetPayListByUserSellerId(Order order) {
-        return null;
-    }
 
     @Override
     public int GetCountMatterOrder(Order order) {
@@ -219,4 +196,5 @@ public class OrderDAO implements IOrderDAO{
         if (list.size() == 0) return -1;
         return list.get(0);
     }
+
 }

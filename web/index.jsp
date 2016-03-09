@@ -91,7 +91,8 @@
     </form>
     未付账单测试
     <form action="order_GetNoPaidOrderByUserId.action">
-      <input type="text" name="user_id_buyer" placeholder="user_id_buyer">
+      <input type="text" name="user_id" placeholder="user_id">
+      <input type="text" name="type" placeholder="type">
       <input type="submit" value="提交">
     </form>
     <form action="order_ GetReconciliationInfo.action">

@@ -107,17 +107,7 @@ public class GetOrderService implements IGetOrderService{
         return list;
     }
 
-    @Override
-    public List<Order> GetPayListByUserBuyerId(String userId, String companyId) {
-        List<Order>  list = new ArrayList<>();
-        IOrderDAO orderDAO = new OrderDAO();
-        Order order = new Order();
-        order.setUser_id_buyer(userId);
-        order.setCompany_id_seller(companyId);
-        list = orderDAO.GetPayListByUserBuyerId(order);
 
-        return list;
-    }
 
     @Override
     public int GetCountPayment(String user_id, String company_id, String type) {
