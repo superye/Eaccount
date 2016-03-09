@@ -46,8 +46,10 @@ public class Order {
 
     private String no_paid_order_number;
     private String no_paid_money;
+
     /*
     *  查询订单类别：已送 1，未送 2，全部 3
+    *  区分user当前身份 1买家 2卖家
     * */
     private String type;
 

@@ -1,15 +1,14 @@
 package com.eaccount.controller.action;
 
-import com.eaccount.dao.IMessageDAO;
 import com.eaccount.domain.Order;
 import com.eaccount.service.*;
 import com.opensymphony.xwork2.ModelDriven;
-import com.sun.org.apache.xerces.internal.xs.datatypes.ObjectList;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by spzn on 16-3-3.
@@ -128,6 +127,29 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         }
 
         byte[] jsonBytes = jsonArray.toString().getBytes("utf-8");
+        response.setContentType("text/html;charset=utf-8");
+        response.setContentLength(jsonBytes.length);
+        response.getOutputStream().write(jsonBytes);
+        response.getOutputStream().flush();
+        response.getOutputStream().close();
+        return null;
+    }
+
+    public String GetReconciliationInfo() throws IOException {
+        String user_id = request.getParameter("user_id");
+        String company_id = request.getParameter("company_id");
+        String type = request.getParameter("type");
+        IGetOrderService getOrderService = new GetOrderService();
+        int CMO = getOrderService.GetCountMattrOrder(user_id, company_id, type);
+        int CP = getOrderService.GetCountPayment(user_id,company_id, type);
+
+
+        JSONObject json = new JSONObject();
+        json.put("user_id", user_id);
+        json.put("company_id", company_id);
+        json.put("CMO", CMO);
+        json.put("CP", CP);
+        byte[] jsonBytes = json.toString().getBytes("utf-8");
         response.setContentType("text/html;charset=utf-8");
         response.setContentLength(jsonBytes.length);
         response.getOutputStream().write(jsonBytes);

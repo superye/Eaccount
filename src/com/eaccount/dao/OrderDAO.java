@@ -128,4 +128,52 @@ public class OrderDAO implements IOrderDAO{
         }
         return list;
     }
+
+    @Override
+    public int GetCountMatterOrder(Order order) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Integer> list = new ArrayList<Integer>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            if ("1".equals(order.getType())) {
+                list = sqlSession.selectList("Order.BuyerCountMatterOrder", order);
+            } else {
+                list = sqlSession.selectList("Order.SellerCountMatterOrder", order);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        if (list.size() == 0) return -1;
+        return list.get(0);
+    }
+
+    @Override
+    public int GetCountPayment(Order order) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Integer> list = new ArrayList<Integer>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            if ("1".equals(order.getType())) {
+                list = sqlSession.selectList("Order.BuyerCountPayment", order);
+            } else {
+                list = sqlSession.selectList("Order.SellerCountPayment", order);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        if (list.size() == 0) return -1;
+        return list.get(0);
+    }
 }
