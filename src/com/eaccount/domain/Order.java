@@ -14,7 +14,7 @@ public class Order {
     private String user_id_buyer;
     private String place_order_time;
     private String receiving_time;
-    private String total_price_saller;
+    private String total_price_seller;
     private String total_price_buyer;
     private String paid_price;
     private String is_reconciliation;
@@ -41,9 +41,8 @@ public class Order {
     private List<Order_detail> order_details;
 
     /**
-     *
+     *有出入订单数量,未支付订单数量,未支付金额
      */
-
     private String no_paid_order_number;
     private String no_paid_money;
     /*
@@ -144,12 +143,12 @@ public class Order {
         this.receiving_time = receiving_time;
     }
 
-    public String getTotal_price_saller() {
-        return total_price_saller;
+    public String getTotal_price_seller() {
+        return total_price_seller;
     }
 
-    public void setTotal_price_saller(String total_price_saller) {
-        this.total_price_saller = total_price_saller;
+    public void setTotal_price_seller(String total_price_saller) {
+        this.total_price_seller = total_price_seller;
     }
 
     public String getTotal_price_buyer() {

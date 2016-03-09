@@ -86,12 +86,35 @@ public class GetOrderService implements IGetOrderService{
      * @return
      */
     @Override
-    public List<Order> GetNoPaidOrderByUserId(String id) {
+    public List<Order> GetNoPaidOrderByUserBuyerId(String id) {
         List<Order>  list = new ArrayList<>();
         IOrderDAO orderDAO = new OrderDAO();
         Order order = new Order();
         order.setUser_id_buyer(id);
-        list = orderDAO.GetNoPaidOrderByUserId(order);
+        list = orderDAO.GetNoPaidOrderByUserBuyerId(order);
+
+        return list;
+    }
+
+    @Override
+    public List<Order> GetNoPaidOrderByUserSellerId(String id) {
+        List<Order>  list = new ArrayList<>();
+        IOrderDAO orderDAO = new OrderDAO();
+        Order order = new Order();
+        order.setUser_id_seller(id);
+        list = orderDAO.GetNoPaidOrderByUserSellerId(order);
+
+        return list;
+    }
+
+    @Override
+    public List<Order> GetPayListByUserBuyerId(String userId, String companyId) {
+        List<Order>  list = new ArrayList<>();
+        IOrderDAO orderDAO = new OrderDAO();
+        Order order = new Order();
+        order.setUser_id_buyer(userId);
+        order.setCompany_id_seller(companyId);
+        list = orderDAO.GetPayListByUserBuyerId(order);
 
         return list;
     }

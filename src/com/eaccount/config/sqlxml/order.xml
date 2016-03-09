@@ -32,6 +32,7 @@
         <result column="product_number" jdbcType="INTEGER" property="product_number"/>
 
         <!-- 未对账订单数量及金额 -->
+        <result column="wrong_order_number" jdbcType="INTEGER" property="wrong_order_number"/>
         <result column="no_paid_order_number" jdbcType="INTEGER" property="no_paid_order_number"/>
         <result column="no_paid_money" jdbcType="INTEGER" property="no_paid_money"/>
 
@@ -104,5 +105,20 @@
         FROM table_order a, table_company_profile b
         where is_reconciliation=0 AND user_id_buyer=#{user_id_buyer} AND a.company_id_seller=b.id
         GROUP by user_id_buyer, company_id_seller
+    </select>
+    <select id="SelectReconciliationBySellerId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
+        SELECT a.company_id_buyer, b.company_logo, COUNT(*) AS no_paid_order_number, sum(total_price_seller) AS no_paid_money
+        FROM table_order a, table_company_profile b
+        where is_reconciliation=0 AND user_id_seller=#{user_id_seller} AND a.company_id_buyer=b.id
+        GROUP by user_id_seller, company_id_buyer
+    </select>
+    <select id="SelectPayListByUserBuyerId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
+        SELECT sum(total_price_buyer) - sum(paid_price) AS no_paid_money,
+        (SELECT COUNT(*) from table_order
+        WHERE user_id_buyer=#{user_id_buyer} AND company_id_seller=#{company_id_seller} AND total_price_buyer!=total_price_seller)
+        AS wrong_order_number
+        FROM table_order
+        WHERE user_id_buyer=#{user_id_buyer} AND company_id_seller=#{company_id_seller}
+        GROUP BY user_id_buyer,company_id_seller
     </select>
 </mapper>

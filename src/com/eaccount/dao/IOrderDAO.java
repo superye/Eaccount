@@ -17,7 +17,8 @@ public interface IOrderDAO {
     /**
      *
      */
-    public List<Order> GetNoPaidOrderByUserId(Order order);
+    public List<Order> GetNoPaidOrderByUserBuyerId(Order order);
+    public List<Order> GetNoPaidOrderByUserSellerId(Order order);
 
 
 }

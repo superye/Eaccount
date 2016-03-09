@@ -110,11 +110,16 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
     }
 
     public String GetNoPaidOrderByUserId() throws IOException {
-        String id = request.getParameter("user_id_buyer");
+        String id = request.getParameter("user_id");
+        String type = request.getParameter("type");
         List<Order> list = new ArrayList<>();
-
-        IGetOrderService getOrderService = new GetOrderService();
-        list = getOrderService.GetNoPaidOrderByUserId(id);
+        if (type.equals("1")) {
+            IGetOrderService getOrderService = new GetOrderService();
+            list = getOrderService.GetNoPaidOrderByUserBuyerId(id);
+        }else {
+            IGetOrderService getOrderService = new GetOrderService();
+            list = getOrderService.GetNoPaidOrderByUserSellerId(id);
+        }
 
         JSONArray jsonArray = new JSONArray();
         int len = list.size();
@@ -122,7 +127,10 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("no_paid_order_number", list.get(i).getNo_paid_order_number());
             jsonObject.put("no_paid_money", list.get(i).getNo_paid_money());
-            jsonObject.put("company_id_seller", list.get(i).getCompany_id_seller());
+            if (type.equals("1")) {
+                jsonObject.put("company_id_seller", list.get(i).getCompany_id_seller());
+            }else
+                jsonObject.put("company_id_buyer", list.get(i).getCompany_id_buyer());
             jsonObject.put("company_logo", list.get(i).getCompany_logo());
             jsonArray.add(jsonObject);
         }
@@ -136,7 +144,6 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         return null;
     }
 
-    @Override
     public Order getModel() {
         return order;
     }
