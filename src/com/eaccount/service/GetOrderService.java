@@ -118,4 +118,42 @@ public class GetOrderService implements IGetOrderService{
 
         return list;
     }
+
+    @Override
+    public int GetCountPayment(String user_id, String company_id, String type) {
+        Order order = new Order();
+        IOrderDAO orderDAO = new OrderDAO();
+        int ans = 0;
+        if ("1".equals(type)) {
+            order.setType("1");
+            order.setUser_id_buyer(user_id);
+            order.setCompany_id_seller(company_id);
+            ans = orderDAO.GetCountPayment(order);
+        } else {
+            order.setType("2");
+            order.setUser_id_seller(user_id);
+            order.setCompany_id_buyer(company_id);
+            ans = orderDAO.GetCountPayment(order);
+        }
+        return ans;
+    }
+
+    @Override
+    public int GetCountMattrOrder(String user_id, String company_id, String type) {
+        Order order = new Order();
+        IOrderDAO orderDAO = new OrderDAO();
+        int ans = 0;
+        if ("1".equals(type)) {
+            order.setType("1");
+            order.setUser_id_buyer(user_id);
+            order.setCompany_id_seller(company_id);
+            ans = orderDAO.GetCountMatterOrder(order);
+        } else {
+            order.setType("2");
+            order.setUser_id_seller(user_id);
+            order.setCompany_id_buyer(company_id);
+            ans = orderDAO.GetCountMatterOrder(order);
+        }
+        return ans;
+    }
 }

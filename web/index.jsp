@@ -91,14 +91,13 @@
     </form>
     未付账单测试
     <form action="order_GetNoPaidOrderByUserId.action">
-      <input type="text" id="user_id" name="user_id" placeholder="user_id">
-      <input type="text" id="type" name="type" placeholder="type">
+      <input type="text" name="user_id_buyer" placeholder="user_id_buyer">
       <input type="submit" value="提交">
     </form>
-    有出入帐单
-    <form action="order_GetPayListByUserId.action">
-      <input type="text" id="" name="user_id" placeholder="user_id">
-      <input type="text" id="" name="company_id" placeholder="company_id">
+    <form action="order_ GetReconciliationInfo.action">
+      <input type="text" name="user_id" placeholder="user_id">
+      <input type="text" name="company_id" placeholder="company_id">
+      <input type="text" name="type" placeholder="type">
       <input type="submit" value="提交">
     </form>
   </body>

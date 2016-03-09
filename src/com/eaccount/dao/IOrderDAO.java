@@ -13,7 +13,8 @@ public interface IOrderDAO {
     public List<Order> SellerGetOrderMessageByOrderId(Order order);
     public boolean UpdateOrderSellerId(Order order);
     public boolean DeleteOrderInfoByOrderId(Order order);
-
+    public int GetCountMatterOrder(Order order);
+    public int GetCountPayment(Order order);
     /**
      *
      */

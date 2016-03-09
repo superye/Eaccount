@@ -9,7 +9,8 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by spzn on 16-3-3.
@@ -113,13 +114,9 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         String id = request.getParameter("user_id");
         String type = request.getParameter("type");
         List<Order> list = new ArrayList<>();
-        if (type.equals("1")) {
-            IGetOrderService getOrderService = new GetOrderService();
-            list = getOrderService.GetNoPaidOrderByUserBuyerId(id);
-        }else {
-            IGetOrderService getOrderService = new GetOrderService();
-            list = getOrderService.GetNoPaidOrderByUserSellerId(id);
-        }
+
+        IGetOrderService getOrderService = new GetOrderService();
+        list = getOrderService.GetNoPaidOrderByUserId(id);
 
         JSONArray jsonArray = new JSONArray();
         int len = list.size();
@@ -144,6 +141,30 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         return null;
     }
 
+    public String GetReconciliationInfo() throws IOException {
+        String user_id = request.getParameter("user_id");
+        String company_id = request.getParameter("company_id");
+        String type = request.getParameter("type");
+        IGetOrderService getOrderService = new GetOrderService();
+        int CMO = getOrderService.GetCountMattrOrder(user_id, company_id, type);
+        int CP = getOrderService.GetCountPayment(user_id,company_id, type);
+
+
+        JSONObject json = new JSONObject();
+        json.put("user_id", user_id);
+        json.put("company_id", company_id);
+        json.put("CMO", CMO);
+        json.put("CP", CP);
+        byte[] jsonBytes = json.toString().getBytes("utf-8");
+        response.setContentType("text/html;charset=utf-8");
+        response.setContentLength(jsonBytes.length);
+        response.getOutputStream().write(jsonBytes);
+        response.getOutputStream().flush();
+        response.getOutputStream().close();
+        return null;
+    }
+
+    @Override
     public Order getModel() {
         return order;
     }
