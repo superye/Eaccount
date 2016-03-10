@@ -1,10 +1,9 @@
 package com.eaccount.controller.action;
 
-import com.eaccount.dao.IMessageDAO;
 import com.eaccount.domain.Order;
+import com.eaccount.domain.Order_detail;
 import com.eaccount.service.*;
 import com.opensymphony.xwork2.ModelDriven;
-import com.sun.org.apache.xerces.internal.xs.datatypes.ObjectList;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -152,13 +151,46 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         IGetOrderService getOrderService = new GetOrderService();
         int CMO = getOrderService.GetCountMattrOrder(user_id, company_id, type);
         int CP = getOrderService.GetCountPayment(user_id,company_id, type);
+        List<Order> list = new ArrayList<>();
+        List<Order_detail> listTemp = null;
+        list = getOrderService.GetMatterOrderInfo(user_id, company_id, type);
 
+        int len = 0;
+        if (list != null) {
+            len = list.size();
+        }
+
+        JSONObject tempJson = null;
+        JSONArray jsonArray1 = new JSONArray();
+        JSONArray jsonArray2 = null;
+        for (int i = 0; i < len; i++) {
+            jsonArray2 = new JSONArray();
+            listTemp = new ArrayList<>();
+            listTemp = getOrderService.GetOrderDetailByOrderId(list.get(i).getOrder_id());
+
+            for (int j = 0; j < listTemp.size(); j++) {
+                tempJson = new JSONObject();
+                tempJson.put("product_name", listTemp.get(j).getProduct_name());
+                tempJson.put("product_specification", listTemp.get(j).getProduct_specification());
+                tempJson.put("quantity_delivery", listTemp.get(j).getQuantity_delivery());
+                tempJson.put("quantity_receiving", listTemp.get(j).getQuantity_receiving());
+                jsonArray2.add(tempJson);
+            }
+
+            tempJson = new JSONObject();
+            tempJson.put("order_id", list.get(i).getOrder_id());
+            tempJson.put("receiving_time", list.get(i).getReceiving_time());
+            tempJson.put("id", list.get(i).getId());
+            tempJson.put("list2", jsonArray2);
+            jsonArray1.add(tempJson);
+        }
 
         JSONObject json = new JSONObject();
         json.put("user_id", user_id);
         json.put("company_id", company_id);
         json.put("CMO", CMO);
         json.put("CP", CP);
+        json.put("list1", jsonArray1);
         byte[] jsonBytes = json.toString().getBytes("utf-8");
         response.setContentType("text/html;charset=utf-8");
         response.setContentLength(jsonBytes.length);

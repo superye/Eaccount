@@ -146,4 +146,22 @@ public class GetOrderService implements IGetOrderService{
         }
         return ans;
     }
+
+    @Override
+    public List<Order> GetMatterOrderInfo(String user_id, String company_id, String type) {
+        List<Order> list = new ArrayList<>();
+        IOrderDAO orderDAO = new OrderDAO();
+        Order order = new Order();
+        if ("1".equals(type)) {
+            order.setType("1");
+            order.setUser_id_buyer(user_id);
+            order.setCompany_id_seller(company_id);
+        } else {
+            order.setType("2");
+            order.setUser_id_seller(user_id);
+            order.setCompany_id_buyer(company_id);
+        }
+        list = orderDAO.GetMatterOrderInfo(order);
+        return list;
+    }
 }

@@ -15,6 +15,7 @@ public interface IOrderDAO {
     public boolean DeleteOrderInfoByOrderId(Order order);
     public int GetCountMatterOrder(Order order);
     public int GetCountPayment(Order order);
+    public List<Order> GetMatterOrderInfo(Order order);
     /**
      *
      */

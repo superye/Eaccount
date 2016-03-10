@@ -193,8 +193,31 @@ public class OrderDAO implements IOrderDAO{
                 sqlSession.close();
             }
         }
-        if (list.size() == 0) return -1;
+        if (list.size() == 0 || list.get(0) == null) return -1;
         return list.get(0);
     }
 
+    @Override
+    public List<Order> GetMatterOrderInfo(Order order) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Order> list = new ArrayList<Order>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            if ("1".equals(order.getType())) {
+                list = sqlSession.selectList("Order.BuyerSelectMatterOrderInfo", order);
+            } else {
+                list = sqlSession.selectList("Order.SellerSelectMatterOrderInfo", order);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        if (list.size() == 0) return null;
+        return list;
+    }
 }

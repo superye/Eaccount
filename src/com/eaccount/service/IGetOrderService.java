@@ -15,6 +15,7 @@ public interface IGetOrderService {
     public List<Order> GetOrderByUserIdBuyer(int id);
     public int GetCountMattrOrder(String user_id, String company_id, String type);
     public int GetCountPayment(String user_id, String company_id, String type);
+    public List<Order> GetMatterOrderInfo(String user_id, String company_id, String type);
 
     public List<Order_detail> GetOrderDetailByOrderId(String id);
     public List<Order> GetNoPaidOrderByUserBuyerId(String id);
