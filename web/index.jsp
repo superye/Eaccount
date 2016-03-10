@@ -95,7 +95,15 @@
       <input type="text" name="type" placeholder="type">
       <input type="submit" value="提交">
     </form>
+    查看对账信息
     <form action="order_ GetReconciliationInfo.action">
+      <input type="text" name="user_id" placeholder="user_id">
+      <input type="text" name="company_id" placeholder="company_id">
+      <input type="text" name="type" placeholder="type">
+      <input type="submit" value="提交">
+    </form>
+    查看对账详情
+     <form action="order_ GetMatterOrderDetailInfo.action">
       <input type="text" name="user_id" placeholder="user_id">
       <input type="text" name="company_id" placeholder="company_id">
       <input type="text" name="type" placeholder="type">

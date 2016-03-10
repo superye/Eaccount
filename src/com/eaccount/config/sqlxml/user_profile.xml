@@ -24,7 +24,7 @@
         <result column="designate_receiving" jdbcType="INTEGER" property="designate_receiving"/>
     </resultMap>
 
-    <select id="SelectUserInfoByUserId" parameterType="com.eaccount.domain.User_profile" resultMap="User_profileResult">
+    <select id="SelectSameCompanyUserInfoByUserId" parameterType="com.eaccount.domain.User_profile" resultMap="User_profileResult">
         SELECT a.id, a.user_name FROM table_user_profile a, table_user_company b WHERE 1 = 1
         AND a.id = b.user_id
         AND b.company_id = (SELECT b.company_id FROM table_user_profile a, table_user_company b WHERE 1 = 1
@@ -32,6 +32,12 @@
                             AND a.id = b.user_id)
         AND a.id != #{id}
     </select>
+
+    <select id="SelectUserInfoByUserId" parameterType="com.eaccount.domain.User_profile" resultMap="User_profileResult">
+        SELECT user_name, user_phone_number FROM table_user_profile
+        WHERE id = #{id}
+    </select>
+
     <select id="CheckLogin" parameterType="com.eaccount.domain.User_profile" resultMap="User_profileResult">
         SELECT id FROM table_user_profile WHERE user_phone_number=#{user_phone_number} AND user_password=#{user_password}
     </select>

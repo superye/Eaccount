@@ -7,6 +7,13 @@ public class User_company {
     private String id;
     private String user_id;
     private String company_id;
+    private String user_name;
+    private String user_photo;
+    private String user_birthday;
+    private String user_phone_number;
+    private String company_name;
+    private String company_address;
+    private String company_logo;
 
     public String getId() {
         return id;
@@ -30,5 +37,34 @@ public class User_company {
 
     public void setCompany_id(String company_id) {
         this.company_id = company_id;
+    }
+
+    public User_company() {
+        super();
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
     }
 }

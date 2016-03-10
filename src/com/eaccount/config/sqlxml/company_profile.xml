@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Company_profile">
+
+    <resultMap type="com.eaccount.domain.Company_profile" id="Company_profileResult">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="company_name" jdbcType="VARCHAR" property="company_name"/>
+        <result column="company_address" jdbcType="VARCHAR" property="company_address"/>
+        <result column="company_logo" jdbcType="BLOB" property="company_logo"/>
+    </resultMap>
+
+    <select id="SelectCompanyInfoByCompanyId" parameterType="com.eaccount.domain.Company_profile" resultMap="Company_profileResult">
+         SELECT * FROM table_company_profile
+         WHERE id = #{id}
+    </select>
+</mapper>

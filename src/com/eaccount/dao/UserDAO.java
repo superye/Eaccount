@@ -12,14 +12,14 @@ import java.util.List;
  */
 public class UserDAO implements IUserDAO{
     @Override
-    public List<User_profile> GetUserInfoByUserId(User_profile user_profile) {
+    public List<User_profile> GetSameCompanyUserInfoByUserId(User_profile user_profile) {
         DBAccess dbAccess = new DBAccess();
         SqlSession sqlSession = null;
         dbAccess.GetLog();
         List<User_profile> list = new ArrayList<User_profile>();
         try {
             sqlSession = dbAccess.getSqlSession();
-            list = sqlSession.selectList("User_profile.SelectUserInfoByUserId", user_profile);
+            list = sqlSession.selectList("User_profile.SelectSameCompanyUserInfoByUserId", user_profile);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -39,6 +39,25 @@ public class UserDAO implements IUserDAO{
         try {
             sqlSession = dbAccess.getSqlSession();
             list = sqlSession.selectList("User_profile.CheckLogin", user_profile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<User_profile> GetUserInfoByUserId(User_profile user_profile) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<User_profile> list = new ArrayList<User_profile>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("User_profile.SelectUserInfoByUserId", user_profile);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

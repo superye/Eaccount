@@ -19,7 +19,7 @@ public class UserAction extends SuperAction{
         List<User_profile> list = new ArrayList<>();
         IGetProfileService getProfileService = new GetProfileService();
         String id = request.getParameter("user_id");
-        list = getProfileService.GetUserInfoByUserId(id);
+        list = getProfileService.GetSameCompanyUserInfoByUserId(id);
 
         //将用户信息转化为json格式
         JSONObject jsonObject = null;

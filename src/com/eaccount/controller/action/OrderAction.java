@@ -1,7 +1,9 @@
 package com.eaccount.controller.action;
 
+import com.eaccount.domain.Company_profile;
 import com.eaccount.domain.Order;
 import com.eaccount.domain.Order_detail;
+import com.eaccount.domain.User_profile;
 import com.eaccount.service.*;
 import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSONArray;
@@ -197,6 +199,32 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         response.getOutputStream().write(jsonBytes);
         response.getOutputStream().flush();
         response.getOutputStream().close();
+        return null;
+    }
+
+    public String GetMatterOrderDetailInfo() throws IOException {
+        IGetProfileService getProfileService = new GetProfileService();
+        List<User_profile> listU = new ArrayList<>();
+        List<Company_profile> listC = new ArrayList<>();
+
+        String user_id = request.getParameter("user_id");
+        String company_id = request.getParameter("company_id");
+        listU = getProfileService.GetUserInfoByUserId(user_id);
+        listC = getProfileService.GetCompanyInfoByCompanyId(company_id);
+
+        JSONObject json = new JSONObject();
+        json.put("user_name", listU.get(0).getUser_name());
+        json.put("user_phone_number", listU.get(0).getUser_phone_number());
+        json.put("company_name", listC.get(0).getCompany_name());
+        json.put("comapny_logo", listC.get(0).getCompany_logo());
+        json.put("company_address", listC.get(0).getCompany_address());
+        byte[] jsonBytes = json.toString().getBytes("utf-8");
+        response.setContentType("text/html;charset=utf-8");
+        response.setContentLength(jsonBytes.length);
+        response.getOutputStream().write(jsonBytes);
+        response.getOutputStream().flush();
+        response.getOutputStream().close();
+
         return null;
     }
 
