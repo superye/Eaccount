@@ -164,4 +164,14 @@ public class GetOrderService implements IGetOrderService{
         list = orderDAO.GetMatterOrderInfo(order);
         return list;
     }
+
+    @Override
+    public List<Order_detail> GetOrderDetailByMatterOrderId(String id) {
+        List<Order_detail> list = new ArrayList<>();
+        IOrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        Order_detail order_detail = new Order_detail();
+        order_detail.setOrder_id(id);
+        list = orderDetailDAO.GetOrderDetailInfoByMatterOrderId(order_detail);
+        return list;
+    }
 }

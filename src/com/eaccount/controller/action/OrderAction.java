@@ -166,7 +166,7 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         for (int i = 0; i < len; i++) {
             jsonArray2 = new JSONArray();
             listTemp = new ArrayList<>();
-            listTemp = getOrderService.GetOrderDetailByOrderId(list.get(i).getOrder_id());
+            listTemp = getOrderService.GetOrderDetailByMatterOrderId(list.get(i).getOrder_id());
 
             for (int j = 0; j < listTemp.size(); j++) {
                 tempJson = new JSONObject();
