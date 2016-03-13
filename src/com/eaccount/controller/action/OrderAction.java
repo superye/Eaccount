@@ -1,15 +1,14 @@
 package com.eaccount.controller.action;
 
-import com.eaccount.domain.Company_profile;
-import com.eaccount.domain.Order;
-import com.eaccount.domain.Order_detail;
-import com.eaccount.domain.User_profile;
+import com.eaccount.domain.*;
 import com.eaccount.service.*;
 import com.opensymphony.xwork2.ModelDriven;
+import jcifs.smb.SmbFile;
+import jcifs.smb.SmbFileOutputStream;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -226,6 +225,45 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         response.getOutputStream().close();
 
         return null;
+    }
+
+    public String imageTest() throws IOException {
+        forcdt("/home/spzn/桌面/Java/1.jpg");
+        return null;
+    }
+
+    public static void forcdt(String dir){
+        InputStream in = null;
+        OutputStream out = null;
+        File localFile = new File(dir);
+        try{
+            //创建file类 传入本地文件路径
+            //获得本地文件的名字
+            String fileName = dir;
+            //将本地文件的名字和远程目录的名字拼接在一起
+            //确保上传后的文件于本地文件名字相同
+            SmbFile remoteFile = new SmbFile("smb://root:523113241@localhost/home");
+            //创建读取缓冲流把本地的文件与程序连接在一起
+            in = new BufferedInputStream(new FileInputStream(localFile));
+            //创建一个写出缓冲流(注意jcifs-1.3.15.jar包 类名为Smb开头的类为控制远程共享计算机"io"包)
+            //将远程的文件路径传入SmbFileOutputStream中 并用 缓冲流套接
+            out = new BufferedOutputStream(new SmbFileOutputStream(remoteFile+"/"+fileName));
+            //创建中转字节数组
+            byte[] buffer = new byte[1024];
+            while(in.read(buffer)!=-1){//in对象的read方法返回-1为 文件以读取完毕
+                out.write(buffer);
+                buffer = new byte[1024];
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                //注意用完操作io对象的方法后关闭这些资源，走则 造成文件上传失败等问题。!
+                out.close();
+                in.close();
+            }catch(Exception e){
+                e.printStackTrace();}
+        }
     }
 
     @Override

@@ -109,5 +109,10 @@
       <input type="text" name="type" placeholder="type">
       <input type="submit" value="提交">
     </form>
+    图片测试
+    <form action="order_imageTest.action">
+      <input type="file" name="file">
+      <input type="submit" value="submit">
+    </form>
   </body>
 </html>

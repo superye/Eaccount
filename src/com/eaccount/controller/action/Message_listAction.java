@@ -1,6 +1,5 @@
 package com.eaccount.controller.action;
 
-import com.eaccount.dao.IMessageDAO;
 import com.eaccount.domain.Message_list;
 import com.eaccount.service.GetMessageService;
 import com.eaccount.service.IGetMessageService;
@@ -9,6 +8,7 @@ import com.eaccount.service.SendMessageService;
 import com.eaccount.util.GetNowTime;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.struts2.ServletActionContext;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +19,9 @@ import java.util.List;
  */
 public class Message_listAction extends SuperAction {
     public String GetMessageById() throws IOException{
+        String callback = "callback";
+
+        ServletActionContext.getResponse().setHeader("Access-Control-Allow-Origin", "*");
         String id = request.getParameter("id");
         List<Message_list> list = new ArrayList<>();
         IGetMessageService iGetMessageService = new GetMessageService();
