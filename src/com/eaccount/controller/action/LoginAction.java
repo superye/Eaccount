@@ -5,6 +5,7 @@ import com.eaccount.service.GetProfileService;
 import com.eaccount.service.IGetProfileService;
 import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSONObject;
+import org.apache.ibatis.reflection.SystemMetaObject;
 
 /**
  * Created by yehao on 16/3/6.
@@ -26,6 +27,8 @@ public class LoginAction extends SuperAction implements ModelDriven<User_profile
         }catch (Exception e){}
         return null;
     }
+
+
     @Override
     public User_profile getModel() {
         return user_profile;

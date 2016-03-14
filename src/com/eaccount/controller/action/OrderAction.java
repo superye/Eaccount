@@ -1,18 +1,17 @@
 package com.eaccount.controller.action;
 
-import com.eaccount.domain.Company_profile;
-import com.eaccount.domain.Order;
-import com.eaccount.domain.Order_detail;
-import com.eaccount.domain.User_profile;
+import com.eaccount.domain.*;
 import com.eaccount.service.*;
 import com.opensymphony.xwork2.ModelDriven;
+import jcifs.smb.SmbFile;
+import jcifs.smb.SmbFileOutputStream;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.apache.struts2.ServletActionContext;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Created by spzn on 16-3-3.
  */
@@ -204,19 +203,13 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
 
     public String GetMatterOrderDetailInfo() throws IOException {
         IGetProfileService getProfileService = new GetProfileService();
-        IGetOrderService getOrderService = new GetOrderService();
         List<User_profile> listU = new ArrayList<>();
         List<Company_profile> listC = new ArrayList<>();
-        List<Order> listO = new ArrayList<>();
 
         String user_id = request.getParameter("user_id");
         String company_id = request.getParameter("company_id");
-        String type = request.getParameter("type");
         listU = getProfileService.GetUserInfoByUserId(user_id);
         listC = getProfileService.GetCompanyInfoByCompanyId(company_id);
-        listO = getOrderService.GetMatterOrderInfo(user_id, company_id, type);
-
-
 
         JSONObject json = new JSONObject();
         json.put("user_name", listU.get(0).getUser_name());
@@ -234,91 +227,43 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         return null;
     }
 
-    // username属性用来封装用户名
-    private String username;
-
-    // myFile属性用来封装上传的文件
-    private File myFile;
-
-    // myFileContentType属性用来封装上传文件的类型
-    private String myFileContentType;
-
-    // myFileFileName属性用来封装上传文件的文件名
-    private String myFileFileName;
-
-
-    //获得username值
-    public String getUsername() {
-        return username;
-    }
-
-    //设置username值
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    //获得myFile值
-    public File getMyFile() {
-        return myFile;
-    }
-
-    //设置myFile值
-    public void setMyFile(File myFile) {
-        this.myFile = myFile;
-    }
-
-    //获得myFileContentType值
-    public String getMyFileContentType() {
-        return myFileContentType;
-    }
-
-    //设置myFileContentType值
-    public void setMyFileContentType(String myFileContentType) {
-        this.myFileContentType = myFileContentType;
-    }
-
-    //获得myFileFileName值
-    public String getMyFileFileName() {
-        return myFileFileName;
-    }
-
-    //设置myFileFileName值
-    public void setMyFileFileName(String myFileFileName) {
-        this.myFileFileName = myFileFileName;
-    }
-
     public String imageTest() throws IOException {
-        //基于myFile创建一个文件输入流
-        InputStream is = new FileInputStream(myFile);
-
-        // 设置上传文件目录
-        String uploadPath = ServletActionContext.getServletContext()
-                .getRealPath("/upload");
-
-        // 设置目标文件
-        File toFile = new File(uploadPath, this.getMyFileFileName());
-
-        // 创建一个输出流
-        OutputStream os = new FileOutputStream(toFile);
-
-        //设置缓存
-        byte[] buffer = new byte[1024];
-
-        int length = 0;
-
-        //读取myFile文件输出到toFile文件中
-        while ((length = is.read(buffer)) > 0) {
-            os.write(buffer, 0, length);
-        }
-        System.out.println("上传用户" + username);
-        System.out.println("上传文件名"+myFileFileName);
-        System.out.println("上传文件类型"+myFileContentType);
-        //关闭输入流
-        is.close();
-
-        //关闭输出流
-        os.close();
+        forcdt("/Users/yehao/Desktop/1.png");
         return null;
+    }
+
+    public static void forcdt(String dir){
+        InputStream in = null;
+        OutputStream out = null;
+        File localFile = new File(dir);
+        try{
+            //创建file类 传入本地文件路径
+            //获得本地文件的名字
+            String fileName = dir;
+            //将本地文件的名字和远程目录的名字拼接在一起
+            //确保上传后的文件于本地文件名字相同
+            SmbFile remoteFile = new SmbFile("smb://root:123@localhost/home");
+            //创建读取缓冲流把本地的文件与程序连接在一起
+            in = new BufferedInputStream(new FileInputStream(localFile));
+            //创建一个写出缓冲流(注意jcifs-1.3.15.jar包 类名为Smb开头的类为控制远程共享计算机"io"包)
+            //将远程的文件路径传入SmbFileOutputStream中 并用 缓冲流套接
+            out = new BufferedOutputStream(new SmbFileOutputStream(remoteFile+"/"+fileName));
+            //创建中转字节数组
+            byte[] buffer = new byte[1024];
+            while(in.read(buffer)!=-1){//in对象的read方法返回-1为 文件以读取完毕
+                out.write(buffer);
+                buffer = new byte[1024];
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                //注意用完操作io对象的方法后关闭这些资源，走则 造成文件上传失败等问题。!
+                out.close();
+                in.close();
+            }catch(Exception e){
+                e.printStackTrace();}
+        }
     }
 
     @Override

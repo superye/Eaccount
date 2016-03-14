@@ -115,5 +115,12 @@
       <input type="file" name="myFile">
       <input type="submit" value="submit">
     </form>
+    <form action="uploadFiles.action" method="post" enctype="multipart/form-data">
+          上传文件:
+          <input type="file" name="upload"/>
+          <input type="submit" value="上传"/>
+          <input type="reset"/>
+    </form>
+    <s :actionerror/>
   </body>
 </html>
