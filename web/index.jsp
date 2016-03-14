@@ -110,8 +110,9 @@
       <input type="submit" value="提交">
     </form>
     图片测试
-    <form action="order_imageTest.action">
-      <input type="file" name="file">
+    <form action="order_imageTest.action" method="post" enctype="multipart/form-data">
+      <input type="text" name="username" >
+      <input type="file" name="myFile">
       <input type="submit" value="submit">
     </form>
   </body>

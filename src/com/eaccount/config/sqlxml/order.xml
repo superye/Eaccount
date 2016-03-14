@@ -79,7 +79,7 @@
 
     <select id="SelectOrderInfoByOrderId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
         SELECT c.company_logo, c.company_name, c.company_address, b.user_name, b.user_phone_number, a.place_order_time, a.receiving_time, d.photo
-        FROM table_order a, table_user_profile b, table_company_profile c, table_photo d
+        FROM table_order a, table_user_profile b, table_company_profile c, table_photo d, table_order_detail e
         WHERE 1 = 1
         AND a.order_id = #{order_id}
         AND a.user_id_buyer = b.id
@@ -193,5 +193,6 @@
         <!--在是问题账单的前提是得先是已送账单-->
         AND receiving_time IS NOT NULL
     </select>
+
 
 </mapper>
