@@ -5,8 +5,7 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-    <constant name="struts.multipart.saveDir" value="/tmp"/>
-    <package name="default" extends="struts-default" namespace="/">
+    <package name="default" extends="json-default" namespace="/">
 
         <action name="login" class="com.eaccount.controller.action.SuperAction">
         </action>
@@ -25,8 +24,8 @@
         <action name="login_*" class="com.eaccount.controller.action.LoginAction" method="{1}">
             <result name="success"/>
         </action>
-        <action name="uploadFiles" class="com.eaccount.controller.action.UploadFilesAction">
-            <result >index.jsp</result>
+        <action name="upload_*" class="com.eaccount.controller.action.UploadAction" method="{1}">
+            <result name="success"/>
         </action>
     </package>
 </struts>

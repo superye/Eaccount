@@ -220,4 +220,28 @@ public class OrderDAO implements IOrderDAO{
         if (list.size() == 0) return null;
         return list;
     }
+
+    @Override
+    public List<Order> GetMatterOrderDetailInfo(Order order) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Order> list = new ArrayList<Order>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            if ("1".equals(order.getType())) {
+                list = sqlSession.selectList("Order.BuyerSelectMatterOrderDetailInfo", order);
+            } else {
+                list = sqlSession.selectList("Order.SellerSelectMatterOrderDetailInfo", order);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        if (list.size() == 0) return null;
+        return list;
+    }
 }

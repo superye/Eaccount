@@ -166,6 +166,25 @@ public class GetOrderService implements IGetOrderService{
     }
 
     @Override
+    public List<Order> GetMatterOrderDetailInfo(String user_id, String company_id, String type, String is_reconciliation) {
+        List<Order> list = new ArrayList<>();
+        IOrderDAO orderDAO = new OrderDAO();
+        Order order = new Order();
+        order.setIs_reconciliation(is_reconciliation);
+        if ("1".equals(type)) {
+            order.setType("1");
+            order.setUser_id_buyer(user_id);
+            order.setCompany_id_seller(company_id);
+        } else {
+            order.setType("2");
+            order.setUser_id_seller(user_id);
+            order.setCompany_id_buyer(company_id);
+        }
+        list = orderDAO.GetMatterOrderDetailInfo(order);
+        return list;
+    }
+
+    @Override
     public List<Order_detail> GetOrderDetailByMatterOrderId(String id) {
         List<Order_detail> list = new ArrayList<>();
         IOrderDetailDAO orderDetailDAO = new OrderDetailDAO();
