@@ -107,10 +107,11 @@
       <input type="text" name="user_id" placeholder="user_id">
       <input type="text" name="company_id" placeholder="company_id">
       <input type="text" name="type" placeholder="type">
+       <input type="text" name="IsReconciliation" placeholder="IsReconciliation">
       <input type="submit" value="提交">
     </form>
     图片测试
-    <form action="order_imageTest.action" method="post" enctype="multipart/form-data">
+    <form action="upload_UploadImage.action" method="post" enctype="multipart/form-data">
       <input type="text" name="username" >
       <input type="file" name="myFile">
       <input type="submit" value="submit">

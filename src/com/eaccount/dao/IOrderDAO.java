@@ -16,6 +16,7 @@ public interface IOrderDAO {
     public int GetCountMatterOrder(Order order);
     public int GetCountPayment(Order order);
     public List<Order> GetMatterOrderInfo(Order order);
+    public List<Order> GetMatterOrderDetailInfo(Order order);
     /**
      *
      */

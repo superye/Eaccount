@@ -16,6 +16,7 @@ public interface IGetOrderService {
     public int GetCountMattrOrder(String user_id, String company_id, String type);
     public int GetCountPayment(String user_id, String company_id, String type);
     public List<Order> GetMatterOrderInfo(String user_id, String company_id, String type);
+    public List<Order> GetMatterOrderDetailInfo(String user_id, String company_id, String type, String is_reconciliation);
 
     public List<Order_detail> GetOrderDetailByOrderId(String id);
     public List<Order_detail> GetOrderDetailByMatterOrderId(String id);

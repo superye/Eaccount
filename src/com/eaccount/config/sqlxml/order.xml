@@ -194,5 +194,45 @@
         AND receiving_time IS NOT NULL
     </select>
 
+    <!--卖方查看有问题详单-->
+    <select id="SellerSelectMatterOrderDetailInfo" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
+        SELECT a.order_id, a.receiving_time, COUNT(*) AS type_number, COUNT(b.quantity_delivery) AS product_number, a.total_price_seller
+        FROM table_order a, table_order_detail b
+        WHERE a.user_id_seller = #{user_id_seller}
+        AND a.company_id_buyer = #{company_id_buyer}
+        AND a.total_price_seller != a.total_price_buyer
+        AND a.order_id = b.order_id
+        <!--在是问题账单的前提是得先是已送账单-->
+        AND a.receiving_time IS NOT NULL
+        <!--是否对账-->
+        <if test="is_reconciliation == 0">
+            AND a.is_reconciliation = 0
+        </if>
+        <if test="is_reconciliation == 1">
+            AND a.is_reconciliation = 1
+        </if>
+        GROUP BY a.order_id
+    </select>
+
+    <!--买方查看有问题详单-->
+    <select id="BuyerSelectMatterOrderDetailInfo" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
+        SELECT a.order_id, a.receiving_time, COUNT(*) AS type_number, COUNT(b.quantity_delivery) AS product_number, a.total_price_buyer
+        FROM table_order a, table_order_detail b
+        WHERE a.user_id_buyer = #{user_id_buyer}
+        AND a.company_id_seller = #{company_id_seller}
+        AND a.total_price_seller != a.total_price_buyer
+        AND a.order_id = b.order_id
+        <!--在是问题账单的前提是得先是已送账单-->
+        AND a.receiving_time IS NOT NULL
+        <!--是否对账-->
+        <if test="is_reconciliation == 0">
+            AND a.is_reconciliation = 0
+        </if>
+        <if test="is_reconciliation == 1">
+            AND a.is_reconciliation = 1
+        </if>
+        GROUP BY a.order_id
+    </select>
+
 
 </mapper>

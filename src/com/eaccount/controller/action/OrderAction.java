@@ -8,9 +8,8 @@ import com.eaccount.service.*;
 import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.apache.struts2.ServletActionContext;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -212,11 +211,30 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         String user_id = request.getParameter("user_id");
         String company_id = request.getParameter("company_id");
         String type = request.getParameter("type");
+        String IsReconciliation = request.getParameter("IsReconciliation");
         listU = getProfileService.GetUserInfoByUserId(user_id);
         listC = getProfileService.GetCompanyInfoByCompanyId(company_id);
-        listO = getOrderService.GetMatterOrderInfo(user_id, company_id, type);
 
-
+        listO = getOrderService.GetMatterOrderDetailInfo(user_id, company_id, type, IsReconciliation);
+        JSONArray jsonArray = new JSONArray();
+        JSONObject tempJson = null;
+        int len = 0;
+        if (listO != null) {
+            len = listO.size();
+        }
+        for (int i = 0; i < len; i++) {
+            tempJson = new JSONObject();
+            tempJson.put("order_id", listO.get(i).getOrder_id());
+            tempJson.put("receiving_time", listO.get(i).getReceiving_time());
+            tempJson.put("type_number", listO.get(i).getType_number());
+            tempJson.put("product_number", listO.get(i).getProduct_number());
+            if ("1".equals(type)) {
+                tempJson.put("money", listO.get(i).getTotal_price_buyer());
+            } else {
+                tempJson.put("money", listO.get(i).getTotal_price_seller());
+            }
+            jsonArray.add(tempJson);
+        }
 
         JSONObject json = new JSONObject();
         json.put("user_name", listU.get(0).getUser_name());
@@ -224,6 +242,7 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         json.put("company_name", listC.get(0).getCompany_name());
         json.put("comapny_logo", listC.get(0).getCompany_logo());
         json.put("company_address", listC.get(0).getCompany_address());
+        json.put("list", jsonArray);
         byte[] jsonBytes = json.toString().getBytes("utf-8");
         response.setContentType("text/html;charset=utf-8");
         response.setContentLength(jsonBytes.length);
@@ -234,92 +253,7 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         return null;
     }
 
-    // username属性用来封装用户名
-    private String username;
 
-    // myFile属性用来封装上传的文件
-    private File myFile;
-
-    // myFileContentType属性用来封装上传文件的类型
-    private String myFileContentType;
-
-    // myFileFileName属性用来封装上传文件的文件名
-    private String myFileFileName;
-
-
-    //获得username值
-    public String getUsername() {
-        return username;
-    }
-
-    //设置username值
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    //获得myFile值
-    public File getMyFile() {
-        return myFile;
-    }
-
-    //设置myFile值
-    public void setMyFile(File myFile) {
-        this.myFile = myFile;
-    }
-
-    //获得myFileContentType值
-    public String getMyFileContentType() {
-        return myFileContentType;
-    }
-
-    //设置myFileContentType值
-    public void setMyFileContentType(String myFileContentType) {
-        this.myFileContentType = myFileContentType;
-    }
-
-    //获得myFileFileName值
-    public String getMyFileFileName() {
-        return myFileFileName;
-    }
-
-    //设置myFileFileName值
-    public void setMyFileFileName(String myFileFileName) {
-        this.myFileFileName = myFileFileName;
-    }
-
-    public String imageTest() throws IOException {
-        //基于myFile创建一个文件输入流
-        InputStream is = new FileInputStream(myFile);
-
-        // 设置上传文件目录
-        String uploadPath = ServletActionContext.getServletContext()
-                .getRealPath("/upload");
-
-        // 设置目标文件
-        File toFile = new File(uploadPath, this.getMyFileFileName());
-
-        // 创建一个输出流
-        OutputStream os = new FileOutputStream(toFile);
-
-        //设置缓存
-        byte[] buffer = new byte[1024];
-
-        int length = 0;
-
-        //读取myFile文件输出到toFile文件中
-        while ((length = is.read(buffer)) > 0) {
-            os.write(buffer, 0, length);
-        }
-        System.out.println("上传用户" + username);
-        System.out.println("上传文件名"+myFileFileName);
-        System.out.println("上传文件类型"+myFileContentType);
-        //关闭输入流
-        is.close();
-
-        //关闭输出流
-        os.close();
-        return null;
-    }
 
     @Override
     public Order getModel() {
