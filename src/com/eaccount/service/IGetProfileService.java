@@ -12,5 +12,5 @@ public interface IGetProfileService {
     public List<User_profile> GetSameCompanyUserInfoByUserId(String id);
     public List<User_profile> GetUserInfoByUserId(String id);
     public List<Company_profile> GetCompanyInfoByCompanyId(String id);
-    public boolean CheckLogin(String user_phone_number, String user_password);
+    public List<User_profile> CheckLogin(String user_phone_number, String user_password);
 }

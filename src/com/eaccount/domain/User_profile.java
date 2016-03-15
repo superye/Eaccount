@@ -13,7 +13,7 @@ public class User_profile {
     private String user_password;
     private String permission_delivery;
     private String permission_receiving;
-    private String permission_reconciliatior;
+    private String permission_reconciliation;
     private String permission_settlement;
     private String designate_delivery;
     private String designate_receiving;
@@ -90,12 +90,12 @@ public class User_profile {
         this.permission_receiving = permission_receiving;
     }
 
-    public String getPermission_reconciliatior() {
-        return permission_reconciliatior;
+    public String getPermission_reconciliation() {
+        return permission_reconciliation;
     }
 
-    public void setPermission_reconciliatior(String permission_reconciliatior) {
-        this.permission_reconciliatior = permission_reconciliatior;
+    public void setPermission_reconciliation(String permission_reconciliatior) {
+        this.permission_reconciliation = permission_reconciliatior;
     }
 
     public String getPermission_settlement() {
