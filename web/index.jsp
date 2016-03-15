@@ -56,10 +56,11 @@
       <input type="text" name="user_id" placeholder="id">
       <input type="submit" value="提交">
     </form>
-    通过订单Id和用户Id将该订单的user_seller_id修改为该用户Id
-    <form action="order_UpdateOrderSellerId.action">
-      <input type="text" name="user_seller_id" placeholder="user_seller_id">
+    通过订单Id和用户Id将该订单的user_id及用户类型修改为该用户Id
+    <form action="order_UpdateOrderUserId.action">
+      <input type="text" name="user_id" placeholder="user_id">
       <input type="text" name="order_id" placeholder="order_id">
+      <input type="text" name="type" placeholder="type 1卖 2 买">
       <input type="submit" value="submit">
     </form>
     通过订单Id删除订单及订单明细信息
