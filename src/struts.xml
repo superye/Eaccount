@@ -22,7 +22,7 @@
             <result name="success"/>
         </action>
         <action name="login_*" class="com.eaccount.controller.action.LoginAction" method="{1}">
-            <result name="success"/>
+            <result name="a">pages/register.html</result>
         </action>
         <action name="upload_*" class="com.eaccount.controller.action.UploadAction" method="{1}">
             <result name="success"/>

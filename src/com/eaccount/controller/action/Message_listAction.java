@@ -33,6 +33,7 @@ public class Message_listAction extends SuperAction {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("message_title", list.get(i).getMessage_title());
             jsonObject.put("message_sender", list.get(i).getMessage_sender());
+            jsonObject.put("message_data", list.get(i).getMessage_date());
             jsonArray.add(jsonObject);
         }
         byte[] jsonBytes = jsonArray.toString().getBytes("utf-8");

@@ -22,6 +22,8 @@ public class LoginAction extends SuperAction implements ModelDriven<User_profile
         System.out.println(user_profile.getUser_phone_number());
         List<User_profile> user_profiles = new ArrayList<>();
         user_profiles = getProfileService.CheckLogin(user_profile.getUser_phone_number(), user_profile.getUser_password());
+        return "a";
+        /*
         if (user_profiles.size()>0)
         {
             jsonObject.put("loginState", "1");
@@ -44,7 +46,8 @@ public class LoginAction extends SuperAction implements ModelDriven<User_profile
             response.getOutputStream().flush();
             response.getOutputStream().close();
         }catch (Exception e){}
-        return null;
+        return SUCCESS;
+        */
     }
 
 
