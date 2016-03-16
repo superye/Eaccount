@@ -249,7 +249,38 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         return null;
     }
 
+    public String GetAccountPeriod() throws IOException {
+        String user_id = request.getParameter("user_id");
+        String type = request.getParameter("type");
 
+        IGetOrderService getOrderService = new GetOrderService();
+        List<Order> list = new ArrayList<>();
+        list = getOrderService.GetAccountPeriod(user_id, type);
+
+        JSONObject json = null;
+        JSONArray jsonArray = new JSONArray();
+
+        int len = 0;
+        if (list != null) {
+            len = list.size();
+        }
+
+        for (int i = 0; i < len; i++) {
+            json = new JSONObject();
+            json.put("company_name", list.get(i).getCompany_name());
+            json.put("diff_date", list.get(i).getDiff_date());
+            jsonArray.add(json);
+        }
+
+        byte[] jsonBytes = jsonArray.toString().getBytes("utf-8");
+        response.setContentType("text/html;charset=utf-8");
+        response.setContentLength(jsonBytes.length);
+        response.getOutputStream().write(jsonBytes);
+        response.getOutputStream().flush();
+        response.getOutputStream().close();
+
+        return null;
+    }
 
     @Override
     public Order getModel() {

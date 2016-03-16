@@ -57,6 +57,16 @@ public class Order {
     * */
     private String photo;
 
+    private String diff_date;
+
+    public String getDiff_date() {
+        return diff_date;
+    }
+
+    public void setDiff_date(String diff_date) {
+        this.diff_date = diff_date;
+    }
+
     public String getNo_paid_order_number() {
         return no_paid_order_number;
     }

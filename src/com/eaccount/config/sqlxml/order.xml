@@ -41,6 +41,9 @@
 
         <!-- 凭据照片 -->
         <result column="photo" jdbcType="BLOB" property="photo"/>
+
+        <!--日期差距-->
+        <result column="diff_date" jdbcType="INTEGER" property="diff_date"/>
     </resultMap>
 
     <select id="SelectOrderInfoByUserSellerId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
@@ -239,5 +242,31 @@
         GROUP BY a.order_id
     </select>
 
+    <!--用户获取账期-->
+    <select id="UserSelectAccountPeriod" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
+        SELECT b.company_name, MAX((TO_DAYS(#{receiving_time}) - TO_DAYS(receiving_time)) - a.payment_day) AS diff_date
+        FROM table_order a, table_company_profile b WHERE 1 = 1
+        <if test="type == 1">
+            AND a.company_id_buyer = b.id
+            AND user_id_seller = #{user_id_seller}
+        </if>
+        <if test="type == 2">
+            AND a.company_id_seller = b.id
+            AND user_id_buyer = #{user_id_buyer}
+        </if>
+        AND receiving_time IS NOT NULL
+        AND is_reconciliation = 1
+        GROUP BY b.id
+    </select>
+
+     <!--用户获取账期-->
+    <select id="CountOverdueOrder" parameterType="com.eaccount.domain.Order" resultType="int">
+        SELECT COUNT(*) FROM table_order WHERE 1 = 1
+        AND (user_id_seller = #{user_id_seller} OR user_id_buyer = #{user_id_buyer})
+        AND receiving_time IS NOT NULL
+        AND is_reconciliation = 1
+        AND paid_price != total_price_seller
+        GROUP BY id
+    </select>
 
 </mapper>
