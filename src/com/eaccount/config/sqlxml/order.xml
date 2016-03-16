@@ -93,6 +93,11 @@
         WHERE order_id = #{order_id}
     </update>
 
+    <update id="UpdateOrderBuyerId" parameterType="com.eaccount.domain.Order">
+        UPDATE table_order SET user_id_buyer = #{user_id_buyer}
+        WHERE order_id = #{order_id}
+    </update>
+
     <delete id="DeleteOrderByOrderId" parameterType="com.eaccount.domain.Order">
         DELETE FROM table_order WHERE order_id = #{order_id}
     </delete>

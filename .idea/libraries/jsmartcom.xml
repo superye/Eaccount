@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="jsmartcom">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../jar/jsmartcom.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

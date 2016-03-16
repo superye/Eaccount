@@ -93,12 +93,13 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         return null;
     }
 
-    //通过订单Id和卖方用户Id修改订单
-    public String UpdateOrderSellerId() {
+    //通过订单Id和卖方或买方用户Id修改订单
+    public String UpdateOrderUserId() {
         String order_id = request.getParameter("order_id");
-        String user_seller_id = request.getParameter("user_seller_id");
+        String user_id = request.getParameter("user_id");
+        String type = request.getParameter("type");
         IUpdateOrderService updateOrderService = new UpdateOrderService();
-        updateOrderService.UpdateOrderSellerId(order_id, user_seller_id);
+        updateOrderService.UpdateOrderSellerId(order_id, user_id, type);
         return null;
     }
 
@@ -165,7 +166,6 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         JSONArray jsonArray1 = new JSONArray();
         JSONArray jsonArray2 = null;
         for (int i = 0; i < len; i++) {
-            jsonArray2 = new JSONArray();
             listTemp = new ArrayList<>();
             listTemp = getOrderService.GetOrderDetailByMatterOrderId(list.get(i).getOrder_id());
 
@@ -175,15 +175,11 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
                 tempJson.put("product_specification", listTemp.get(j).getProduct_specification());
                 tempJson.put("quantity_delivery", listTemp.get(j).getQuantity_delivery());
                 tempJson.put("quantity_receiving", listTemp.get(j).getQuantity_receiving());
-                jsonArray2.add(tempJson);
+                tempJson.put("order_id", list.get(i).getOrder_id());
+                tempJson.put("receiving_time", list.get(i).getReceiving_time());
+                tempJson.put("id", list.get(i).getId());
+                jsonArray1.add(tempJson);
             }
-
-            tempJson = new JSONObject();
-            tempJson.put("order_id", list.get(i).getOrder_id());
-            tempJson.put("receiving_time", list.get(i).getReceiving_time());
-            tempJson.put("id", list.get(i).getId());
-            tempJson.put("list2", jsonArray2);
-            jsonArray1.add(tempJson);
         }
 
         JSONObject json = new JSONObject();

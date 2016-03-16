@@ -9,12 +9,22 @@ import com.eaccount.domain.Order;
  */
 public class UpdateOrderService implements IUpdateOrderService{
     @Override
-    public boolean UpdateOrderSellerId(String order_id, String user_id) {
+    public boolean UpdateOrderSellerId(String order_id, String user_id, String type) {
         Order order = new Order();
         order.setOrder_id(order_id);
-        order.setUser_id_seller(user_id);
+        if ("1".equals(type)) {
+            order.setUser_id_seller(user_id);
+        } else {
+            order.setUser_id_buyer(user_id);
+        }
+        order.setType(type);
         IOrderDAO orderDAO = new OrderDAO();
-        boolean flag = orderDAO.UpdateOrderSellerId(order);
+        boolean flag = false;
+        if ("1".equals(type)) {
+            flag = orderDAO.UpdateOrderSellerId(order);
+        } else {
+            flag = orderDAO.UpdateOrderBuyerId(order);
+        }
         return flag;
     }
 }
