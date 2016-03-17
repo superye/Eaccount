@@ -12,10 +12,14 @@
         <result column="company_name" jdbcType="VARCHAR" property="company_name"/>
         <result column="company_address" jdbcType="VARCHAR" property="company_address"/>
         <result column="company_logo" jdbcType="BLOB" property="company_logo"/>
+        <result column="manager_id" jdbcType="VARCHAR" property="manager_id"/>
     </resultMap>
 
     <select id="SelectCompanyInfoByCompanyId" parameterType="com.eaccount.domain.Company_profile" resultMap="Company_profileResult">
          SELECT * FROM table_company_profile
          WHERE id = #{id}
+    </select>
+    <select id="SelectAllCompany" resultMap="Company_profileResult">
+        SELECT * FROM table_company_profile
     </select>
 </mapper>

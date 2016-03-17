@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface ICompanyDAO {
     public List<Company_profile> GetCompanyInfoByCompanyId(Company_profile company_profile);
+
+    public List<Company_profile> GetAllCompany();
 }

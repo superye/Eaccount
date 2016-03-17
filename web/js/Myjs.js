@@ -68,6 +68,21 @@ function DeleteProduct(id) {
     $("#totalPrice").val(m);
     $("#trId" + s).remove();
 }
-function AddOrder() {
 
+function AddOrder() {
+    alert("a");
+    var url = "http://localhost:8080/updateorder_InsertOrder.action";
+    var data = "order_id="+$("#order_id").val()+
+        "&company_id_buyer="+$("#company_id_buyer").val()+
+        "&user_id_seller="+$("#user_id_seller").val()+
+        "&total_price_seller="+$("#total_price_seller").val()+
+        "&payment_day="+$("#payment_day").val();
+    $.ajax({
+        type:"GET",
+        url:url,
+        data: data,
+        success: function(Msg) {
+            alert("a");
+        }
+    });
 }

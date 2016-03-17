@@ -30,5 +30,8 @@
         <action name="loadpage_*" class="com.eaccount.controller.action.LoadpageAction" method="{1}">
             <result name="placeOrder">pages/placeorder.jsp</result>
         </action>
+        <action name="updateorder_*" class="com.eaccount.controller.action.UpdateOrderAction" method="{1}">
+            <result type="json"></result>
+        </action>
     </package>
 </struts>

@@ -297,7 +297,13 @@
                             <div class="col-lg-6  col-md-6 col-sm-6">
                                 <div class="form-group">
                                     <label>收货方</label>
-                                    <input id="" class="form-control" placeholder="请输入收货方">
+                                    <select id="company_id_buyer" class="form-control">
+                                        <c:forEach items="${allcompany}" var="list">
+                                            <c:if test="${company_id_seller != list.getId()}">
+                                                <option value="${list.getId()}">${list.getCompany_name()}</option>
+                                            </c:if>
+                                        </c:forEach>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -305,7 +311,11 @@
                             <div class="col-lg-6  col-md-6 col-sm-6">
                                 <div class="form-group">
                                     <label>送货员</label>
-                                    <input class="form-control" placeholder="请输入送货员">
+                                    <select id="user_id_seller" class="form-control" >
+                                        <c:forEach items="${sellerList}" var="list">
+                                            <option value="${list.getId()}">${list.getUser_name()}</option>
+                                        </c:forEach>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-6  col-md-6 col-sm-6">
@@ -326,7 +336,7 @@
                                 <!--<div class="form-group">-->
                                 <!--</div>-->
                                 <div class="form-group">
-                                    <button type="button" class="btn btn-outline btn-primary btn-lg">添加</button>
+                                    <button type="button" class="btn btn-outline btn-primary btn-lg" onclick="AddOrder()">下单</button>
                                 </div>
                             </div>
                             <!-- /.table-responsive -->

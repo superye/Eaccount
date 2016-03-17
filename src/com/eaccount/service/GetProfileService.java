@@ -64,4 +64,24 @@ public class GetProfileService implements IGetProfileService{
         return list;
 
     }
+
+    @Override
+    public List<Company_profile> GetAllCompany() {
+        List<Company_profile> list = new ArrayList<>();
+        ICompanyDAO companyDAO = new CompanyDAO();
+        list = companyDAO.GetAllCompany();
+
+        return list;
+    }
+
+    @Override
+    public List<User_profile> GetUserByCompanyId(String id) {
+        IUserDAO userDAO = new UserDAO();
+        List<User_profile> list = new ArrayList<>();
+        Company_profile company_profile = new Company_profile();
+        company_profile.setId(id);
+
+        list = userDAO.GetUserByCompanyId(company_profile);
+        return list;
+    }
 }

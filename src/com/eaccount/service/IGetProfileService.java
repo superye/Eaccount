@@ -15,4 +15,6 @@ public interface IGetProfileService {
     public List<Company_profile> GetCompanyInfoByCompanyId(String id);
     public List<User_profile> CheckLogin(String user_phone_number, String user_password);
     public List<Product> GetCompanyProductById(String id);
+    public List<Company_profile> GetAllCompany();
+    public List<User_profile> GetUserByCompanyId(String id);
 }

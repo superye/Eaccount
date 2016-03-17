@@ -8,6 +8,15 @@ public class Company_profile {
     private String company_name;
     private String company_address;
     private String company_logo;
+    private String manager_id;
+
+    public String getManager_id() {
+        return manager_id;
+    }
+
+    public void setManager_id(String manager_id) {
+        this.manager_id = manager_id;
+    }
 
     public String getId() {
         return id;

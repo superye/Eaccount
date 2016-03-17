@@ -159,7 +159,7 @@ public class Order {
         return total_price_seller;
     }
 
-    public void setTotal_price_seller(String total_price_saller) {
+    public void setTotal_price_seller(String total_price_seller) {
         this.total_price_seller = total_price_seller;
     }
 

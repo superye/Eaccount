@@ -1,5 +1,6 @@
 package com.eaccount.dao;
 
+import com.eaccount.domain.Company_profile;
 import com.eaccount.domain.User_profile;
 import org.apache.ibatis.session.SqlSession;
 
@@ -58,6 +59,25 @@ public class UserDAO implements IUserDAO{
         try {
             sqlSession = dbAccess.getSqlSession();
             list = sqlSession.selectList("User_profile.SelectUserInfoByUserId", user_profile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<User_profile> GetUserByCompanyId(Company_profile company_profile) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<User_profile> list = new ArrayList<User_profile>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("User_profile.GetUserByCompanyId", company_profile);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

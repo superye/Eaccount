@@ -42,4 +42,8 @@
         SELECT * FROM table_user_profile WHERE user_phone_number=#{user_phone_number} AND user_password=#{user_password}
     </select>
 
+    <select id="GetUserByCompanyId" parameterType="com.eaccount.domain.Company_profile" resultMap="User_profileResult">
+        SELECT a.id, a.user_name from table_user_profile a, table_user_company b WHERE a.id=b.user_id AND b.company_id=#{id}
+    </select>
+
 </mapper>
