@@ -6,6 +6,7 @@ import com.eaccount.dao.OrderDAO;
 import com.eaccount.dao.OrderDetailDAO;
 import com.eaccount.domain.Order;
 import com.eaccount.domain.Order_detail;
+import com.eaccount.util.GetNowTime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -192,5 +193,32 @@ public class GetOrderService implements IGetOrderService{
         order_detail.setOrder_id(id);
         list = orderDetailDAO.GetOrderDetailInfoByMatterOrderId(order_detail);
         return list;
+    }
+
+    @Override
+    public List<Order> GetAccountPeriod(String user_id, String type) {
+        Order order = new Order();
+        order.setType(type);
+        order.setReceiving_time(new GetNowTime().GetTime(1));
+        if ("1".equals(type)) {
+            order.setUser_id_seller(user_id);
+        } else if ("2".equals(type)) {
+            order.setUser_id_buyer(user_id);
+        }
+        IOrderDAO orderDAO = new OrderDAO();
+        List<Order> list = new ArrayList<>();
+        list = orderDAO.GetAccountPeriod(order);
+        return list;
+    }
+
+    @Override
+    public int CountOverdueOrder(String user_id) {
+        Order order = new Order();
+        order.setUser_id_seller(user_id);
+        order.setUser_id_buyer(user_id);
+        IOrderDAO orderDAO = new OrderDAO();
+        int ans = 0;
+        ans = orderDAO.CountOverdueOrder(order);
+        return ans;
     }
 }

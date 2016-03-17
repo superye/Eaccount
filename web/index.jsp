@@ -117,5 +117,11 @@
       <input type="file" name="myFile">
       <input type="submit" value="submit">
     </form>
+    账期提醒,负数代表还款日期在X天之后，正数代表已超过X天
+    <form action="order_GetAccountPeriod.action" method="post">
+      <input type="text" name="user_id" placeholder="user_id">
+      <input type="text" name="type" placeholder="type 1 收款 2 付款">
+      <input type="submit" value="submit">
+    </form>
   </body>
 </html>

@@ -283,4 +283,43 @@ public class OrderDAO implements IOrderDAO{
         }
         return true;
     }
+
+    @Override
+    public List<Order> GetAccountPeriod(Order order) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Order> list = new ArrayList<Order>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("Order.UserSelectAccountPeriod", order);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        if (list.size() == 0) return null;
+        return list;
+    }
+
+    @Override
+    public int CountOverdueOrder(Order order) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Integer> list = new ArrayList<>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("Order.CountOverdueOrder", order);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        return list.get(0);
+    }
 }
