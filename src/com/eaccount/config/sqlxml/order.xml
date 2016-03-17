@@ -274,4 +274,24 @@
         GROUP BY id
     </select>
 
+    <!--统计未送货-->
+    <select id="CountNoSend" parameterType="com.eaccount.domain.Order" resultType="int">
+        SELECT COUNT(*) FROM table_order
+        WHERE user_id_seller = #{user_id_seller}
+        AND receiving_time IS NULL
+        GROUP BY id
+    </select>
+
+    <!--统计未收货-->
+    <select id="CountNoReceiving" parameterType="com.eaccount.domain.Order" resultType="int">
+        SELECT COUNT(*) FROM table_order
+        WHERE user_id_buyer = #{user_id_buyer}
+        AND receiving_time IS NULL
+        GROUP BY id
+    </select>
+
+    <!--查询最新order_id-->
+    <select id="SelectNewOrderId" resultType="String">
+        SELECT MAX(order_id) FROM table_order
+    </select>
 </mapper>

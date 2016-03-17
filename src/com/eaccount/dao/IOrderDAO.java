@@ -32,4 +32,7 @@ public interface IOrderDAO {
     public List<Order> GetAccountPeriod(Order order);
     public int CountOverdueOrder(Order order);
 
+    public int CountNoSendOrder(Order order);
+    public int CountNoReceivingOrder(Order order);
+
 }

@@ -221,4 +221,19 @@ public class GetOrderService implements IGetOrderService{
         ans = orderDAO.CountOverdueOrder(order);
         return ans;
     }
+
+    @Override
+    public int CountNotSendOrReceivingOrder(String user_id, String type) {
+        Order order = new Order();
+        IOrderDAO orderDAO = new OrderDAO();
+        int ans = 0;
+        if ("1".equals(type)) {
+            order.setUser_id_seller(user_id);
+            ans = orderDAO.CountNoSendOrder(order);
+        } else {
+            order.setUser_id_buyer(user_id);
+            ans = orderDAO.CountNoReceivingOrder(order);
+        }
+        return ans;
+    }
 }

@@ -22,6 +22,9 @@
         <result column="permission_settlement" jdbcType="INTEGER" property="permission_settlement"/>
         <result column="designate_delivery" jdbcType="INTEGER" property="designate_delivery"/>
         <result column="designate_receiving" jdbcType="INTEGER" property="designate_receiving"/>
+        <result column="permission_payment_day" jdbcType="INTEGER" property="permission_payment_day"/>
+        <result column="permission_reject" jdbcType="INTEGER" property="permission_reject"/>
+        <result column="permission_bill" jdbcType="INTEGER" property="permission_bill"/>
     </resultMap>
 
     <select id="SelectSameCompanyUserInfoByUserId" parameterType="com.eaccount.domain.User_profile" resultMap="User_profileResult">
@@ -42,4 +45,10 @@
         SELECT * FROM table_user_profile WHERE user_phone_number=#{user_phone_number} AND user_password=#{user_password}
     </select>
 
+
+    <!--通过手机号查询用户id-->
+    <select id="SelectUserIdByPhone" parameterType="com.eaccount.domain.User_profile" resultMap="User_profileResult">
+        SELECT id FROM table_user_profile
+        WHERE user_phone_number = #{user_phone_number}
+    </select>
 </mapper>

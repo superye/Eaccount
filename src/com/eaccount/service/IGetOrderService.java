@@ -28,4 +28,5 @@ public interface IGetOrderService {
 
     public List<Order> GetAccountPeriod(String user_id, String type);
     public int CountOverdueOrder(String user_id);
+    public int CountNotSendOrReceivingOrder(String user_id, String type);
 }

@@ -17,6 +17,9 @@ public class User_profile {
     private String permission_settlement;
     private String designate_delivery;
     private String designate_receiving;
+    private String permission_payment_day;
+    private String permission_reject;
+    private String permission_bill;
 
     public String getId() {
         return id;
@@ -120,5 +123,29 @@ public class User_profile {
 
     public void setDesignate_receiving(String designate_receiving) {
         this.designate_receiving = designate_receiving;
+    }
+
+    public String getPermission_payment_day() {
+        return permission_payment_day;
+    }
+
+    public void setPermission_payment_day(String permission_payment_day) {
+        this.permission_payment_day = permission_payment_day;
+    }
+
+    public String getPermission_reject() {
+        return permission_reject;
+    }
+
+    public void setPermission_reject(String permission_reject) {
+        this.permission_reject = permission_reject;
+    }
+
+    public String getPermission_bill() {
+        return permission_bill;
+    }
+
+    public void setPermission_bill(String permission_bill) {
+        this.permission_bill = permission_bill;
     }
 }

@@ -322,4 +322,44 @@ public class OrderDAO implements IOrderDAO{
         }
         return list.get(0);
     }
+
+    @Override
+    public int CountNoSendOrder(Order order) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Integer> list = new ArrayList<>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("Order.CountNoSend", order);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        if (list.size() == 0) return 0;
+        return list.get(0);
+    }
+
+    @Override
+    public int CountNoReceivingOrder(Order order) {
+         DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Integer> list = new ArrayList<>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("Order.CountNoReceiving", order);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        if (list.size() == 0) return 0;
+        return list.get(0);
+    }
 }

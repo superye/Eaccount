@@ -56,4 +56,5 @@ public class GetNo {
         this.sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         return this.sdf.format(new Date());
     }
+
 }

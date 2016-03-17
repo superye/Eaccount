@@ -11,4 +11,5 @@ public interface IUserDAO {
     public List<User_profile> GetSameCompanyUserInfoByUserId(User_profile user_profile);
     public List<User_profile> GetUserInfoByUserId(User_profile user_profile);
     public List<User_profile> CheckLogin(User_profile user_profile);
+    public List<User_profile> GetUserIdByPhone(User_profile user_profile);
 }

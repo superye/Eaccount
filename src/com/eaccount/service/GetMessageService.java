@@ -1,9 +1,7 @@
 package com.eaccount.service;
 
 import com.eaccount.dao.IMessageDAO;
-import com.eaccount.dao.IOrderDAO;
 import com.eaccount.dao.MessageDAO;
-import com.eaccount.dao.OrderDAO;
 import com.eaccount.domain.*;
 
 import java.util.ArrayList;
@@ -58,5 +56,15 @@ public class GetMessageService implements IGetMessageService{
         order.setId(id);
         list = iMessageDAO.SelectMessageByUserId(order);
         return list;
+    }
+
+    @Override
+    public int CountUnreadMessage(String user_id) {
+        Message_list message_list = new Message_list();
+        message_list.setMessage_receiver(user_id);
+        IMessageDAO messageDAO = new MessageDAO();
+        int ans = 0;
+        ans = messageDAO.CountUnreadMessage(message_list);
+        return ans;
     }
 }
