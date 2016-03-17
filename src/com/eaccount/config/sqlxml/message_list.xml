@@ -26,4 +26,12 @@
         VALUES(#{message_receiver}, #{message_sender}, #{message_title}, #{message_type}, #{message_state}, #{message_date}, #{message_remark})
     </update>
 
+    <!--统计未读信息-->
+    <select id="CountUnreadMessage" parameterType="com.eaccount.domain.Message_list" resultType="int">
+        SELECT COUNT(*) FROM table_message_list
+        WHERE message_receiver = #{message_receiver}
+        AND message_state = 0
+        GROUP BY id
+    </select>
+
 </mapper>

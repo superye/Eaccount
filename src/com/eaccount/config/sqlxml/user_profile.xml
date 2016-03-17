@@ -46,4 +46,10 @@
         SELECT a.id, a.user_name from table_user_profile a, table_user_company b WHERE a.id=b.user_id AND b.company_id=#{id}
     </select>
 
+
+    <!--通过手机号查询用户id-->
+    <select id="SelectUserIdByPhone" parameterType="com.eaccount.domain.User_profile" resultMap="User_profileResult">
+        SELECT id FROM table_user_profile
+        WHERE user_phone_number = #{user_phone_number}
+    </select>
 </mapper>

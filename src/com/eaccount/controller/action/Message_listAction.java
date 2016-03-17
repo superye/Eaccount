@@ -20,7 +20,6 @@ import java.util.List;
 public class Message_listAction extends SuperAction {
     public String GetMessageById() throws IOException{
         String callback = "callback";
-
         ServletActionContext.getResponse().setHeader("Access-Control-Allow-Origin", "*");
         String id = request.getParameter("id");
         List<Message_list> list = new ArrayList<>();

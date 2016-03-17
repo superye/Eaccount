@@ -84,4 +84,14 @@ public class GetProfileService implements IGetProfileService{
         list = userDAO.GetUserByCompanyId(company_profile);
         return list;
     }
+
+    @Override
+    public String GetUserIdByPhone(String phone_number) {
+        List<User_profile> list = new ArrayList<>();
+        IUserDAO userDAO = new UserDAO();
+        User_profile user_profile = new User_profile();
+        user_profile.setUser_phone_number(phone_number);
+        list = userDAO.GetUserIdByPhone(user_profile);
+        return list.get(0).getId();
+    }
 }

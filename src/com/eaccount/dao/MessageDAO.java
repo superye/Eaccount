@@ -2,7 +2,6 @@ package com.eaccount.dao;
 
 import com.eaccount.domain.Message_list;
 import com.eaccount.domain.Order;
-import com.eaccount.domain.User_profile;
 import org.apache.ibatis.session.SqlSession;
 
 import java.io.IOException;
@@ -49,5 +48,25 @@ public class MessageDAO implements IMessageDAO{
             }
         }
         return true;
+    }
+
+    @Override
+    public int CountUnreadMessage(Message_list message_list) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Integer> list = new ArrayList<Integer>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("Message_list.CountUnreadMessage", message_list);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        if (list == null) return 0;
+        return list.get(0);
     }
 }

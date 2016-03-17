@@ -23,6 +23,7 @@
         </action>
         <action name="login_*" class="com.eaccount.controller.action.LoginAction" method="{1}">
             <result name="a">pages/placeorder.jsp</result>
+            <result name="success"/>
         </action>
         <action name="upload_*" class="com.eaccount.controller.action.UploadAction" method="{1}">
             <result name="success"/>

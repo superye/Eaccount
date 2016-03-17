@@ -1,6 +1,5 @@
 package com.eaccount.dao;
 
-import com.eaccount.domain.Company_profile;
 import com.eaccount.domain.User_profile;
 
 import java.util.List;
@@ -14,4 +13,5 @@ public interface IUserDAO {
     public List<User_profile> CheckLogin(User_profile user_profile);
 
     public List<User_profile> GetUserByCompanyId(Company_profile company_profile);
+    public List<User_profile> GetUserIdByPhone(User_profile user_profile);
 }

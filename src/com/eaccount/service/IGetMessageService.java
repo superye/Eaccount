@@ -16,5 +16,6 @@ public interface IGetMessageService {
     public Product GetProductMessageById(int id);
 
     public List<Message_list> GetMessageById(String id);
+    public int CountUnreadMessage(String user_id);
 
 }
