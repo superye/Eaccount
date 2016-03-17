@@ -21,6 +21,20 @@ public class Product {
     private int quantity_receiving;
     private int money;
 
+    /**
+     * 所属商品
+     * @return
+     */
+
+    private String company_id;
+
+    public String getCompany_id() {
+        return company_id;
+    }
+
+    public void setCompany_id(String company_id) {
+        this.company_id = company_id;
+    }
 
     public String getId() {
         return id;

@@ -239,5 +239,9 @@
         GROUP BY a.order_id
     </select>
 
-
+    <update id="InsertOrder" parameterType="com.eaccount.domain.Order">
+        INSERT INTO table_order(order_id, company_id_seller, company_id_buyer, user_id_seller, user_id_buyer, place_order_time, total_price_seller,
+          payment_day) VALUES (#{order_id}, #{company_id_seller}, #{company_id_buyer}, #{user_id_seller}, #{user_id_buyer}, #{place_order_time}, #{total_price_seller},
+          #{payment_day})
+    </update>
 </mapper>

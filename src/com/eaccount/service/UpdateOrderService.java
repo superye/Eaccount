@@ -27,4 +27,11 @@ public class UpdateOrderService implements IUpdateOrderService{
         }
         return flag;
     }
+
+    @Override
+    public boolean InsertOrder(Order order) {
+        IOrderDAO orderDAO = new OrderDAO();
+        orderDAO.InsertOrder(order);
+        return true;
+    }
 }

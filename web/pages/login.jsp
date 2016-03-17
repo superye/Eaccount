@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<%@ page language="java" contentType="text/html;charset=UTF-8" import="java.util.*" %>
 <head>
 
     <meta charset="utf-8">
@@ -42,10 +43,10 @@
                         <h3 class="panel-title">请登录</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form">
+                        <form role="form" action="loadpage_LoadPlaceorderPage.action">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="帐号/手机号" name="email" type="email" autofocus>
+                                    <input class="form-control" placeholder="帐号/手机号" name="company_id_seller" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="密码" name="password" type="password" value="">
@@ -56,8 +57,12 @@
                                     </label>
                                     <a class="register" href="">注册</a>
                                 </div>
+
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="index.html" class="btn btn-lg btn-success btn-block">登录</a>
+                                <input type="submit" class="btn btn-lg btn-success btn-block">
+                                <a href="/index.jsp">测试页面</a>
+
+                                </input>
                             </fieldset>
                         </form>
                     </div>

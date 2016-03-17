@@ -265,4 +265,22 @@ public class OrderDAO implements IOrderDAO{
         if (list.size() == 0) return null;
         return list;
     }
+
+    @Override
+    public boolean InsertOrder(Order order) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            sqlSession.selectList("Order.InsertOrder" , order);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        return true;
+    }
 }

@@ -24,5 +24,7 @@ public interface IOrderDAO {
     public List<Order> GetNoPaidOrderByUserBuyerId(Order order);
     public List<Order> GetNoPaidOrderByUserSellerId(Order order);
 
+    public boolean InsertOrder(Order order);
+
 
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Product">
+
+    <resultMap type="com.eaccount.domain.Product" id="ProductResult">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="product_id" jdbcType="VARCHAR" property="product_id"/>
+        <result column="company_id" jdbcType="VARCHAR" property="company_id"/>
+    </resultMap>
+
+
+    <select id="GetCompanyProductById" parameterType="com.eaccount.domain.Company_profile" resultMap="ProductResult">
+       SELECT product_name FROM table_product WHERE id in (
+          SELECT product_id FROM table_product_company WHERE company_id=#{id}
+       )
+    </select>
+</mapper>

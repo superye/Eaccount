@@ -1,6 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-
+<%@ page language="java" contentType="text/html;charset=UTF-8" %>
 <head>
 
     <meta charset="utf-8">
@@ -9,13 +10,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>e对账</title>
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap-datepicker css-->
-    <link href="../bower_components/bootstrap/dist/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
@@ -26,19 +24,17 @@
     <!-- Custom Fonts -->
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <!-- file style css -->
-    <link href="../bower_components/bootstrap/dist/css/fileinput.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+    <script src="../js/Myjs.js"></script>
 </head>
 
 <body>
-
 <div id="wrapper">
 
     <!-- Navigation -->
@@ -228,127 +224,173 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">个人资料</h1>
+                <h1 class="page-header">下单</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
         <div class="row">
-            <div class="col-lg-6 col-md-8 col-sm-10">
+            <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        请填写基本信息
+                        添加送货商品
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-6 col-md-8 col-sm-10">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="form-group">
-                                    <div class="form-group">
-                                        <label>密码</label>
-                                        <input class="form-control">
-                                    </div>
+                                    <label>商品名称</label>
+                                    <select id="productName" class="form-control">
+                                        <c:forEach items="${productList}" var="list">
+                                            <option>${list.getProduct_name()}</option>
+                                        </c:forEach>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6 col-md-8 col-sm-10">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="form-group">
-                                    <div class="form-group">
-                                        <label>确认密码</label>
-                                        <input class="form-control">
-                                    </div>
+                                    <label id="priceError">商品价格</label>
+                                    <input id="price" class="form-control">
+                                    </input>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6 col-md-8 col-sm-10">
+                            <div class="col-lg-6  col-md-6 col-sm-6">
                                 <div class="form-group">
-                                    <div class="form-group">
-                                        <label>手机号</label>
-                                        <input class="form-control">
-                                    </div>
+                                    <label id="numError">商品数量</label>
+                                    <input id="num" class="form-control">
+                                    </input>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-lg-offset-2 col-md-4 col-md-offset-2 col-sm-4 col-md-offset-2">
+                                <!--<div class="form-group">-->
+                                <!--</div>-->
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-outline btn-primary btn-lg" onclick="AddProduct()">添加</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <div class="col-lg-6  col-md-6 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        下达订单
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6  col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>订单号</label>
+                                    <input id="order_id" class="form-control" placeholder="请输入订单号">
+                                </div>
+                            </div>
+                            <div class="col-lg-6  col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>收货方</label>
+                                    <input id="" class="form-control" placeholder="请输入收货方">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6 col-md-8 col-sm-10">
+                            <div class="col-lg-6  col-md-6 col-sm-6">
                                 <div class="form-group">
-                                    <label for="dtp_input" class="control-label">生日</label>
-
-                                    <div class="input-group date form_datetime">
-                                        <input class="form-control" type="text" value="2012-06-15" readonly
-                                               class="form_datetime" data-link-field="dtp_input">
-                                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                                        <span class="input-group-addon"><span
-                                                class="glyphicon glyphicon-th"></span></span>
-                                    </div>
-                                    <input type="hidden" id="dtp_input" value=""><br>
+                                    <label>送货员</label>
+                                    <input class="form-control" placeholder="请输入送货员">
+                                </div>
+                            </div>
+                            <div class="col-lg-6  col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>总价</label>
+                                    <input id="total_price_seller" class="form-control" value="0" readonly="readonly"/>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6 col-md-8 col-sm-10">
-                            <input id="file-Portrait" type="file">
+                            <div class="col-lg-6  col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>账期</label>
+                                    <input id="payment_day" class="form-control" placeholder="请输入账期">
                                 </div>
-                        </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-6"style="margin-top:10px;margin-left:98px">
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-outline btn-primary btn-lg">添加</button>
-                                    </div>
+                            </div>
+                            <div class="col-lg-4 col-lg-offset-2 col-md-4 col-md-offset-2 col-sm-4 col-sm-1-offset-2">
+                                <!--<div class="form-group">-->
+                                <!--</div>-->
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-outline btn-primary btn-lg">添加</button>
                                 </div>
                             </div>
                             <!-- /.table-responsive -->
                         </div>
-                        <!-- /.panel-body -->
                     </div>
-                    <!-- /.panel -->
+                    <!-- /.panel-body -->
                 </div>
-                <!-- /.col-lg-6 -->
+                <!-- /.panel -->
             </div>
-            <!-- /.row -->
-
+            <!-- /.col-lg-6 -->
         </div>
-        <!-- /#page-wrapper -->
 
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        已添加商品
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="dataTable_wrapper">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                <tr>
+                                    <th>商品名称</th>
+                                    <th>商品单价</th>
+                                    <th>数量</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody id="productDetail">
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
     </div>
-    <!-- /#wrapper -->
+    <!-- /.row -->
 
-    <!-- jQuery -->
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <!-- Bootstrap-datepicker JavaScript -->
-    <script src="../bower_components/bootstrap/dist/js/bootstrap-datetimepicker.js"></script>
-    <script src="../bower_components/bootstrap/dist/js/bootstrap-datetimepicker.zh-CN.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
-
-    <!-- bootstrap file Javascript -->
-    <script src="../bower_components/bootstrap/dist/js/fileinput.min.js"></script>
-    <script src="../bower_components/bootstrap/dist/js/fileinput_locale_zh.js"></script>
-
-    <script type="text/javascript">
-        $(".form_datetime").datetimepicker({
-            minView: 'month',
-            format: 'yyyy-mm-dd',
-            language: 'zh-CN',
-            autoclose: true
-        });
-    </script>
-    <script type="text/javascript">
-        $(".form_datetime").datetimepicker({
-            format: "dd MM yyyy - hh:ii"
-        });
-    </script>
 </div>
+<!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="../dist/js/sb-admin-2.js"></script>
+
 </body>
 
 </html>

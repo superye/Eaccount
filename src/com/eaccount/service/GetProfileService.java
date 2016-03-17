@@ -1,10 +1,8 @@
 package com.eaccount.service;
 
-import com.eaccount.dao.CompanyDAO;
-import com.eaccount.dao.ICompanyDAO;
-import com.eaccount.dao.IUserDAO;
-import com.eaccount.dao.UserDAO;
+import com.eaccount.dao.*;
 import com.eaccount.domain.Company_profile;
+import com.eaccount.domain.Product;
 import com.eaccount.domain.User_profile;
 
 import java.util.ArrayList;
@@ -53,5 +51,17 @@ public class GetProfileService implements IGetProfileService{
         company_profile.setId(id);
         list = companyDAO.GetCompanyInfoByCompanyId(company_profile);
         return list;
+    }
+
+    @Override
+    public List<Product> GetCompanyProductById(String id) {
+        List<Product> list = new ArrayList<>();
+        IProductDAO productDAO = new ProductDAO();
+
+        Company_profile company_profile = new Company_profile();
+        company_profile.setId(id);
+        list = productDAO.GetCompanyProductById(company_profile);
+        return list;
+
     }
 }
