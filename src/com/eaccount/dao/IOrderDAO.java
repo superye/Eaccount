@@ -35,4 +35,5 @@ public interface IOrderDAO {
     public int CountNoSendOrder(Order order);
     public int CountNoReceivingOrder(Order order);
 
+    public String GetNewestOrderId();
 }

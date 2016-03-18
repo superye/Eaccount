@@ -123,5 +123,10 @@
       <input type="text" name="type" placeholder="type 1 收款 2 付款">
       <input type="submit" value="submit">
     </form>
+
+    自动生成id
+    <form action="order_GetNewestOrderId.action">
+      <input type="submit" value="submit">
+    </form>
   </body>
 </html>

@@ -362,4 +362,23 @@ public class OrderDAO implements IOrderDAO{
         if (list.size() == 0) return 0;
         return list.get(0);
     }
+
+    @Override
+    public String GetNewestOrderId() {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<String> list = new ArrayList<>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("Order.SelectNewestOrderId");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        return list.get(0);
+    }
 }

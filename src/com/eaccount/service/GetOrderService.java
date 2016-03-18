@@ -236,4 +236,12 @@ public class GetOrderService implements IGetOrderService{
         }
         return ans;
     }
+
+    @Override
+    public String GetNewestOrderId() {
+        IOrderDAO orderDAO = new OrderDAO();
+        String ans = null;
+        ans = orderDAO.GetNewestOrderId();
+        return ans;
+    }
 }

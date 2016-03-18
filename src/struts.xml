@@ -23,7 +23,6 @@
         </action>
         <action name="login_*" class="com.eaccount.controller.action.LoginAction" method="{1}">
             <result name="a">pages/placeorder.jsp</result>
-            <result name="success"/>
         </action>
         <action name="upload_*" class="com.eaccount.controller.action.UploadAction" method="{1}">
             <result name="success"/>
@@ -32,7 +31,6 @@
             <result name="placeOrder">pages/placeorder.jsp</result>
         </action>
         <action name="updateorder_*" class="com.eaccount.controller.action.UpdateOrderAction" method="{1}">
-            <result type="json"></result>
         </action>
     </package>
 </struts>

@@ -291,7 +291,7 @@
     </select>
 
     <!--查询最新order_id-->
-    <select id="SelectNewOrderId" resultType="String">
+    <select id="SelectNewestOrderId" resultType="String">
         SELECT MAX(order_id) FROM table_order
     </select>
 </mapper>

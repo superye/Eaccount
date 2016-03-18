@@ -1,5 +1,6 @@
 package com.eaccount.dao;
 
+import com.eaccount.domain.Company_profile;
 import com.eaccount.domain.User_profile;
 
 import java.util.List;

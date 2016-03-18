@@ -4,57 +4,41 @@ package com.eaccount.util;
  * Created by spzn on 16-3-14.
  */
 
+import com.eaccount.service.GetOrderService;
+import com.eaccount.service.IGetOrderService;
+
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
 public class GetNo {
 
-
-    private SimpleDateFormat sdf = null;
-    private String ip = null;
-
-
-    GetNo(String ip) {
-        this.ip = ip;
+    public String GetPhotoId(String user_id) {
+        DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        String Time = df.format(new Date());
+        int randNum = (int) (Math.random()*9999+1000);
+        String randString = String.valueOf(randNum);
+        return user_id + Time + randString;
     }
 
-    public String getIPTimeRand(){
-        StringBuffer buf = new StringBuffer();
-        if(this.ip != null){
-            String s[] = this.ip.split("\\.");//根据ip以点分割将IP中的数字提取
-            for(int i = 0 ; i < s.length; i++){
-                buf.append(this.addZero(s[i], 3));//不够三位数的补零
-            }
-        }
-        buf.append(this.getTimeStamp());
-        Random r = new Random();//再在结尾加上三个随机数
-        for(int i = 0 ; i < 3 ; i++ ){
-            buf.append(r.nextInt(10));
-        }
-        return buf.toString();
-    }
+    public String GetOrderId() {
+        IGetOrderService getOrderService = new GetOrderService();
+        String NewestId = getOrderService.GetNewestOrderId();
+        String NewestDate = NewestId.substring(0, 8);
+        String NewestNo = NewestId.substring(8, 12);
 
-    private String addZero(String str, int len){
+        DateFormat df = new SimpleDateFormat("yyyyMMdd");
+        String ThisDate = df.format(new Date());
+        String ThisNo = null;
 
-        StringBuffer s = new StringBuffer();
-        s.append(str);
-        while(s.length()<len){
-            s.insert(0, 0);
+        if (NewestDate.equals(ThisDate)) {
+            int temp = Integer.parseInt(NewestNo);
+            temp++;
+            ThisNo = String.format("%04d", temp);
+        } else {
+            ThisNo = "0001";
         }
 
-        return s.toString();
+        return ThisDate + ThisNo;
     }
-
-
-    private String getTimeStamp(){//获取时间戳
-        this.sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-        return this.sdf.format(new Date());
-    }
-
-    public String getDate(){
-        this.sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        return this.sdf.format(new Date());
-    }
-
 }
