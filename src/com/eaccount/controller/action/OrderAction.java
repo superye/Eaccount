@@ -131,8 +131,10 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
             jsonObject.put("no_paid_money", list.get(i).getNo_paid_money());
             if (type.equals("1")) {
                 jsonObject.put("company_id_seller", list.get(i).getCompany_id_seller());
-            }else
+            } else {
                 jsonObject.put("company_id_buyer", list.get(i).getCompany_id_buyer());
+            }
+            jsonObject.put("company_name", list.get(i).getCompany_name());
             jsonObject.put("company_logo", list.get(i).getCompany_logo());
             jsonArray.add(jsonObject);
         }
@@ -148,14 +150,16 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
 
     public String GetReconciliationInfo() throws IOException {
         String user_id = request.getParameter("user_id");
-        String company_id = request.getParameter("company_id");
+        String company_id2 = request.getParameter("company_id");
         String type = request.getParameter("type");
         IGetOrderService getOrderService = new GetOrderService();
-        int CMO = getOrderService.GetCountMattrOrder(user_id, company_id, type);
-        int CP = getOrderService.GetCountPayment(user_id,company_id, type);
+        IGetProfileService getProfileService = new GetProfileService();
+        String company_id1 = getProfileService.GetCompanyIdByUserId(user_id);
+        int CMO = getOrderService.GetCountMattrOrder(company_id1, company_id2, type);
+        int CP = getOrderService.GetCountPayment(company_id1,company_id2, type);
         List<Order> list = new ArrayList<>();
         List<Order_detail> listTemp = null;
-        list = getOrderService.GetMatterOrderInfo(user_id, company_id, type);
+        list = getOrderService.GetMatterOrderInfo(company_id1, company_id2, type);
 
         int len = 0;
         if (list != null) {
@@ -177,14 +181,14 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
                 tempJson.put("quantity_receiving", listTemp.get(j).getQuantity_receiving());
                 tempJson.put("order_id", list.get(i).getOrder_id());
                 tempJson.put("receiving_time", list.get(i).getReceiving_time());
-                tempJson.put("id", list.get(i).getId());
+                tempJson.put("id", listTemp.get(j).getId());
                 jsonArray1.add(tempJson);
             }
         }
 
         JSONObject json = new JSONObject();
         json.put("user_id", user_id);
-        json.put("company_id", company_id);
+        json.put("company_id", company_id2);
         json.put("CMO", CMO);
         json.put("CP", CP);
         json.put("list1", jsonArray1);
@@ -205,13 +209,15 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         List<Order> listO = new ArrayList<>();
 
         String user_id = request.getParameter("user_id");
-        String company_id = request.getParameter("company_id");
+        String company_id1 = getProfileService.GetCompanyIdByUserId(user_id);
+        String company_id2 = request.getParameter("company_id");
+        String boss_id = getProfileService.GetCompanyInfoByCompanyId(company_id2).get(0).getManager_id();
         String type = request.getParameter("type");
         String IsReconciliation = request.getParameter("IsReconciliation");
-        listU = getProfileService.GetUserInfoByUserId(user_id);
-        listC = getProfileService.GetCompanyInfoByCompanyId(company_id);
+        listU = getProfileService.GetUserInfoByUserId(boss_id);
+        listC = getProfileService.GetCompanyInfoByCompanyId(company_id2);
 
-        listO = getOrderService.GetMatterOrderDetailInfo(user_id, company_id, type, IsReconciliation);
+        listO = getOrderService.GetMatterOrderDetailInfo(company_id1, company_id2, type, IsReconciliation);
         JSONArray jsonArray = new JSONArray();
         JSONObject tempJson = null;
         int len = 0;

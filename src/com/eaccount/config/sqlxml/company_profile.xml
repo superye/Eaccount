@@ -11,7 +11,7 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="company_name" jdbcType="VARCHAR" property="company_name"/>
         <result column="company_address" jdbcType="VARCHAR" property="company_address"/>
-        <result column="company_logo" jdbcType="BLOB" property="company_logo"/>
+        <result column="company_logo" jdbcType="VARCHAR" property="company_logo"/>
         <result column="manager_id" jdbcType="VARCHAR" property="manager_id"/>
     </resultMap>
 

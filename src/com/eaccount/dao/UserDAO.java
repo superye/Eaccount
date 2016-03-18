@@ -1,6 +1,7 @@
 package com.eaccount.dao;
 
 import com.eaccount.domain.Company_profile;
+import com.eaccount.domain.User_company;
 import com.eaccount.domain.User_profile;
 import org.apache.ibatis.session.SqlSession;
 
@@ -105,5 +106,24 @@ public class UserDAO implements IUserDAO{
             }
         }
         return list;
+    }
+
+    @Override
+    public String GetCompanyIdByUserId(User_company user_company) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<String> list = new ArrayList<String>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("User_company.SelectCompanyIdByUserId", user_company);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        return list.get(0);
     }
 }

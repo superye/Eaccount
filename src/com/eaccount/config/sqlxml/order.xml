@@ -24,7 +24,7 @@
         <result column="payment_day" jdbcType="INTEGER" property="payment_day"/>
 
         <!-- companyINFO -->
-        <result column="company_logo" jdbcType="BLOB" property="company_logo"/>
+        <result column="company_logo" jdbcType="VARCHAR" property="company_logo"/>
         <result column="company_name" jdbcType="VARCHAR" property="company_name"/>
 
         <!-- 商品种类及数量 -->
@@ -110,13 +110,13 @@
     </delete>
 
     <select id="SelectReconciliationByBuyerId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
-        SELECT a.company_id_seller, b.company_logo, COUNT(*) AS no_paid_order_number, sum(total_price_buyer) AS no_paid_money
+        SELECT a.company_id_seller, b.company_logo, b.company_name, COUNT(*) AS no_paid_order_number, sum(total_price_buyer) AS no_paid_money
         FROM table_order a, table_company_profile b
         where is_reconciliation=0 AND user_id_buyer=#{user_id_buyer} AND a.company_id_seller=b.id
         GROUP by user_id_buyer, company_id_seller
     </select>
     <select id="SelectReconciliationBySellerId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
-        SELECT a.company_id_buyer, b.company_logo, COUNT(*) AS no_paid_order_number, sum(total_price_seller) AS no_paid_money
+        SELECT a.company_id_buyer, b.company_logo, b.company_name, COUNT(*) AS no_paid_order_number, sum(total_price_seller) AS no_paid_money
         FROM table_order a, table_company_profile b
         where is_reconciliation=0 AND user_id_seller=#{user_id_seller} AND a.company_id_buyer=b.id
         GROUP by user_id_seller, company_id_buyer
@@ -138,20 +138,19 @@
         SELECT DISTINCT a.order_id, a.receiving_time FROM table_order a, table_order_detail b
         WHERE 1 = 1
         AND a.order_id = b.order_id
-        AND a.user_id_seller = #{user_id_seller}
+        AND a.company_id_seller = #{company_id_seller}
         AND company_id_buyer = #{company_id_buyer}
         AND b.quantity_delivery != b.quantity_receiving
         ) c
         <!--在他是问题账单的前提是他得先是已送账单-->
         WHERE c.receiving_time IS NOT NULL
-        GROUP BY order_id
     </select>
 
     <!--卖家计算买方欠款-->
     <select id="SellerCountPayment" parameterType="com.eaccount.domain.Order" resultType="int">
         <!--有的客户有折扣，所以这里用total_price_buyer的和-->
         SELECT SUM(total_price_seller - paid_price) FROM table_order
-        WHERE user_id_seller = #{user_id_seller}
+        WHERE company_id_seller = #{company_id_seller}
         AND company_id_buyer = #{company_id_buyer}
         <!--在他是问题账单的前提是他得先是已送账单-->
         AND receiving_time IS NOT NULL
@@ -163,20 +162,19 @@
         SELECT DISTINCT a.order_id, a.receiving_time FROM table_order a, table_order_detail b
         WHERE 1 = 1
         AND a.order_id = b.order_id
-        AND a.user_id_buyer = #{user_id_buyer}
+        AND a.company_id_buyer = #{company_id_buyer}
         AND company_id_seller = #{company_id_seller}
         AND b.quantity_delivery != b.quantity_receiving
         ) c
         <!--在是问题账单的前提是得先是已送账单-->
         WHERE  c.receiving_time IS NOT NULL
-        GROUP BY order_id
     </select>
 
     <!--买家计算自身欠款-->
     <select id="BuyerCountPayment" parameterType="com.eaccount.domain.Order" resultType="int">
         <!--有的客户有折扣，所以这里用total_price_buyer的和-->
         SELECT SUM(total_price_buyer - paid_price) FROM table_order
-        WHERE user_id_buyer = #{user_id_buyer}
+        WHERE company_id_buyer = #{company_id_buyer}
         AND company_id_seller = #{company_id_seller}
         <!--在他问题账单的前提是得先是已送账单-->
         AND receiving_time IS NOT NULL
@@ -185,7 +183,7 @@
     <!--卖方查询有出入的订单详情-->
     <select id="SellerSelectMatterOrderInfo" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
         SELECT id, order_id, receiving_time FROM table_order
-        WHERE user_id_seller = #{user_id_seller}
+        WHERE company_id_seller = #{company_id_seller}
         AND company_id_buyer = #{company_id_buyer}
         AND total_price_seller != total_price_buyer
         <!--在是问题账单的前提是得先是已送账单-->
@@ -195,7 +193,7 @@
     <!--买方查询有出入的订单详情-->
     <select id="BuyerSelectMatterOrderInfo" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
         SELECT id, order_id, receiving_time FROM table_order
-        WHERE user_id_buyer = #{user_id_buyer}
+        WHERE company_id_buyer = #{comapny_id_buyer}
         AND company_id_seller = #{company_id_seller}
         AND total_price_seller != total_price_buyer
         <!--在是问题账单的前提是得先是已送账单-->
@@ -206,7 +204,7 @@
     <select id="SellerSelectMatterOrderDetailInfo" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
         SELECT a.order_id, a.receiving_time, COUNT(*) AS type_number, COUNT(b.quantity_delivery) AS product_number, a.total_price_seller
         FROM table_order a, table_order_detail b
-        WHERE a.user_id_seller = #{user_id_seller}
+        WHERE a.company_id_seller = #{company_id_seller}
         AND a.company_id_buyer = #{company_id_buyer}
         AND a.total_price_seller != a.total_price_buyer
         AND a.order_id = b.order_id
@@ -226,7 +224,7 @@
     <select id="BuyerSelectMatterOrderDetailInfo" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
         SELECT a.order_id, a.receiving_time, COUNT(*) AS type_number, COUNT(b.quantity_delivery) AS product_number, a.total_price_buyer
         FROM table_order a, table_order_detail b
-        WHERE a.user_id_buyer = #{user_id_buyer}
+        WHERE a.company_id_buyer = #{company_id_buyer}
         AND a.company_id_seller = #{company_id_seller}
         AND a.total_price_seller != a.total_price_buyer
         AND a.order_id = b.order_id

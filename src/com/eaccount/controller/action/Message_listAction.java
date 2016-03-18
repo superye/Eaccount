@@ -32,7 +32,7 @@ public class Message_listAction extends SuperAction {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("message_title", list.get(i).getMessage_title());
             jsonObject.put("message_sender", list.get(i).getMessage_sender());
-            jsonObject.put("message_data", list.get(i).getMessage_date());
+            jsonObject.put("message_date", list.get(i).getMessage_date());
             jsonObject.put("message_state", list.get(i).getMessage_state());
             jsonObject.put("message_remark", list.get(i).getMessage_remark());
             jsonObject.put("message_type", list.get(i).getMessage_type());

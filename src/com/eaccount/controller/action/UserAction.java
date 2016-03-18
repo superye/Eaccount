@@ -28,6 +28,8 @@ public class UserAction extends SuperAction{
             jsonObject = new JSONObject();
             jsonObject.put("id", list.get(i).getId());
             jsonObject.put("user_name", list.get(i).getUser_name());
+            jsonObject.put("user_photo", list.get(i).getUser_photo());
+            jsonObject.put("user_phone_number", list.get(i).getUser_phone_number());
             jsonArray.add(jsonObject);
         }
         byte[] jsonBytes = jsonArray.toString().getBytes("utf-8");

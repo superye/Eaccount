@@ -111,75 +111,75 @@ public class GetOrderService implements IGetOrderService{
 
 
     @Override
-    public int GetCountPayment(String user_id, String company_id, String type) {
+    public int GetCountPayment(String company_id1, String company_id2, String type) {
         Order order = new Order();
         IOrderDAO orderDAO = new OrderDAO();
         int ans = 0;
         if ("1".equals(type)) {
             order.setType("1");
-            order.setUser_id_buyer(user_id);
-            order.setCompany_id_seller(company_id);
+            order.setCompany_id_buyer(company_id1);
+            order.setCompany_id_seller(company_id2);
             ans = orderDAO.GetCountPayment(order);
         } else {
             order.setType("2");
-            order.setUser_id_seller(user_id);
-            order.setCompany_id_buyer(company_id);
+            order.setCompany_id_seller(company_id1);
+            order.setCompany_id_buyer(company_id2);
             ans = orderDAO.GetCountPayment(order);
         }
         return ans;
     }
 
     @Override
-    public int GetCountMattrOrder(String user_id, String company_id, String type) {
+    public int GetCountMattrOrder(String company_id1, String company_id2, String type) {
         Order order = new Order();
         IOrderDAO orderDAO = new OrderDAO();
         int ans = 0;
         if ("1".equals(type)) {
             order.setType("1");
-            order.setUser_id_buyer(user_id);
-            order.setCompany_id_seller(company_id);
+            order.setCompany_id_buyer(company_id1);
+            order.setCompany_id_seller(company_id2);
             ans = orderDAO.GetCountMatterOrder(order);
         } else {
             order.setType("2");
-            order.setUser_id_seller(user_id);
-            order.setCompany_id_buyer(company_id);
+            order.setCompany_id_seller(company_id1);
+            order.setCompany_id_buyer(company_id2);
             ans = orderDAO.GetCountMatterOrder(order);
         }
         return ans;
     }
 
     @Override
-    public List<Order> GetMatterOrderInfo(String user_id, String company_id, String type) {
+    public List<Order> GetMatterOrderInfo(String company_id1, String company_id2, String type) {
         List<Order> list = new ArrayList<>();
         IOrderDAO orderDAO = new OrderDAO();
         Order order = new Order();
         if ("1".equals(type)) {
             order.setType("1");
-            order.setUser_id_buyer(user_id);
-            order.setCompany_id_seller(company_id);
+            order.setCompany_id_buyer(company_id1);
+            order.setCompany_id_seller(company_id2);
         } else {
             order.setType("2");
-            order.setUser_id_seller(user_id);
-            order.setCompany_id_buyer(company_id);
+            order.setCompany_id_seller(company_id1);
+            order.setCompany_id_buyer(company_id2);
         }
         list = orderDAO.GetMatterOrderInfo(order);
         return list;
     }
 
     @Override
-    public List<Order> GetMatterOrderDetailInfo(String user_id, String company_id, String type, String is_reconciliation) {
+    public List<Order> GetMatterOrderDetailInfo(String company_id1, String company_id2, String type, String is_reconciliation) {
         List<Order> list = new ArrayList<>();
         IOrderDAO orderDAO = new OrderDAO();
         Order order = new Order();
         order.setIs_reconciliation(is_reconciliation);
         if ("1".equals(type)) {
             order.setType("1");
-            order.setUser_id_buyer(user_id);
-            order.setCompany_id_seller(company_id);
+            order.setCompany_id_buyer(company_id1);
+            order.setCompany_id_seller(company_id2);
         } else {
             order.setType("2");
-            order.setUser_id_seller(user_id);
-            order.setCompany_id_buyer(company_id);
+            order.setCompany_id_seller(company_id1);
+            order.setCompany_id_buyer(company_id2);
         }
         list = orderDAO.GetMatterOrderDetailInfo(order);
         return list;

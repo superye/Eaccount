@@ -21,15 +21,14 @@
     </resultMap>
 
     <select id="SelectOrderDetailInfoByOrderId" parameterType="com.eaccount.domain.Order_detail" resultMap="Order_detailResult">
-        SELECT a.order_id, a.product_id, a.unit_price, a.quantity_delivery, a.quantity_receiving, b.product_name, b.product_specification, COUNT(a.quantity_receiving * a.unit_price) AS money
+        SELECT a.id, a.order_id, a.product_id, a.unit_price, a.quantity_delivery, a.quantity_receiving, b.product_name, b.product_specification, a.quantity_receiving * a.unit_price AS money
         FROM table_order_detail a, table_product b WHERE 1 = 1
         AND a.order_id = #{order_id}
         AND a.product_id = b.id
-        GROUP BY a.product_id
     </select>
 
     <select id="SelectOrderDetailInfoByMatterOrderId" parameterType="com.eaccount.domain.Order_detail" resultMap="Order_detailResult">
-        SELECT a.order_id, a.product_id, a.unit_price, a.quantity_delivery, a.quantity_receiving, b.product_name, b.product_specification, COUNT(a.quantity_receiving * a.unit_price) AS money
+        SELECT a.id, a.order_id, a.product_id, a.unit_price, a.quantity_delivery, a.quantity_receiving, b.product_name, b.product_specification, COUNT(a.quantity_receiving * a.unit_price) AS money
         FROM table_order_detail a, table_product b WHERE 1 = 1
         AND a.order_id = #{order_id}
         AND a.product_id = b.id

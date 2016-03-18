@@ -11,7 +11,7 @@
         <!-- 用户信息表 -->
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="user_name" jdbcType="VARCHAR" property="user_name"/>
-        <result column="user_photo" jdbcType="BLOB" property="user_photo"/>
+        <result column="user_photo" jdbcType="VARCHAR" property="user_photo"/>
         <result column="user_birthday" jdbcType="DATE" property="user_birthday"/>
         <result column="user_phone_num" jdbcType="VARCHAR" property="user_phone_num"/>
         <result column="account" jdbcType="VARCHAR" property="account"/>
@@ -25,7 +25,7 @@
     </resultMap>
 
     <select id="SelectSameCompanyUserInfoByUserId" parameterType="com.eaccount.domain.User_profile" resultMap="User_profileResult">
-        SELECT a.id, a.user_name FROM table_user_profile a, table_user_company b WHERE 1 = 1
+        SELECT a.id, a.user_name, a.user_photo, a.user_phone_number FROM table_user_profile a, table_user_company b WHERE 1 = 1
         AND a.id = b.user_id
         AND b.company_id = (SELECT b.company_id FROM table_user_profile a, table_user_company b WHERE 1 = 1
                             AND a.id = #{id}

@@ -3,6 +3,7 @@ package com.eaccount.service;
 import com.eaccount.dao.*;
 import com.eaccount.domain.Company_profile;
 import com.eaccount.domain.Product;
+import com.eaccount.domain.User_company;
 import com.eaccount.domain.User_profile;
 
 import java.util.ArrayList;
@@ -93,5 +94,14 @@ public class GetProfileService implements IGetProfileService{
         user_profile.setUser_phone_number(phone_number);
         list = userDAO.GetUserIdByPhone(user_profile);
         return list.get(0).getId();
+    }
+
+    @Override
+    public String GetCompanyIdByUserId(String user_id) {
+        IUserDAO userDAO = new UserDAO();
+        User_company user_company = new User_company();
+        user_company.setUser_id(user_id);
+        String ans = userDAO.GetCompanyIdByUserId(user_company);
+        return ans;
     }
 }

@@ -16,8 +16,12 @@
         <result column="user_phone_number" jdbcType="VARCHAR" property="user_phone_number"/>
         <result column="company_name" jdbcType="VARCHAR" property="company_name"/>
         <result column="company_address" jdbcType="VARCHAR" property="company_address"/>
-        <result column="company_logp" jdbcType="BLOB" property="company_logo"/>
+        <result column="company_logo" jdbcType="VARCHAR" property="company_logo"/>
     </resultMap>
 
+    <select id="SelectCompanyIdByUserId" parameterType="com.eaccount.domain.User_company" resultType="String">
+        SELECT company_id FROM table_user_company
+        WHERE user_id = #{user_id}
+    </select>
 
 </mapper>
