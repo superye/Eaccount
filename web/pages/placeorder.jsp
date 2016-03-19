@@ -291,7 +291,7 @@
                             <div class="col-lg-6  col-md-6 col-sm-6">
                                 <div class="form-group">
                                     <label>订单号</label>
-                                    <input id="order_id" class="form-control" placeholder="请输入订单号">
+                                    <input id="order_id" class="form-control" value="${NewestOrderId}" readonly>
                                 </div>
                             </div>
                             <div class="col-lg-6  col-md-6 col-sm-6">

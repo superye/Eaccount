@@ -5,6 +5,7 @@ import com.eaccount.domain.Product;
 import com.eaccount.domain.User_profile;
 import com.eaccount.service.GetProfileService;
 import com.eaccount.service.IGetProfileService;
+import com.eaccount.util.GetNo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class LoadpageAction extends SuperAction{
         user_profiles = getProfileService.GetUserByCompanyId(request.getParameter("company_id_seller"));
         request.setAttribute("sellerList", user_profiles);
 
+        request.setAttribute("NewestOrderId", new GetNo().GetOrderId());
 
         return "placeOrder";
     }

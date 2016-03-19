@@ -93,6 +93,7 @@ public class GetProfileService implements IGetProfileService{
         User_profile user_profile = new User_profile();
         user_profile.setUser_phone_number(phone_number);
         list = userDAO.GetUserIdByPhone(user_profile);
+        if (list.size() == 0) return null;
         return list.get(0).getId();
     }
 

@@ -320,6 +320,7 @@ public class OrderDAO implements IOrderDAO{
                 sqlSession.close();
             }
         }
+        if (list.size() == 0) return 0;
         return list.get(0);
     }
 

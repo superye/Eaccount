@@ -66,7 +66,7 @@ public class MessageDAO implements IMessageDAO{
                 sqlSession.close();
             }
         }
-        if (list == null) return 0;
+        if (list.size() == 0) return 0;
         return list.get(0);
     }
 }
