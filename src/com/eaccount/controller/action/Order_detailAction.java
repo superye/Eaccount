@@ -49,6 +49,11 @@ public class Order_detailAction extends SuperAction{
       jsonObject.put("place_order_time", list1.get(0).getPlace_order_time());
       jsonObject.put("receiving_time", list1.get(0).getReceiving_time());
       jsonObject.put("photo", list1.get(0).getPhoto());
+      if ("type".equals(1)) {
+         jsonObject.put("user_id", list1.get(0).getUser_id_buyer());
+      } else {
+         jsonObject.put("user_id", list1.get(0).getUser_id_seller());
+      }
       jsonObject.put("List", jsonArray);
 
       byte[] jsonBytes = jsonObject.toString().getBytes("utf-8");
