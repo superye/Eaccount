@@ -41,9 +41,10 @@
       <input type="text" name="type" placeholder="type">
       <input type="submit" value="提交" />
     </form>
-    通过订单id获取订单详细信息测试
-    <form action="orderDetail_SellerGetOrderDetailInfoByOrderId.action" >
+    通过订单id获取订单详细信息测试 1买 2卖
+    <form action="orderDetail_GetOrderDetailInfoByOrderId.action" >
       <input type="text" name="order_id" placeholder="order_id">
+      <input type="text" name="type" placeholder="type">
       <input type="submit" value="提交"/>
     </form>
     通过接收方id查询信息测试
@@ -80,6 +81,13 @@
       <input type="text" id="user_password" name="user_password" placeholder="password">
       <input type="submit" value="提交">
     </form>
+
+    获取登录信息
+    <form action="login_GetLoginInfo.action">
+      <input type="text" name="user_phone_number" placeholder="phone">
+      <input type="submit" value="提交">
+    </form>
+
     信息测试
     <form action="messageList_SendMessage.action">
       <input type="text" id="message_receiver" name="message_receiver" placeholder="message_receiver">
@@ -126,6 +134,28 @@
 
     自动生成id
     <form action="order_GetNewestOrderId.action">
+      <input type="submit" value="submit">
+    </form>
+
+    添加付款信息
+    <form action="pay_AddPayInfo.action">
+      <input type="text" name="message_receiver" placeholder="message_receiver">
+      <input type="text" name="message_sender" placeholder="message_sender">
+      <input type="text" name="amount_of_money" placeholder="amount_of_money">
+      <input type="submit" value="submit">
+    </form>
+
+    修改订单明细表中货物数量 1 卖方将收货数量改为送货数量 2 买方将送货数量改为收货数量
+    <form action="orderDetail_UpdateQuantity.action">
+      <input type="text" name="order_detail_id" placeholder="order_detail_id">
+      <input type="text" name="type" placeholder="type">
+      <input type="submit" value="submit">
+    </form>
+
+    买方修改收货数量
+    <form action="orderDetail_BuyerSetQuantity.action">
+      <input type="text" name="order_detail_id" placeholder="order_detail_id">
+      <input type="text" name="quantity" placeholder="quantity">
       <input type="submit" value="submit">
     </form>
   </body>

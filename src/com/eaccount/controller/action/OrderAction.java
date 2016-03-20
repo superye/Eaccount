@@ -1,10 +1,8 @@
 package com.eaccount.controller.action;
 
-import com.eaccount.domain.Company_profile;
-import com.eaccount.domain.Order;
-import com.eaccount.domain.Order_detail;
-import com.eaccount.domain.User_profile;
+import com.eaccount.domain.*;
 import com.eaccount.service.*;
+import com.eaccount.util.GetNowTime;
 import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -105,8 +103,26 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
 
     //通过订单Id删除订单及订单详细信息
     public String DeleteOrderInfoByOrderId() {
+        //删除订单信息
         String order_id = request.getParameter("order_id");
         IDeleteOrderService deleteOrderService = new DeleteOrderService();
+
+        //发送拒收消息
+        IGetOrderService getOrderService = new GetOrderService();
+        List<Order> list = new ArrayList<>();
+        list = getOrderService.GetOrderByOrderId(order_id, "1");
+
+        Message_list message_list = new Message_list();
+        message_list.setMessage_sender(list.get(0).getUser_id_buyer());
+        message_list.setMessage_receiver(list.get(0).getUser_id_seller());
+        message_list.setMessage_title(list.get(0).getUser_name() + "已拒收");
+        message_list.setMessage_type("4");
+        message_list.setMessage_date(new GetNowTime().GetTime(1));
+
+        ISendMessageService sendMessageService = new SendMessageService();
+        sendMessageService.SendMessage(message_list);
+
+        //删除操作最后执行
         deleteOrderService.DeleteOrderInfoByOrderId(order_id);
         return null;
     }

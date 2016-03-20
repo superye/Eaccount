@@ -32,5 +32,7 @@
         </action>
         <action name="updateorder_*" class="com.eaccount.controller.action.UpdateOrderAction" method="{1}">
         </action>
+        <action name="pay_*" class="com.eaccount.controller.action.PayAction" method="{1}">
+        </action>
     </package>
 </struts>

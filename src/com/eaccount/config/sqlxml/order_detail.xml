@@ -18,6 +18,7 @@
         <result column="product_name" jdbcType="VARCHAR" property="product_name"/>
         <result column="product_specification" jdbcType="VARCHAR" property="product_specification"/>
         <result column="money" jdbcType="INTEGER" property="money"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
     </resultMap>
 
     <select id="SelectOrderDetailInfoByOrderId" parameterType="com.eaccount.domain.Order_detail" resultMap="Order_detailResult">
@@ -34,5 +35,25 @@
         AND a.product_id = b.id
         AND a.quantity_delivery != a.quantity_receiving
         GROUP BY a.product_id
+    </select>
+
+    <update id="SellerUpdateQuantity" parameterType="com.eaccount.domain.Order_detail">
+        UPDATE table_order_detail SET quantity_receiving = quantity_delivery
+        WHERE id = #{id}
+    </update>
+
+    <update id="BuyerUpdateQuantity" parameterType="com.eaccount.domain.Order_detail">
+        UPDATE table_order_detail SET quantity_delivery = quantity_receiving
+        WHERE id = #{id}
+    </update>
+
+    <update id="BuyerSetQuantity" parameterType="com.eaccount.domain.Order_detail">
+        UPDATE table_order_detail SET quantity_receiving = #{quantity_receiving}
+        WHERE id = #{id}
+    </update>
+
+    <select id="SelectOrderIdByOrderDetailId" parameterType="com.eaccount.domain.Order_detail" resultType="String">
+        SELECT order_id FROM table_order_detail
+        WHERE id = #{id}
     </select>
 </mapper>

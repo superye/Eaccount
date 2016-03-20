@@ -80,13 +80,24 @@
         ORDER BY a.place_order_time
     </select>
 
-    <select id="SelectOrderInfoByOrderId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
-        SELECT c.company_logo, c.company_name, c.company_address, b.user_name, b.user_phone_number, a.place_order_time, a.receiving_time, d.photo
+    <select id="SellerSelectOrderInfoByOrderId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
+        SELECT a.user_id_buyer, a.user_id_seller, c.company_logo, c.company_name, c.company_address, b.user_name, b.user_phone_number, a.place_order_time, a.receiving_time, d.photo
         FROM table_order a, table_user_profile b, table_company_profile c, table_photo d, table_order_detail e
         WHERE 1 = 1
         AND a.order_id = #{order_id}
         AND a.user_id_buyer = b.id
         AND company_id_buyer = c.id
+        AND a.order_id = d.order_id
+        AND photo_type = 1
+    </select>
+
+    <select id="BuyerSelectOrderInfoByOrderId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
+        SELECT a.user_id_seller, a.user_id_buyer, c.company_logo, c.company_name, c.company_address, b.user_name, b.user_phone_number, a.place_order_time, a.receiving_time, d.photo
+        FROM table_order a, table_user_profile b, table_company_profile c, table_photo d, table_order_detail e
+        WHERE 1 = 1
+        AND a.order_id = #{order_id}
+        AND a.user_id_seller = b.id
+        AND company_id_seller = c.id
         AND a.order_id = d.order_id
         AND photo_type = 1
     </select>
@@ -193,7 +204,7 @@
     <!--买方查询有出入的订单详情-->
     <select id="BuyerSelectMatterOrderInfo" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
         SELECT id, order_id, receiving_time FROM table_order
-        WHERE company_id_buyer = #{comapny_id_buyer}
+        WHERE company_id_buyer = #{company_id_buyer}
         AND company_id_seller = #{company_id_seller}
         AND total_price_seller != total_price_buyer
         <!--在是问题账单的前提是得先是已送账单-->

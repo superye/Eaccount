@@ -11,7 +11,7 @@ import java.util.List;
 public interface IGetOrderService {
     public List<Order> GetOrderByUserIdSeller(String id, String type);
     public List<Order> GetOrderByUserIdBuyer(String id, String type);
-    public List<Order> GetOrderByOrderId(String id);
+    public List<Order> GetOrderByOrderId(String id, String type);
     public List<Order> GetOrderByUserIdBuyer(int id);
 
     public int GetCountMattrOrder(String company_id1, String company_id2, String type);
@@ -31,4 +31,5 @@ public interface IGetOrderService {
     public int CountNotSendOrReceivingOrder(String user_id, String type);
 
     public String GetNewestOrderId();
+    public String GetOrderIdByOrderDetailId(String id);
 }

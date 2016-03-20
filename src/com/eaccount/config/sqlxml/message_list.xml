@@ -22,8 +22,8 @@
         SELECT * FROM table_message_list WHERE message_receiver=#{id}
     </select>
     <update id="InsertMessage" parameterType="com.eaccount.domain.Message_list">
-        INSERT INTO table_message_list(message_receiver, message_sender, message_title, message_type, message_state, message_date, message_remark)
-        VALUES(#{message_receiver}, #{message_sender}, #{message_title}, #{message_type}, #{message_state}, #{message_date}, #{message_remark})
+        INSERT INTO table_message_list(message_receiver, message_sender, message_title, message_type, message_date, message_remark)
+        VALUES(#{message_receiver}, #{message_sender}, #{message_title}, #{message_type}, #{message_date}, #{message_remark})
     </update>
 
     <!--统计未读信息-->

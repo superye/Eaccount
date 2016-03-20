@@ -57,7 +57,26 @@ public class OrderDAO implements IOrderDAO{
         List<Order> list = new ArrayList<Order>();
         try {
             sqlSession = dbAccess.getSqlSession();
-            list = sqlSession.selectList("Order.SelectOrderInfoByOrderId", order);
+            list = sqlSession.selectList("Order.SellerSelectOrderInfoByOrderId", order);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<Order> BuyerGetOrderMessageByOrderId(Order order) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Order> list = new ArrayList<Order>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("Order.BuyerSelectOrderInfoByOrderId", order);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

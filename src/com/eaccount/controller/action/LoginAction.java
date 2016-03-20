@@ -14,6 +14,36 @@ import java.util.List;
 public class LoginAction extends SuperAction implements ModelDriven<User_profile>{
     User_profile user_profile = new User_profile();
 
+    public String GetLoginInfo() {
+        IGetProfileService getProfileService = new GetProfileService();
+        IGetOrderService getOrderService = new GetOrderService();
+        IGetMessageService getMessageService = new GetMessageService();
+        JSONObject jsonObject = new JSONObject();
+        String phone_number = user_profile.getUser_phone_number();
+        String id = getProfileService.GetUserIdByPhone(phone_number);
+
+        System.out.println(id);
+        int CountOverdueOrder = getOrderService.CountOverdueOrder(id);
+        int CountUnreadMessage = getMessageService.CountUnreadMessage(id);
+        int CountNoSendOrder = getOrderService.CountNotSendOrReceivingOrder(id, "1");
+        int CountNoReceiving = getOrderService.CountNotSendOrReceivingOrder(id, "2");
+
+        jsonObject.put("CountOverdueOrder", CountOverdueOrder);
+        jsonObject.put("CountUnreadMessage", CountUnreadMessage);
+        jsonObject.put("CountNoSendOrder", CountNoSendOrder);
+        jsonObject.put("CountNoReceivingOrder", CountNoReceiving);
+
+        try {
+            byte[] jsonBytes = jsonObject.toString().getBytes("utf-8");
+            response.setContentType("text/html;charset=utf-8");
+            response.setContentLength(jsonBytes.length);
+            response.getOutputStream().write(jsonBytes);
+            response.getOutputStream().flush();
+            response.getOutputStream().close();
+        }catch (Exception e){}
+        return SUCCESS;
+    }
+
     public String Login() {
         IGetProfileService getProfileService = new GetProfileService();
         IGetOrderService getOrderService = new GetOrderService();

@@ -55,12 +55,17 @@ public class GetOrderService implements IGetOrderService{
     }
 
     @Override
-    public List<Order> GetOrderByOrderId(String id) {
+    public List<Order> GetOrderByOrderId(String id, String type) {
         List<Order> list = new ArrayList<>();
         IOrderDAO orderDAO = new OrderDAO();
         Order order = new Order();
         order.setOrder_id(id);
-        list = orderDAO.SellerGetOrderMessageByOrderId(order);
+        order.setType(type);
+        if ("1".equals(type)) {
+            list = orderDAO.SellerGetOrderMessageByOrderId(order);
+        } else {
+            list = orderDAO.BuyerGetOrderMessageByOrderId(order);
+        }
         return list;
     }
 
@@ -243,5 +248,13 @@ public class GetOrderService implements IGetOrderService{
         String ans = null;
         ans = orderDAO.GetNewestOrderId();
         return ans;
+    }
+
+    @Override
+    public String GetOrderIdByOrderDetailId(String id) {
+        IOrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        Order_detail order_detail = new Order_detail();
+        order_detail.setId(id);
+        return orderDetailDAO.GetOrderIdBuyOrderDetailId(order_detail);
     }
 }

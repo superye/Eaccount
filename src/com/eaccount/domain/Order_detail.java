@@ -19,6 +19,15 @@ public class Order_detail {
     private String product_name;
     private String product_specification;
     private int money;
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getId() {
         return id;

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Pay">
+
+    <resultMap type="com.eaccount.domain.Pay" id="PayResult">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="message_receiver" jdbcType="INTEGER" property="message_receiver"/>
+        <result column="message_sender" jdbcType="INTEGER" property="message_sender"/>
+        <result column="amount_of_money" jdbcType="INTEGER" property="amount_of_money"/>
+        <result column="pay_state" jdbcType="INTEGER" property="pay_state"/>
+        <result column="pay_time" jdbcType="INTEGER" property="pay_time"/>
+        <result column="pay_picture" jdbcType="INTEGER" property="pay_picture"/>
+    </resultMap>
+
+    <insert id="InsertPayInfo" parameterType="com.eaccount.domain.Pay">
+        INSERT INTO table_pay(message_receiver, message_sender, amount_of_money, pay_time)
+        VALUES(#{message_receiver}, #{message_sender}, #{amount_of_money}, #{pay_time})
+    </insert>
+
+</mapper>

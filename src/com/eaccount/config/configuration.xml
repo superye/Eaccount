@@ -25,5 +25,6 @@
         <mapper resource="com/eaccount/config/sqlxml/message_list.xml" />
         <mapper resource="com/eaccount/config/sqlxml/company_profile.xml" />
         <mapper resource="com/eaccount/config/sqlxml/product.xml" />
+        <mapper resource="com/eaccount/config/sqlxml/pay.xml" />
     </mappers>
 </configuration>
