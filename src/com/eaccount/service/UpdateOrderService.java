@@ -58,4 +58,10 @@ public class UpdateOrderService implements IUpdateOrderService{
         return orderDetailDAO.BuyerSetQuantity(order_detail);
     }
 
+    @Override
+    public boolean InsertOrderDetails(Order_detail order_detail) {
+        IOrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        orderDetailDAO.InsertOrderDetails(order_detail);
+        return true;
+    }
 }

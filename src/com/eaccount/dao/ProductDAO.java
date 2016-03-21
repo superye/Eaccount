@@ -31,4 +31,42 @@ public class ProductDAO implements IProductDAO{
         }
         return list;
     }
+
+    @Override
+    public boolean DeleteProduct(Product product) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            sqlSession.selectList("Product.DeleteProduct",product);
+            sqlSession.selectList("Product.DeleteProductCompany",product);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean AddProduct(Product product) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            sqlSession.selectList("Product.AddProduct",product);
+            sqlSession.selectList("Product.AddProductCompany",product);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        return true;
+    }
 }

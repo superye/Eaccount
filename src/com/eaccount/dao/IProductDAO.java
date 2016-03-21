@@ -10,4 +10,7 @@ import java.util.List;
  */
 public interface IProductDAO {
     public List<Product> GetCompanyProductById(Company_profile company_profile);
+    public boolean DeleteProduct(Product product);
+    public boolean AddProduct(Product product);
 }
+

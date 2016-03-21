@@ -4,6 +4,8 @@
 var i = 0;
 var m = 0;
 function AddProduct() {
+    var tmp = $("#productName").val();
+    var str = "#productName option[value="+tmp+"]";
     $("#priceError").html("商品单价");
     $("#priceError").css({color:"black"});
     $("#numError").html("商品数量");
@@ -32,7 +34,7 @@ function AddProduct() {
 
     var j = 1;
     for (;j<=i;j++) {
-        if ($("#tdName" + j.toString()).html() == $("#productName").val()) {
+        if ($("#tdName" + j.toString()).html() == $(str).html()) {
             if ($("#tdPrice" + j.toString()).html() != $("#price").val()) {
                 alert("与之前添加的同类商品价格不符!");
                 return;
@@ -49,7 +51,8 @@ function AddProduct() {
     }
     i = i + 1;
     var s = i.toString();
-    $("#productDetail").append("<tr id='trId"+s+"' class='even gradeC'><td id='tdName"+s+"'>"+$("#productName").val()
+    $("#productDetail").append("<tr id='trId"+s+"' class='even gradeC'><td id='tdId"+s+"'>"+$("#productName").val()
+        +"</td><td id='tdName"+s+"'>"+$(str).html()
         +"</td> <td id='tdPrice"+s+"'>"+$("#price").val()
         +"</td> <td id='tdNum"+s+"' class='center'>"+$("#num").val()
         +"</td> <td class='center'><a href='javascript:void(0)' onclick='DeleteProduct("+s+")' ;>删除</a></td> </tr>");
@@ -65,12 +68,11 @@ function DeleteProduct(id) {
     var price = ($("#tdPrice" + s).html());
     var num = ($("#tdNum" + s).html());
     m = m - price * num;
-    $("#totalPrice").val(m);
+    $("#total_price_seller").val(m);
     $("#trId" + s).remove();
 }
 
 function AddOrder() {
-    alert("a");
     var url = "http://localhost:8080/updateorder_InsertOrder.action";
     var data = "order_id="+$("#order_id").val()+
         "&company_id_buyer="+$("#company_id_buyer").val()+
@@ -82,7 +84,30 @@ function AddOrder() {
         url:url,
         data: data,
         success: function(Msg) {
-            alert("a");
+            alert("下单成功");
+        }
+    });
+    var j = 1;
+    for (;j <= i; j++) {
+        if ($("#trId" + j.toString()).length > 0) {
+            AddOrderDetails($("#order_id").val(), $("#tdId"+ j.toString()).html(), $("#tdPrice" + j.toString()).html(), $("#tdNum"+ j.toString()).html());
+        }
+    }
+
+}
+
+function AddOrderDetails(order_id, pruduct_id, unit_price, quantity_delivery) {
+    var url = "http://localhost:8080/orderDetail_InsertOrderDetails.action";
+    var data = "order_id="+order_id+
+        "&product_id="+pruduct_id+
+        "&unit_price="+unit_price+
+        "&quantity_delivery="+quantity_delivery;
+
+    $.ajax({
+        type:"GET",
+        url:url,
+        data: data,
+        success: function(Msg) {
         }
     });
 }

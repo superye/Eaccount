@@ -56,4 +56,9 @@
         SELECT order_id FROM table_order_detail
         WHERE id = #{id}
     </select>
+
+    <select id="InsertOrderDetails" parameterType="com.eaccount.domain.Order_detail" resultMap="Order_detailResult">
+        INSERT INTO table_order_detail(order_id, product_id, unit_price, quantity_delivery)
+        VALUES(#{order_id}, #{product_id}, #{unit_price}, #{quantity_delivery})
+    </select>
 </mapper>

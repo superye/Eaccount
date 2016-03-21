@@ -6,6 +6,7 @@ import com.eaccount.domain.User_profile;
 import com.eaccount.service.GetProfileService;
 import com.eaccount.service.IGetProfileService;
 import com.eaccount.util.GetNo;
+import sun.nio.cs.ext.SJIS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +18,15 @@ public class LoadpageAction extends SuperAction{
     public String LoadPlaceorderPage() {
         List<Product> list = new ArrayList<>();
         IGetProfileService getProfileService = new GetProfileService();
-        list = getProfileService.GetCompanyProductById(request.getParameter("company_id_seller"));
-        request.getSession().setAttribute("company_id_seller", request.getParameter("company_id_seller"));
+        String company_id_seller = null;
+        if (session.getAttribute("company_id_seller") == null) {
+            company_id_seller = request.getParameter("company_id_seller");
+            request.getSession().setAttribute("company_id_seller", request.getParameter("company_id_seller"));
+        }
+        else {
+            company_id_seller = session.getAttribute("company_id_seller").toString();
+        }
+        list = getProfileService.GetCompanyProductById(company_id_seller);
         request.setAttribute("productList", list);
 
         List<Company_profile> company_profiles = new ArrayList<>();
@@ -32,5 +40,14 @@ public class LoadpageAction extends SuperAction{
         request.setAttribute("NewestOrderId", new GetNo().GetOrderId());
 
         return "placeOrder";
+    }
+
+    public String LoadGoodsPage() {
+        String id = session.getAttribute("company_id_seller").toString();
+        List<Product> list = new ArrayList<>();
+        IGetProfileService getProfileService = new GetProfileService();
+        list = getProfileService.GetCompanyProductById(id);
+        request.setAttribute("productList", list);
+        return "goods";
     }
 }

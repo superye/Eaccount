@@ -1,5 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html lang="en">
+<%@ page language="java" contentType="text/html;charset=UTF-8" %>
 
 <head>
 
@@ -29,6 +32,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <script src="../js/Product.js"></script>
 
 </head>
 
@@ -195,7 +200,7 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="placeorder.jsp"><i class="fa fa-dashboard fa-fw"></i>下单</a>
+                            <a href="loadpage_LoadPlaceorderPage.action"><i class="fa fa-dashboard fa-fw"></i>下单</a>
                         </li>
                         <li>
                             <a href="historicalbill.html"><i class="fa fa-dashboard fa-fw"></i>历史账单</a>
@@ -204,7 +209,7 @@
                             <a href="personaldata.html"><i class="fa fa-dashboard fa-fw"></i>个人资料</a>
                         </li>
                         <li>
-                            <a href="goods.html"><i class="fa fa-dashboard fa-fw"></i>商品</a>
+                            <a href="goods.jsp"><i class="fa fa-dashboard fa-fw"></i>商品</a>
                         </li>
                         <li>
                             <a href="personnelAauthority.html"><i class="fa fa-dashboard fa-fw"></i>人员与权限</a>
@@ -236,10 +241,10 @@
                             <input type="text" class="form-control" id="goods" placeholder="请输入商品">
                         </div>
                         <div class="form-group">
-                            <label for="quantity">规格</label>
-                            <input type="text" class="form-control" id="quantity" placeholder="请输入规格">
+                            <label for="specification">规格</label>
+                            <input type="text" class="form-control" id="specification" placeholder="请输入规格">
                         </div>
-                        <button type="button" class="btn btn-outline btn-primary">新增</button>
+                        <button type="button" onclick="AddGood(${company_id_seller})" class="btn btn-outline btn-primary">新增</button>
 
                     </form>
                 </div>
@@ -247,31 +252,28 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            账单列表
-                        </div>
+                        <div class="panel-heading"> 账单列表 </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                     <tr>
+                                        <th>商品id</th>
                                         <th>商品名称</th>
                                         <th>商品规格</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr class="odd gradeX">
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td><a herf="#">删除</a></td>
-                                    </tr>
-                                    <tr class="even gradeC">
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td><a herf="#">删除</a></td>
-                                    </tr>
+                                    <c:forEach items="${productList}" var="list" >
+                                        <tr id="goods${list.getId()}">
+                                            <td>${list.getId()}</td>
+                                            <td>${list.getProduct_name()}</td>
+                                            <td>${list.getProduct_specification()}</td>
+                                            <td><a href="javascript:void(0)" onclick="DeleteGood(${list.getId()})">删除</a></td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

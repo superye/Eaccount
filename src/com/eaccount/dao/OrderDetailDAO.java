@@ -115,4 +115,22 @@ public class OrderDetailDAO implements IOrderDetailDAO{
         }
         return list.get(0);
     }
+
+    @Override
+    public boolean InsertOrderDetails(Order_detail order_detail) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            sqlSession.selectList("Order_detail.InsertOrderDetails", order_detail);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        return true;
+    }
 }

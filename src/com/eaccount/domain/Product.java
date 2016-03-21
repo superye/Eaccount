@@ -53,7 +53,7 @@ public class Product {
     }
 
     public String getProduct_specification() {
-        return product_specification;
+        return this.product_specification;
     }
 
     public void setProduct_specification(String product_specification) {

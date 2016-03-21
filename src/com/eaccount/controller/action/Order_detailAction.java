@@ -100,4 +100,31 @@ public class Order_detailAction extends SuperAction{
       updateOrderService.BuyerSetQuantity(id, quantity);
       return null;
    }
+
+   public void InsertOrderDetails() {
+      String order_id = request.getParameter("order_id");
+      String ptoduct_id = request.getParameter("product_id");
+      String unit_price = request.getParameter("unit_price");
+      String quantity_delivery = request.getParameter("quantity_delivery");
+      Order_detail order_detail = new Order_detail();
+      order_detail.setOrder_id(order_id);
+      order_detail.setProduct_id(ptoduct_id);
+      order_detail.setUnit_price(unit_price);
+      order_detail.setQuantity_delivery(quantity_delivery);
+
+      IUpdateOrderService updateOrderService = new UpdateOrderService();
+      updateOrderService.InsertOrderDetails(order_detail);
+
+      JSONObject jsonObject = new JSONObject();
+      jsonObject.put("result", "success");
+      try {
+         byte[] jsonBytes = jsonObject.toString().getBytes("utf-8");
+         response.setContentType("text/html;charset=utf-8");
+         response.setContentLength(jsonBytes.length);
+         response.getOutputStream().write(jsonBytes);
+         response.getOutputStream().flush();
+         response.getOutputStream().close();
+      } catch (Exception e){}
+
+   }
 }

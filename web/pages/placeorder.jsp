@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <%@ page language="java" contentType="text/html;charset=UTF-8" %>
@@ -31,7 +32,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
-    <script src="../js/Myjs.js"></script>
+    <script src="../js/PlaceOrder.js"></script>
 </head>
 
 <body>
@@ -205,7 +206,7 @@
                         <a href="personaldata.html"><i class="fa fa-dashboard fa-fw"></i>个人资料</a>
                     </li>
                     <li>
-                        <a href="goods.html"><i class="fa fa-dashboard fa-fw"></i>商品</a>
+                        <a href="loadpage_LoadGoodsPage.action"><i class="fa fa-dashboard fa-fw"></i>商品</a>
                     </li>
                     <li>
                         <a href="personnelAauthority.html"><i class="fa fa-dashboard fa-fw"></i>人员与权限</a>
@@ -243,7 +244,7 @@
                                     <label>商品名称</label>
                                     <select id="productName" class="form-control">
                                         <c:forEach items="${productList}" var="list">
-                                            <option>${list.getProduct_name()}</option>
+                                            <option value="${list.getId()}">${list.getProduct_name()} ${list.getProduct_specification()}</option>
                                         </c:forEach>
                                     </select>
                                 </div>
@@ -313,7 +314,7 @@
                                     <label>送货员</label>
                                     <select id="user_id_seller" class="form-control" >
                                         <c:forEach items="${sellerList}" var="list">
-                                            <option value="${list.getId()}">${list.getUser_name()}</option>
+                                            <option value="${list.getId()}">${list.getUser_name()}</option> <s:label>ja</s:label>
                                         </c:forEach>
                                     </select>
                                 </div>
@@ -362,6 +363,7 @@
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                 <tr>
+                                    <th>商品id</th>
                                     <th>商品名称</th>
                                     <th>商品单价</th>
                                     <th>数量</th>
