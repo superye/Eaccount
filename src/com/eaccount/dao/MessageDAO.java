@@ -69,4 +69,25 @@ public class MessageDAO implements IMessageDAO{
         if (list.size() == 0) return 0;
         return list.get(0);
     }
+
+    @Override
+    public boolean ReadMessage(Message_list message_list) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        int cnt = 0;
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            cnt = sqlSession.update("Message_list.ReadMessage", message_list);
+            sqlSession.commit();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        if (cnt == 0) return false;
+        return true;
+    }
 }

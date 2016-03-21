@@ -1,7 +1,6 @@
 package com.eaccount.dao;
 
 import com.eaccount.domain.Order;
-import com.eaccount.domain.Order_detail;
 
 import java.util.List;
 
@@ -38,5 +37,5 @@ public interface IOrderDAO {
     public int CountNoReceivingOrder(Order order);
 
     public String GetNewestOrderId();
-
+    public boolean SetReceivingTime(Order order);
 }

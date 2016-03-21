@@ -64,4 +64,13 @@ public class UpdateOrderService implements IUpdateOrderService{
         orderDetailDAO.InsertOrderDetails(order_detail);
         return true;
     }
+    @Override
+    public boolean SetReceivingTime(String id, String time) {
+        Order order = new Order();
+        order.setOrder_id(id);
+        order.setReceiving_time(time);
+
+        IOrderDAO orderDAO = new OrderDAO();
+        return orderDAO.SetReceivingTime(order);
+    }
 }

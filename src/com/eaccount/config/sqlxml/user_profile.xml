@@ -22,6 +22,7 @@
         <result column="permission_settlement" jdbcType="INTEGER" property="permission_settlement"/>
         <result column="designate_delivery" jdbcType="INTEGER" property="designate_delivery"/>
         <result column="designate_receiving" jdbcType="INTEGER" property="designate_receiving"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
     </resultMap>
 
     <select id="SelectSameCompanyUserInfoByUserId" parameterType="com.eaccount.domain.User_profile" resultMap="User_profileResult">
@@ -46,6 +47,12 @@
         SELECT a.id, a.user_name from table_user_profile a, table_user_company b WHERE a.id=b.user_id AND b.company_id=#{id}
     </select>
 
+    <select id="GetSettleUserByCompanyId" parameterType="com.eaccount.domain.Company_profile" resultMap="User_profileResult">
+        SELECT a.id, a.user_name from table_user_profile a, table_user_company b
+        WHERE a.id=b.user_id
+        AND b.company_id=#{id}
+        AND permission_settlement = 1
+    </select>
 
     <!--通过手机号查询用户id-->
     <select id="SelectUserIdByPhone" parameterType="com.eaccount.domain.User_profile" resultMap="User_profileResult">

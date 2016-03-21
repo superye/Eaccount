@@ -31,6 +31,7 @@ public class Order_detailAction extends SuperAction{
       JSONArray jsonArray = new JSONArray();
       for (int i = 0; i < list2.size(); i++) {
          json = new JSONObject();
+         json.put("Order_Detail_id", list2.get(i).getId());
          json.put("product_name", list2.get(i).getProduct_name());
          json.put("product_specification", list2.get(i).getProduct_specification());
          json.put("unit_price", list2.get(i).getUnit_price());
@@ -49,6 +50,11 @@ public class Order_detailAction extends SuperAction{
       jsonObject.put("place_order_time", list1.get(0).getPlace_order_time());
       jsonObject.put("receiving_time", list1.get(0).getReceiving_time());
       jsonObject.put("photo", list1.get(0).getPhoto());
+      if ("type".equals(2)) {
+         jsonObject.put("user_id", list1.get(0).getUser_id_buyer());
+      } else {
+         jsonObject.put("user_id", list1.get(0).getUser_id_seller());
+      }
       jsonObject.put("List", jsonArray);
 
       byte[] jsonBytes = jsonObject.toString().getBytes("utf-8");
@@ -63,6 +69,7 @@ public class Order_detailAction extends SuperAction{
    public String UpdateQuantity() {
       String id = request.getParameter("order_detail_id");
       String type = request.getParameter("type");
+      String Is_Send_Message = request.getParameter("Is_Send_Message");
 
       IUpdateOrderService updateOrderService = new UpdateOrderService();
       updateOrderService.UpdateQuantity(id, type);
@@ -73,22 +80,25 @@ public class Order_detailAction extends SuperAction{
       List<Order> list = new ArrayList<>();
 
       ISendMessageService sendMessageService = new SendMessageService();
+      IGetProfileService getProfileService = new GetProfileService();
       Message_list message_list = new Message_list();
       if ("1".equals(type)) {
          list = getOrderService.GetOrderByOrderId(order_id, "1");
          message_list.setMessage_sender(list.get(0).getUser_id_buyer());
-         message_list.setMessage_receiver(list.get(0).getUser_id_seller());
+         message_list.setMessage_receiver(getProfileService.GetCompanyInfoByCompanyId(list.get(0).getUser_id_seller()).get(0).getManager_id());
       } else {
          list = getOrderService.GetOrderByOrderId(order_id, "2");
          message_list.setMessage_sender(list.get(0).getUser_id_seller());
-         message_list.setMessage_receiver(list.get(0).getUser_id_buyer());
+         message_list.setMessage_receiver(getProfileService.GetCompanyInfoByCompanyId(list.get(0).getUser_id_buyer()).get(0).getManager_id());
       }
       message_list.setMessage_date(new GetNowTime().GetTime(1));
       message_list.setMessage_type("6");
       message_list.setMessage_title(list.get(0).getUser_name() + "同意变更订单:" + order_id + "中 明细:" + id + "的货物数量");
       message_list.setMessage_remark(order_id);
 
-      sendMessageService.SendMessage(message_list);
+      if ("1".equals(Is_Send_Message)) {
+         sendMessageService.SendMessage(message_list);
+      }
       return null;
    }
 

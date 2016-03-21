@@ -41,7 +41,7 @@
       <input type="text" name="type" placeholder="type">
       <input type="submit" value="提交" />
     </form>
-    通过订单id获取订单详细信息测试 1买 2卖
+    通过订单id获取订单详细信息测试 1卖 2买
     <form action="orderDetail_GetOrderDetailInfoByOrderId.action" >
       <input type="text" name="order_id" placeholder="order_id">
       <input type="text" name="type" placeholder="type">
@@ -139,16 +139,17 @@
 
     添加付款信息
     <form action="pay_AddPayInfo.action">
-      <input type="text" name="message_receiver" placeholder="message_receiver">
-      <input type="text" name="message_sender" placeholder="message_sender">
+      <input type="text" name="message_receiver" placeholder="Company_message_receiver">
+      <input type="text" name="message_sender" placeholder="User_message_sender">
       <input type="text" name="amount_of_money" placeholder="amount_of_money">
       <input type="submit" value="submit">
     </form>
 
-    修改订单明细表中货物数量 1 卖方将收货数量改为送货数量 2 买方将送货数量改为收货数量
+    修改订单明细表中货物数量 1 卖方将收货数量改为送货数量 2 买方将送货数量改为收货数量 1发送消息 2不发送消息
     <form action="orderDetail_UpdateQuantity.action">
       <input type="text" name="order_detail_id" placeholder="order_detail_id">
       <input type="text" name="type" placeholder="type">
+      <input type="text" name="Is_Send_Message" placeholder="Is_Send_Message">
       <input type="submit" value="submit">
     </form>
 
@@ -156,6 +157,24 @@
     <form action="orderDetail_BuyerSetQuantity.action">
       <input type="text" name="order_detail_id" placeholder="order_detail_id">
       <input type="text" name="quantity" placeholder="quantity">
+      <input type="submit" value="submit">
+    </form>
+
+    读消息
+    <form action="messageList_ReadMessage.action">
+      <input type="text" name="message_id" placeholder="message_id">
+      <input type="submit" value="submit">
+    </form>
+
+    设置收货时间
+    <form action="order_SetReceivingTime.action">
+      <input type="text" name="order_id" placeholder="order_id">
+      <input type="submit" value="submit">
+    </form>
+
+    查看账单
+    <form action="pay_GetPayInfoByCompanyId.action">
+      <input type="text" name="company_id" placeholder="company_id">
       <input type="submit" value="submit">
     </form>
   </body>

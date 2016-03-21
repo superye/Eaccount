@@ -124,12 +124,14 @@
         SELECT a.company_id_seller, b.company_logo, b.company_name, COUNT(*) AS no_paid_order_number, sum(total_price_buyer) AS no_paid_money
         FROM table_order a, table_company_profile b
         where is_reconciliation=0 AND user_id_buyer=#{user_id_buyer} AND a.company_id_seller=b.id
+        AND a.receiving_time IS NOT NULL
         GROUP by user_id_buyer, company_id_seller
     </select>
     <select id="SelectReconciliationBySellerId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
         SELECT a.company_id_buyer, b.company_logo, b.company_name, COUNT(*) AS no_paid_order_number, sum(total_price_seller) AS no_paid_money
         FROM table_order a, table_company_profile b
         where is_reconciliation=0 AND user_id_seller=#{user_id_seller} AND a.company_id_buyer=b.id
+        AND a.receiving_time IS NOT NULL
         GROUP by user_id_seller, company_id_buyer
     </select>
 
@@ -258,7 +260,7 @@
     </update>
     <!--用户获取账期-->
     <select id="UserSelectAccountPeriod" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
-        SELECT b.company_name, MAX((TO_DAYS(#{receiving_time}) - TO_DAYS(receiving_time)) - a.payment_day) AS diff_date
+        SELECT a.company_id_buyer, b.company_name, MAX((TO_DAYS(#{receiving_time}) - TO_DAYS(receiving_time)) - a.payment_day) AS diff_date
         FROM table_order a, table_company_profile b WHERE 1 = 1
         <if test="type == 1">
             AND a.company_id_buyer = b.id
@@ -303,4 +305,23 @@
     <select id="SelectNewestOrderId" resultType="String">
         SELECT MAX(order_id) FROM table_order
     </select>
+
+    <update id="UpdateTotalPriceSeller" parameterType="java.lang.String">
+        UPDATE table_order SET total_price_seller = (
+          SELECT SUM(quantity_delivery * unit_price) FROM table_order_detail
+          WHERE order_id = #{order_id}
+        ) WHERE order_id = #{order_id}
+    </update>
+
+    <update id="UpdateTotalPriceBuyer" parameterType="java.lang.String">
+        UPDATE table_order SET total_price_buyer = (
+          SELECT SUM(quantity_receiving * unit_price) FROM table_order_detail
+          WHERE order_id = #{order_id}
+        ) WHERE order_id = #{order_id}
+    </update>
+
+    <update id="SetReceivingTime" parameterType="com.eaccount.domain.Order">
+        UPDATE table_order SET receiving_time = #{receiving_time}
+        WHERE order_id = #{order_id}
+    </update>
 </mapper>

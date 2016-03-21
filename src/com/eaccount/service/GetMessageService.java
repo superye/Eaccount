@@ -67,4 +67,13 @@ public class GetMessageService implements IGetMessageService{
         ans = messageDAO.CountUnreadMessage(message_list);
         return ans;
     }
+
+    @Override
+    public boolean ReadMessage(String id) {
+        Message_list message_list = new Message_list();
+        message_list.setId(id);
+
+        IMessageDAO messageDAO = new MessageDAO();
+        return messageDAO.ReadMessage(message_list);
+    }
 }

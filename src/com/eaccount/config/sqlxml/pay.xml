@@ -22,4 +22,8 @@
         VALUES(#{message_receiver}, #{message_sender}, #{amount_of_money}, #{pay_time})
     </insert>
 
+    <select id="SelectPayInfoByCompanyId" parameterType="java.lang.String" resultMap="PayResult">
+        SELECT * FROM table_pay WHERE message_receiver = #{company_id}
+    </select>
+
 </mapper>

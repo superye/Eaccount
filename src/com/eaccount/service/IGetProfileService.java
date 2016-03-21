@@ -17,6 +17,6 @@ public interface IGetProfileService {
     public List<Product> GetCompanyProductById(String id);
     public String GetUserIdByPhone(String phone_number);
     public List<Company_profile> GetAllCompany();
-    public List<User_profile> GetUserByCompanyId(String id);
+    public List<User_profile> GetUserByCompanyId(String id, String type);
     public String GetCompanyIdByUserId(String user_id);
 }

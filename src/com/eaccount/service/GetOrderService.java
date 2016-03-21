@@ -61,7 +61,7 @@ public class GetOrderService implements IGetOrderService{
         Order order = new Order();
         order.setOrder_id(id);
         order.setType(type);
-        if ("1".equals(type)) {
+        if ("2".equals(type)) {
             list = orderDAO.SellerGetOrderMessageByOrderId(order);
         } else {
             list = orderDAO.BuyerGetOrderMessageByOrderId(order);

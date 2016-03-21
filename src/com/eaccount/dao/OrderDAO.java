@@ -1,7 +1,6 @@
 package com.eaccount.dao;
 
 import com.eaccount.domain.Order;
-import com.eaccount.domain.Order_detail;
 import org.apache.ibatis.session.SqlSession;
 
 import java.io.IOException;
@@ -293,7 +292,7 @@ public class OrderDAO implements IOrderDAO{
         dbAccess.GetLog();
         try {
             sqlSession = dbAccess.getSqlSession();
-            sqlSession.selectList("Order.InsertOrder" , order);
+            sqlSession.update("Order.InsertOrder", order);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -403,4 +402,24 @@ public class OrderDAO implements IOrderDAO{
         return list.get(0);
     }
 
+    @Override
+    public boolean SetReceivingTime(Order order) {
+        int flag = 0;
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            flag = sqlSession.update("Order.SetReceivingTime", order);
+            sqlSession.commit();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        if (flag != 0) return true;
+        else return false;
+    }
 }

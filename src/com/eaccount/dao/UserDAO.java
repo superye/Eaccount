@@ -78,7 +78,12 @@ public class UserDAO implements IUserDAO{
         List<User_profile> list = new ArrayList<User_profile>();
         try {
             sqlSession = dbAccess.getSqlSession();
-            list = sqlSession.selectList("User_profile.GetUserByCompanyId", company_profile);
+            if ("1".equals(company_profile.getType())) {
+                list = sqlSession.selectList("User_profile.GetUserByCompanyId", company_profile);
+            } else {
+                list = sqlSession.selectList("User_profile.GetSettleUserByCompanyId", company_profile);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
