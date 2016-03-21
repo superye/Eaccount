@@ -26,7 +26,7 @@ public class LoadpageAction extends SuperAction{
         request.setAttribute("allcompany", company_profiles);
 
         List<User_profile> user_profiles = new ArrayList<>();
-        user_profiles = getProfileService.GetUserByCompanyId(request.getParameter("company_id_seller"));
+        user_profiles = getProfileService.GetUserByCompanyId(request.getParameter("company_id_seller"), "1");
         request.setAttribute("sellerList", user_profiles);
 
         request.setAttribute("NewestOrderId", new GetNo().GetOrderId());

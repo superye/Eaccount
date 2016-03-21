@@ -76,11 +76,12 @@ public class GetProfileService implements IGetProfileService{
     }
 
     @Override
-    public List<User_profile> GetUserByCompanyId(String id) {
+    public List<User_profile> GetUserByCompanyId(String id, String type) {
         IUserDAO userDAO = new UserDAO();
         List<User_profile> list = new ArrayList<>();
         Company_profile company_profile = new Company_profile();
         company_profile.setId(id);
+        company_profile.setType(type);
 
         list = userDAO.GetUserByCompanyId(company_profile);
         return list;

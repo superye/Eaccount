@@ -4,6 +4,8 @@ import com.eaccount.domain.Pay;
 import org.apache.ibatis.session.SqlSession;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by spzn on 16-3-20.
@@ -29,5 +31,24 @@ public class PayDAO implements IPayDAO{
         }
         if (cnt != 0) flag = true;
         return flag;
+    }
+
+    @Override
+    public List<Pay> GetPayInfoByCompanyId(String company_id) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Pay> list = new ArrayList<Pay>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("Pay.SelectPayInfoByCompanyId", company_id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        return list;
     }
 }

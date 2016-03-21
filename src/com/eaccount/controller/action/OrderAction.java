@@ -289,6 +289,7 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
 
         for (int i = 0; i < len; i++) {
             json = new JSONObject();
+            json.put("company_id", list.get(i).getCompany_id_buyer());
             json.put("company_name", list.get(i).getCompany_name());
             json.put("diff_date", list.get(i).getDiff_date());
             jsonArray.add(json);
@@ -300,6 +301,14 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         response.getOutputStream().write(jsonBytes);
         response.getOutputStream().flush();
         response.getOutputStream().close();
+
+        return null;
+    }
+
+    public String SetReceivingTime() {
+        IUpdateOrderService updateOrderService = new UpdateOrderService();
+        updateOrderService.SetReceivingTime(order.getOrder_id(), new GetNowTime().GetTime(2));
+        System.out.println(new GetNowTime().GetTime(2));
 
         return null;
     }

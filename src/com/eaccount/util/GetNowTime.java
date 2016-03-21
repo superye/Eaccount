@@ -13,7 +13,7 @@ public class GetNowTime {
         if (type == 1) {
             dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         } else if (type == 2) {
-            dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm/ss");
+            dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         }
         String date = dateFormat.format(new Date());
         return date;

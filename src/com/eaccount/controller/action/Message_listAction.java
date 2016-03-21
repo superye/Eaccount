@@ -73,4 +73,12 @@ public class Message_listAction extends SuperAction {
         sendMessageService.SendMessage(message_list);
         return null;
     }
+
+    public String ReadMessage() {
+        String id = request.getParameter("message_id");
+
+        IGetMessageService getMessageService = new GetMessageService();
+        getMessageService.ReadMessage(id);
+        return null;
+    }
 }

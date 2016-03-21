@@ -20,6 +20,15 @@ public class User_profile {
     private String permission_payment_day;
     private String permission_reject;
     private String permission_bill;
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getId() {
         return id;

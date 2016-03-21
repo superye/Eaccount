@@ -43,6 +43,7 @@ public class UpdateOrderService implements IUpdateOrderService{
         Order_detail order_detail = new Order_detail();
         order_detail.setId(id);
         order_detail.setType(type);
+        order_detail.setOrder_id(new GetOrderService().GetOrderIdByOrderDetailId(id));
 
         IOrderDetailDAO orderDetailDAO = new OrderDetailDAO();
         return orderDetailDAO.UpdateQuantity(order_detail);
@@ -53,9 +54,19 @@ public class UpdateOrderService implements IUpdateOrderService{
         Order_detail order_detail = new Order_detail();
         order_detail.setId(id);
         order_detail.setQuantity_receiving(quantity);
+        order_detail.setOrder_id(new GetOrderService().GetOrderIdByOrderDetailId(id));
 
         IOrderDetailDAO orderDetailDAO = new OrderDetailDAO();
         return orderDetailDAO.BuyerSetQuantity(order_detail);
     }
 
+    @Override
+    public boolean SetReceivingTime(String id, String time) {
+        Order order = new Order();
+        order.setOrder_id(id);
+        order.setReceiving_time(time);
+
+        IOrderDAO orderDAO = new OrderDAO();
+        return orderDAO.SetReceivingTime(order);
+    }
 }

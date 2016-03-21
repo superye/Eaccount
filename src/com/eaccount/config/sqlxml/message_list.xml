@@ -34,4 +34,9 @@
         GROUP BY id
     </select>
 
+    <update id="ReadMessage" parameterType="com.eaccount.domain.Message_list">
+        UPDATE table_message_list SET message_state = 1
+        WHERE id = #{id}
+    </update>
+
 </mapper>

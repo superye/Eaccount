@@ -9,6 +9,15 @@ public class Company_profile {
     private String company_address;
     private String company_logo;
     private String manager_id;
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getManager_id() {
         return manager_id;

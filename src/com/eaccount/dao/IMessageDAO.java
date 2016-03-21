@@ -12,4 +12,5 @@ public interface IMessageDAO {
     public List<Message_list> SelectMessageByUserId(Order order);
     public boolean SendMessage(Message_list message_list);
     public int CountUnreadMessage(Message_list message_list);
+    public boolean ReadMessage(Message_list message_list);
 }

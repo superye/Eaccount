@@ -37,4 +37,5 @@ public interface IOrderDAO {
     public int CountNoReceivingOrder(Order order);
 
     public String GetNewestOrderId();
+    public boolean SetReceivingTime(Order order);
 }

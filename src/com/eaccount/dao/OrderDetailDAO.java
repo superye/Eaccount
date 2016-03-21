@@ -63,6 +63,8 @@ public class OrderDetailDAO implements IOrderDetailDAO{
             } else {
                 cnt = sqlSession.update("Order_detail.BuyerUpdateQuantity", order_detail);
             }
+            sqlSession.update("Order.UpdateTotalPriceSeller", order_detail.getOrder_id());
+            sqlSession.update("Order.UpdateTotalPriceBuyer", order_detail.getOrder_id());
             sqlSession.commit();
         } catch (IOException e) {
             e.printStackTrace();
@@ -85,6 +87,8 @@ public class OrderDetailDAO implements IOrderDetailDAO{
         try {
             sqlSession = dbAccess.getSqlSession();
             cnt = sqlSession.update("Order_detail.BuyerSetQuantity", order_detail);
+            sqlSession.update("Order.UpdateTotalPriceSeller", order_detail.getOrder_id());
+            sqlSession.update("Order.UpdateTotalPriceBuyer", order_detail.getOrder_id());
             sqlSession.commit();
         } catch (IOException e) {
             e.printStackTrace();

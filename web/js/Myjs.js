@@ -82,7 +82,13 @@ function AddOrder() {
         url:url,
         data: data,
         success: function(Msg) {
-            alert("a");
+            alert(Msg);
+            var a = eval("(" + Msg + ")");
+            alert("123")
+            alert(a.result);
+            var json = {contry:{area:{man:"12wan", women:"10wan"}}}
+            var b = eval(json);
+            alert(b.contry.area.women);
         }
     });
 }
