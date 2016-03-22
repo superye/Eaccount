@@ -293,6 +293,7 @@ public class OrderDAO implements IOrderDAO{
         try {
             sqlSession = dbAccess.getSqlSession();
             sqlSession.update("Order.InsertOrder", order);
+            sqlSession.commit();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

@@ -73,7 +73,6 @@ function DeleteProduct(id) {
 }
 
 function AddOrder() {
-    alert("a");
     var url = "http://localhost:8080/updateorder_InsertOrder.action";
     var data = "order_id="+$("#order_id").val()+
         "&company_id_buyer="+$("#company_id_buyer").val()+
