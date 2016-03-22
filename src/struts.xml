@@ -14,7 +14,7 @@
         </action>
         <action name="orderDetail_*" class="com.eaccount.controller.action.Order_detailAction" method="{1}">
             <result name="success"/>
-            <result name="detail" type="json"/>
+            <result name="detail"/>
         </action>
         <action name="messageList_*" class="com.eaccount.controller.action.Message_listAction" method="{1}">
             <result name="success"/>
@@ -37,7 +37,6 @@
         <action name="pay_*" class="com.eaccount.controller.action.PayAction" method="{1}">
         </action>
         <action name="updateproduct_*" class="com.eaccount.controller.action.UpdateProductAction" method="{1}">
-            <result type="json"></result>
         </action>
     </package>
 </struts>

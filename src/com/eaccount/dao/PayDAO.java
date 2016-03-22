@@ -51,4 +51,23 @@ public class PayDAO implements IPayDAO{
         }
         return list;
     }
+
+    @Override
+    public Pay GetPayInfoByPayId(String pay_id) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Pay> list = new ArrayList<Pay>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("Pay.SelectPayInfoByPayId", pay_id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        return list.get(0);
+    }
 }

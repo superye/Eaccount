@@ -324,4 +324,13 @@
         UPDATE table_order SET receiving_time = #{receiving_time}
         WHERE order_id = #{order_id}
     </update>
+
+    <update id="UpdatePaidPrice" parameterType="com.eaccount.domain.Order">
+        UPDATE table_order SET paid_price = #{paid_price}
+        WHERE order_id = #{order_id}
+    </update>
+
+    <select id="SelectOrderInfoByPayId" parameterType="java.lang.String" resultMap="OrderResult">
+        SELECT * FROM table_order a, table_pay b
+    </select>
 </mapper>
