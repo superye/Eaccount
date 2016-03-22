@@ -53,11 +53,11 @@ public class PayAction extends SuperAction{
 
     public String GetPayInfoByCompanyId() throws IOException {
         String company_id = request.getParameter("company_id");
-        IAddPayInfoService addPayInfoService = new AddPayInfoService();
+        IGetPayInfoService getPayInfoService = new GetPayInfoService();
         IGetProfileService getProfileService = new GetProfileService();
         List<Pay> list = new ArrayList<>();
         List<Company_profile> listC = new ArrayList<>();
-        list = addPayInfoService.GetPayInfoByCompanyId(company_id);
+        list = getPayInfoService.GetPayInfoByCompanyId(company_id);
 
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = null;
@@ -72,7 +72,7 @@ public class PayAction extends SuperAction{
             listC = getProfileService.GetCompanyInfoByCompanyId(c_id);
             jsonObject.put("company_logo", listC.get(0).getCompany_logo());
             jsonObject.put("company_name", listC.get(0).getCompany_name());
-            jsonObject.put("message_Id", list.get(i).getId());
+            jsonObject.put("Id", list.get(i).getId());
             jsonObject.put("amount_of_money", list.get(i).getAmount_of_money());
             jsonObject.put("message_receiver", list.get(i).getMessage_receiver());
             jsonObject.put("message_sender", list.get(i).getMessage_sender());

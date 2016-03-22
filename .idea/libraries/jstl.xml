@@ -2,6 +2,7 @@
   <library name="jstl">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../jar/jstl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../jar/servlet-api.jar!/" />
       <root url="jar://$PROJECT_DIR$/../jar/standard.jar!/" />
     </CLASSES>
     <JAVADOC />

@@ -5,9 +5,6 @@ import com.eaccount.dao.PayDAO;
 import com.eaccount.domain.Pay;
 import com.eaccount.util.GetNowTime;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by spzn on 16-3-20.
  */
@@ -25,11 +22,5 @@ public class AddPayInfoService implements IAddPayInfoService{
         return payDAO.AddPayInfo(pay);
     }
 
-    @Override
-    public List<Pay> GetPayInfoByCompanyId(String company_id) {
-        IPayDAO payDAO = new PayDAO();
-        List<Pay> list = new ArrayList<>();
-        list = payDAO.GetPayInfoByCompanyId(company_id);
-        return list;
-    }
+
 }
