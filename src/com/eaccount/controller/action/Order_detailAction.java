@@ -37,7 +37,11 @@ public class Order_detailAction extends SuperAction{
          json.put("unit_price", list2.get(i).getUnit_price());
          json.put("quantity_delivery", list2.get(i).getQuantity_delivery());
          json.put("quantity_receiving", list2.get(i).getQuantity_receiving());
-         json.put("money", list2.get(i).getMoney());
+         if ("1".equals(type)) {
+            json.put("money", list2.get(i).getMoney());
+         } else {
+            json.put("money", list2.get(i).getMoney2());
+         }
          jsonArray.add(json);
       }
 

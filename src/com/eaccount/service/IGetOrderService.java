@@ -26,10 +26,20 @@ public interface IGetOrderService {
     public List<Order> GetNoPaidOrderByUserBuyerId(String id);
     public List<Order> GetNoPaidOrderByUserSellerId(String id);
 
+    /**
+     * 获得已对账未付款订单
+     * @param id
+     * @return
+     */
+    public List<Order> GetRecNoPaidOrderByUserBuyerId(String id);
+    public List<Order> GetRecNoPaidOrderByUserSellerId(String id);
+
+
     public List<Order> GetAccountPeriod(String user_id, String type);
     public int CountOverdueOrder(String user_id);
     public int CountNotSendOrReceivingOrder(String user_id, String type);
 
     public String GetNewestOrderId();
     public String GetOrderIdByOrderDetailId(String id);
+    public List<Order> GetOrderInfoByPayInfo(String company_id_seller, String company_id_buyer);
 }

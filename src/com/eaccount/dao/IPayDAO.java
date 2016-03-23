@@ -11,4 +11,6 @@ public interface IPayDAO {
     public boolean AddPayInfo(Pay pay);
     public List<Pay> GetPayInfoByCompanyId(String company_id);
     public Pay GetPayInfoByPayId(String pay_id);
+    public boolean UpdateAmountOfMoney(Pay pay);
+    public boolean UpdatePayState(String pay_id);
 }

@@ -104,6 +104,12 @@
       <input type="text" name="type" placeholder="type">
       <input type="submit" value="提交">
     </form>
+    已对账,未付账单测试
+    <form action="order_GetRecButNoPaidOrderByUserId.action">
+      <input type="text" name="user_id" placeholder="user_id">
+      <input type="text" name="type" placeholder="type">
+      <input type="submit" value="提交">
+    </form>
     查看对账信息
     <form action="order_GetReconciliationInfo.action">
       <input type="text" name="user_id" placeholder="user_id">
@@ -160,9 +166,10 @@
       <input type="submit" value="submit">
     </form>
 
-    读消息
+    读消息1 或　取消消息2
     <form action="messageList_ReadMessage.action">
       <input type="text" name="message_id" placeholder="message_id">
+      <input type="text" name="type" placeholder="type">
       <input type="submit" value="submit">
     </form>
 
@@ -177,5 +184,19 @@
       <input type="text" name="company_id" placeholder="company_id">
       <input type="submit" value="submit">
     </form>
+
+  　确认收款
+    <form action="pay_ConfirmPay.action">
+      <input type="text" name="pay_id" placeholder="pay_id">
+      <input type="submit" value="submit">
+    </form>
+
+    更正订单总价
+    <form action="order_UpdateTotalPrice.action">
+      <input type="text" name="order_id" placeholder="order_id">
+      <input type="text" name="order_detail_id" placeholder="order_detail_id">
+      <input type="submit" value="submit">
+    </form>
+
   </body>
 </html>

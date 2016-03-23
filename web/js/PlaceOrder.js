@@ -73,7 +73,8 @@ function DeleteProduct(id) {
 }
 
 function AddOrder() {
-    var url = "http://localhost:8080/updateorder_InsertOrder.action";
+    alert("a");
+    var url = "http://www.spzn.party/updateorder_InsertOrder.action";
     var data = "order_id="+$("#order_id").val()+
         "&company_id_buyer="+$("#company_id_buyer").val()+
         "&user_id_seller="+$("#user_id_seller").val()+
@@ -97,7 +98,7 @@ function AddOrder() {
 }
 
 function AddOrderDetails(order_id, pruduct_id, unit_price, quantity_delivery) {
-    var url = "http://localhost:8080/orderDetail_InsertOrderDetails.action";
+    var url = "http://www.spzn.party/orderDetail_InsertOrderDetails.action";
     var data = "order_id="+order_id+
         "&product_id="+pruduct_id+
         "&unit_price="+unit_price+

@@ -73,4 +73,20 @@ public class UpdateOrderService implements IUpdateOrderService{
         IOrderDAO orderDAO = new OrderDAO();
         return orderDAO.SetReceivingTime(order);
     }
+
+    @Override
+    public boolean UpdateTotalPrice(String order_id) {
+        IOrderDAO orderDAO = new OrderDAO();
+        return orderDAO.UpdateTotalPrice(order_id);
+    }
+
+    @Override
+    public boolean UpdatePaidPrice(String order_id, String paid_price) {
+        Order order = new Order();
+        order.setOrder_id(order_id);
+        order.setPaid_price(paid_price);
+
+        IOrderDAO orderDAO = new OrderDAO();
+        return orderDAO.UpdatePaidPrice(order);
+    }
 }

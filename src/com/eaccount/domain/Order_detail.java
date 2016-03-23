@@ -19,7 +19,16 @@ public class Order_detail {
     private String product_name;
     private String product_specification;
     private int money;
+    private int money2;
     private String type;
+
+    public int getMoney2() {
+        return money2;
+    }
+
+    public void setMoney2(int money2) {
+        this.money2 = money2;
+    }
 
     public String getType() {
         return type;

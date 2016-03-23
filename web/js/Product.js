@@ -5,7 +5,7 @@
 function AddGood(company_id) {
     var goods = $("#goods").val();
     var specification = $("#specification").val();
-    var url = "http://localhost:8080/updateproduct_AddProduct.action";
+    var url = "http://www.spzn.party/updateproduct_AddProduct.action";
     var data = "product_name="+goods+"&product_specification="+specification+"&company_id=" + company_id;
     $.ajax({
         type:"GET",
@@ -19,7 +19,7 @@ function AddGood(company_id) {
 
 function DeleteGood(id) {
     $("#goods"+id).remove();
-    var url = "http://localhost:8080/updateproduct_DeleteProduct.action";
+    var url = "http://www.spzn.party/updateproduct_DeleteProduct.action";
     var data = "id="+id;
     $.ajax({
         type:"GET",

@@ -28,6 +28,14 @@ public interface IOrderDAO {
     public List<Order> GetNoPaidOrderByUserBuyerId(Order order);
     public List<Order> GetNoPaidOrderByUserSellerId(Order order);
 
+    /**
+     * 获得已对账,未付款订单
+     * @return
+     */
+    public List<Order> GetRecNoPaidOrderByUserBuyerId(Order order);
+    public List<Order> GetRecNoPaidOrderByUserSellerId(Order order);
+
+
     public boolean InsertOrder(Order order);
 
     public List<Order> GetAccountPeriod(Order order);
@@ -38,4 +46,7 @@ public interface IOrderDAO {
 
     public String GetNewestOrderId();
     public boolean SetReceivingTime(Order order);
+    public List<Order> GetOrderInfoByPayInfo(Order order);
+    public boolean UpdateTotalPrice(String order_id);
+    public boolean UpdatePaidPrice(Order order);
 }

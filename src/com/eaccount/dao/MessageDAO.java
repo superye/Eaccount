@@ -78,7 +78,11 @@ public class MessageDAO implements IMessageDAO{
         int cnt = 0;
         try {
             sqlSession = dbAccess.getSqlSession();
-            cnt = sqlSession.update("Message_list.ReadMessage", message_list);
+            if ("1".equals(message_list.getType().trim())) {
+                cnt = sqlSession.update("Message_list.ReadMessage", message_list);
+            } else {
+                cnt = sqlSession.update("Message_list.CancelMessage", message_list);
+            }
             sqlSession.commit();
         } catch (IOException e) {
             e.printStackTrace();

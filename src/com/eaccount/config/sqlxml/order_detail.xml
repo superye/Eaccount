@@ -18,11 +18,12 @@
         <result column="product_name" jdbcType="VARCHAR" property="product_name"/>
         <result column="product_specification" jdbcType="VARCHAR" property="product_specification"/>
         <result column="money" jdbcType="INTEGER" property="money"/>
+        <result column="money2" jdbcType="INTEGER" property="money2"/>
         <result column="type" jdbcType="INTEGER" property="type"/>
     </resultMap>
 
     <select id="SelectOrderDetailInfoByOrderId" parameterType="com.eaccount.domain.Order_detail" resultMap="Order_detailResult">
-        SELECT a.id, a.order_id, a.product_id, a.unit_price, a.quantity_delivery, a.quantity_receiving, b.product_name, b.product_specification, a.quantity_receiving * a.unit_price AS money
+        SELECT a.id, a.order_id, a.product_id, a.unit_price, a.quantity_delivery, a.quantity_receiving, b.product_name, b.product_specification, a.quantity_receiving * a.unit_price AS money, a.quantity_delivery * a.unit_price AS money2
         FROM table_order_detail a, table_product b WHERE 1 = 1
         AND a.order_id = #{order_id}
         AND a.product_id = b.id

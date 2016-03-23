@@ -1,9 +1,6 @@
 package com.eaccount.controller.action;
 
-import com.eaccount.domain.Company_profile;
-import com.eaccount.domain.Message_list;
-import com.eaccount.domain.Pay;
-import com.eaccount.domain.User_profile;
+import com.eaccount.domain.*;
 import com.eaccount.service.*;
 import com.eaccount.util.GetNowTime;
 import net.sf.json.JSONArray;
@@ -91,4 +88,65 @@ public class PayAction extends SuperAction{
 
         return null;
     }
+
+    public String ConfirmPay() {
+        String pay_id = request.getParameter("pay_id");
+
+        IGetPayInfoService getPayInfoService = new GetPayInfoService();
+        IGetProfileService getProfileService = new GetProfileService();
+        IGetOrderService getOrderService = new GetOrderService();
+        IUpdatePayInfoService updatePayInfoService = new UpdatePayInfoService();
+        IUpdateOrderService updateOrderService = new UpdateOrderService();
+
+        Pay pay = new Pay();
+        pay = getPayInfoService.GetPayInfoByPayId(pay_id);
+        int Money = Integer.parseInt(pay.getAmount_of_money());
+        List<Order> OrderList = new ArrayList<>();
+
+        String SenderCompany = getProfileService.GetCompanyIdByUserId(pay.getMessage_sender());
+        System.out.print(SenderCompany);
+        OrderList = getOrderService.GetOrderInfoByPayInfo(pay.getMessage_receiver(), SenderCompany);
+
+        int len = 0;
+        int rec = 0;
+        if (OrderList != null) len = OrderList.size();
+
+        List<Integer> NeedToPay = new ArrayList<>();
+        List<Integer> PayMoney = new ArrayList<>();
+
+        for (int i = 0; i < len; i++) {
+            String total_price_buyer = OrderList.get(i).getTotal_price_buyer();
+            String paid_price = OrderList.get(i).getPaid_price();
+            NeedToPay.add(Integer.parseInt(total_price_buyer) - Integer.parseInt(paid_price));
+        }
+
+        for (int i = 0; i < len; i++) {
+            int temp = NeedToPay.get(i);
+            System.out.print(temp + " ");
+            System.out.print(Money + "\n");
+
+            rec = i;
+            if (Money > temp) {
+                PayMoney.add(NeedToPay.get(i));
+                Money -= temp;
+            } else {
+                PayMoney.add(Money);
+                Money = 0;
+                break;
+            }
+        }
+
+        System.out.println(rec);
+        System.out.println(Money);
+
+        updatePayInfoService.UpdatePayState(pay_id);
+        updatePayInfoService.UpdateAmountOfMoney(pay_id, String.valueOf(Money));
+
+        for (int i = 0; i <= rec; i++) {
+            int PaidMoney = Integer.parseInt(OrderList.get(i).getPaid_price()) + PayMoney.get(i);
+            updateOrderService.UpdatePaidPrice(OrderList.get(i).getOrder_id(), String.valueOf(PaidMoney));
+        }
+
+        return null;
+   }
 }

@@ -16,6 +16,7 @@
         <result column="message_state" jdbcType="VARCHAR" property="message_state"/>
         <result column="message_remark" jdbcType="VARCHAR" property="message_remark"/>
         <result column="message_date" jdbcType="DATE" property="message_date"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
     </resultMap>
 
     <select id="SelectMessageByUserId" parameterType="com.eaccount.domain.Order" resultMap="Message_listResult">
@@ -36,6 +37,11 @@
 
     <update id="ReadMessage" parameterType="com.eaccount.domain.Message_list">
         UPDATE table_message_list SET message_state = 1
+        WHERE id = #{id}
+    </update>
+
+    <update id="CancelMessage" parameterType="com.eaccount.domain.Message_list">
+        UPDATE table_message_list SET message_state = 0
         WHERE id = #{id}
     </update>
 

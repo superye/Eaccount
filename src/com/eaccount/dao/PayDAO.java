@@ -70,4 +70,48 @@ public class PayDAO implements IPayDAO{
         }
         return list.get(0);
     }
+
+    @Override
+    public boolean UpdateAmountOfMoney(Pay pay) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        boolean flag = false;
+        int cnt = 0;
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            cnt = sqlSession.update("Pay.UpdateAmountOfMoney", pay);
+            sqlSession.commit();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        if (cnt != 0) flag = true;
+        return flag;
+    }
+
+    @Override
+    public boolean UpdatePayState(String pay_id) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        boolean flag = false;
+        int cnt = 0;
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            cnt = sqlSession.update("Pay.UpdatePayState", pay_id);
+            sqlSession.commit();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        if (cnt != 0) flag = true;
+        return flag;
+    }
 }

@@ -257,4 +257,42 @@ public class GetOrderService implements IGetOrderService{
         order_detail.setId(id);
         return orderDetailDAO.GetOrderIdBuyOrderDetailId(order_detail);
     }
+
+    @Override
+    public List<Order> GetOrderInfoByPayInfo(String company_id_seller, String company_id_buyer) {
+        Order order = new Order();
+        order.setCompany_id_buyer(company_id_buyer);
+        order.setCompany_id_seller(company_id_seller);
+
+        IOrderDAO orderDAO = new OrderDAO();
+        return orderDAO.GetOrderInfoByPayInfo(order);
+    }
+
+    /**
+     * 获得已对账未付款订单
+     * @param id
+     * @return
+     */
+    @Override
+    public List<Order> GetRecNoPaidOrderByUserBuyerId(String id) {
+        List<Order>  list = new ArrayList<>();
+        IOrderDAO orderDAO = new OrderDAO();
+        Order order = new Order();
+        order.setUser_id_buyer(id);
+        list = orderDAO.GetRecNoPaidOrderByUserBuyerId(order);
+
+        return list;
+    }
+
+    @Override
+    public List<Order> GetRecNoPaidOrderByUserSellerId(String id) {
+        List<Order>  list = new ArrayList<>();
+        IOrderDAO orderDAO = new OrderDAO();
+        Order order = new Order();
+        order.setUser_id_seller(id);
+        list = orderDAO.GetRecNoPaidOrderByUserSellerId(order);
+
+        return list;
+    }
+
 }

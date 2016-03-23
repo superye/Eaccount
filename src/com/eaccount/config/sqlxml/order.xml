@@ -330,7 +330,29 @@
         WHERE order_id = #{order_id}
     </update>
 
-    <select id="SelectOrderInfoByPayId" parameterType="java.lang.String" resultMap="OrderResult">
-        SELECT * FROM table_order a, table_pay b
+    <select id="SelectOrderInfoByPayInfo" parameterType="java.lang.String" resultMap="OrderResult">
+        SELECT * FROM table_order
+        WHERE company_id_buyer = #{company_id_buyer}
+        AND company_id_seller = #{company_id_seller}
+        AND paid_price != total_price_seller
+        AND is_reconciliation = 1
+    </select>
+
+    <!--已对账未付款查询-->
+    <select id="SelectReconciliationNoPaidByBuyerId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
+        SELECT a.company_id_seller, b.company_logo, b.company_name, COUNT(*) AS no_paid_order_number, sum(total_price_buyer) AS no_paid_money
+        FROM table_order a, table_company_profile b
+        where is_reconciliation=1 AND paid_price=0 AND user_id_buyer=#{user_id_buyer} AND a.company_id_seller=b.id
+        AND a.receiving_time IS NOT NULL
+        GROUP by user_id_buyer, company_id_seller
+    </select>
+
+    <!--已对账未付款查询-->
+    <select id="SelectReconciliationNoPaidBySellerId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
+        SELECT a.company_id_buyer, b.company_logo, b.company_name, COUNT(*) AS no_paid_order_number, sum(total_price_seller) AS no_paid_money
+        FROM table_order a, table_company_profile b
+        where is_reconciliation=1 AND paid_price=0 AND user_id_seller=#{user_id_seller} AND a.company_id_buyer=b.id
+        AND a.receiving_time IS NOT NULL
+        GROUP by user_id_seller, company_id_buyer
     </select>
 </mapper>

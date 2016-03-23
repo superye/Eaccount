@@ -423,4 +423,110 @@ public class OrderDAO implements IOrderDAO{
         if (flag != 0) return true;
         else return false;
     }
+
+    @Override
+    public List<Order> GetOrderInfoByPayInfo(Order order) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Order> list = new ArrayList<Order>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("Order.SelectOrderInfoByPayInfo", order);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        if (list.size() == 0) return null;
+        return list;
+    }
+
+    @Override
+    public boolean UpdateTotalPrice(String order_id) {
+        int flag = 1;
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            flag *= sqlSession.update("Order.UpdateTotalPriceSeller", order_id);
+            flag *= sqlSession.update("Order.UpdateTotalPriceBuyer", order_id);
+            sqlSession.commit();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        if (flag != 0) return true;
+        else return false;
+    }
+
+    @Override
+    public boolean UpdatePaidPrice(Order order) {
+        int flag = 1;
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            flag = sqlSession.update("Order.UpdatePaidPrice", order);
+            sqlSession.commit();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        if (flag != 0) return true;
+        else return false;
+    }
+
+    /**
+     * 获得已对账未付款订单
+     * @return
+     */
+    @Override
+    public List<Order> GetRecNoPaidOrderByUserBuyerId(Order order) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Order> list = new ArrayList<Order>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("Order.SelectReconciliationNoPaidByBuyerId", order);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<Order> GetRecNoPaidOrderByUserSellerId(Order order) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Order> list = new ArrayList<Order>();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("Order.SelectReconciliationNoPaidBySellerId", order);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        return list;
+    }
+
 }

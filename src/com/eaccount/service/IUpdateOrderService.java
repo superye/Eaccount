@@ -13,4 +13,6 @@ public interface IUpdateOrderService {
     public boolean BuyerSetQuantity(String id, String quantity);
     public boolean InsertOrderDetails(Order_detail order_detail);
     public boolean SetReceivingTime(String id, String time);
+    public boolean UpdateTotalPrice(String order_id);
+    public boolean UpdatePaidPrice(String order_id, String paid_price);
 }

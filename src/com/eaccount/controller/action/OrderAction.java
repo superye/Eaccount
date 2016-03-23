@@ -164,6 +164,44 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         return null;
     }
 
+
+    public String GetRecButNoPaidOrderByUserId() throws IOException {
+        String id = request.getParameter("user_id");
+        String type = request.getParameter("type");
+        List<Order> list = new ArrayList<>();
+        if (type.equals("1")) {
+            IGetOrderService getOrderService = new GetOrderService();
+            list = getOrderService.GetRecNoPaidOrderByUserBuyerId(id);
+        }else {
+            IGetOrderService getOrderService = new GetOrderService();
+            list = getOrderService.GetRecNoPaidOrderByUserSellerId(id);
+        }
+
+        JSONArray jsonArray = new JSONArray();
+        int len = list.size();
+        for (int i = 0; i < len; i++) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("no_paid_order_number", list.get(i).getNo_paid_order_number());
+            jsonObject.put("no_paid_money", list.get(i).getNo_paid_money());
+            if (type.equals("1")) {
+                jsonObject.put("company_id_seller", list.get(i).getCompany_id_seller());
+            } else {
+                jsonObject.put("company_id_buyer", list.get(i).getCompany_id_buyer());
+            }
+            jsonObject.put("company_name", list.get(i).getCompany_name());
+            jsonObject.put("company_logo", list.get(i).getCompany_logo());
+            jsonArray.add(jsonObject);
+        }
+
+        byte[] jsonBytes = jsonArray.toString().getBytes("utf-8");
+        response.setContentType("text/html;charset=utf-8");
+        response.setContentLength(jsonBytes.length);
+        response.getOutputStream().write(jsonBytes);
+        response.getOutputStream().flush();
+        response.getOutputStream().close();
+        return null;
+    }
+
     public String GetReconciliationInfo() throws IOException {
         String user_id = request.getParameter("user_id");
         String company_id2 = request.getParameter("company_id");
@@ -310,6 +348,21 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         updateOrderService.SetReceivingTime(order.getOrder_id(), new GetNowTime().GetTime(2));
         System.out.println(new GetNowTime().GetTime(2));
 
+        return null;
+    }
+
+    public String UpdateTotalPrice() {
+        IUpdateOrderService updateOrderService = new UpdateOrderService();
+        IGetOrderService getOrderService = new GetOrderService();
+
+        String order_id = request.getParameter("order_id");
+        String order_detail_id = request.getParameter("order_detail_id");
+
+        if (order_id == null || order_id == "") {
+            order_id = getOrderService.GetOrderIdByOrderDetailId(order_detail_id);
+        }
+
+        updateOrderService.UpdateTotalPrice(order_id);
         return null;
     }
 

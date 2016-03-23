@@ -6,7 +6,6 @@ import com.eaccount.domain.User_profile;
 import com.eaccount.service.GetProfileService;
 import com.eaccount.service.IGetProfileService;
 import com.eaccount.util.GetNo;
-import sun.nio.cs.ext.SJIS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +33,7 @@ public class LoadpageAction extends SuperAction{
         request.setAttribute("allcompany", company_profiles);
 
         List<User_profile> user_profiles = new ArrayList<>();
-        user_profiles = getProfileService.GetUserByCompanyId(request.getParameter("company_id_seller"), "1");
+        user_profiles = getProfileService.GetUserByCompanyId(company_id_seller, "1");
         request.setAttribute("sellerList", user_profiles);
 
         request.setAttribute("NewestOrderId", new GetNo().GetOrderId());

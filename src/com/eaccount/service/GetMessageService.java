@@ -69,9 +69,10 @@ public class GetMessageService implements IGetMessageService{
     }
 
     @Override
-    public boolean ReadMessage(String id) {
+    public boolean ReadMessage(String id, String type) {
         Message_list message_list = new Message_list();
         message_list.setId(id);
+        message_list.setType(type);
 
         IMessageDAO messageDAO = new MessageDAO();
         return messageDAO.ReadMessage(message_list);

@@ -12,6 +12,15 @@ public class Message_list {
     private String message_state;
     private String message_date;
     private String message_remark;
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getId() {
         return id;

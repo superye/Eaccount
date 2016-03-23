@@ -34,4 +34,9 @@
         UPDATE table_pay SET pay_state = 1
         WHERE id = #{id}
     </update>
+
+     <update id="UpdateAmountOfMoney" parameterType="java.lang.String">
+        UPDATE table_pay SET amount_of_money = #{amount_of_money}
+        WHERE id = #{id}
+    </update>
 </mapper>
