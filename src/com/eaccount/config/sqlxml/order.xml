@@ -81,7 +81,7 @@
     </select>
 
     <select id="SellerSelectOrderInfoByOrderId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
-        SELECT a.user_id_buyer, a.user_id_seller, c.company_logo, c.company_name, c.company_address, b.user_name, b.user_phone_number, a.place_order_time, a.receiving_time, d.photo
+        SELECT a.user_id_buyer, a.user_id_seller, a.company_id_buyer, a.company_id_seller, c.company_logo, c.company_name, c.company_address, b.user_name, b.user_phone_number, a.place_order_time, a.receiving_time, d.photo
         FROM table_order a, table_user_profile b, table_company_profile c, table_photo d, table_order_detail e
         WHERE 1 = 1
         AND a.order_id = #{order_id}
@@ -92,7 +92,7 @@
     </select>
 
     <select id="BuyerSelectOrderInfoByOrderId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
-        SELECT a.user_id_seller, a.user_id_buyer, c.company_logo, c.company_name, c.company_address, b.user_name, b.user_phone_number, a.place_order_time, a.receiving_time, d.photo
+        SELECT a.user_id_seller, a.user_id_buyer, a.company_id_buyer, a.company_id_seller, c.company_logo, c.company_name, c.company_address, b.user_name, b.user_phone_number, a.place_order_time, a.receiving_time, d.photo
         FROM table_order a, table_user_profile b, table_company_profile c, table_photo d, table_order_detail e
         WHERE 1 = 1
         AND a.order_id = #{order_id}
@@ -260,7 +260,7 @@
     </update>
     <!--用户获取账期-->
     <select id="UserSelectAccountPeriod" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
-        SELECT a.company_id_buyer, b.company_name, MAX((TO_DAYS(#{receiving_time}) - TO_DAYS(receiving_time)) - a.payment_day) AS diff_date
+        SELECT a.company_id_buyer, a.company_id_seller, b.company_name, b.company_logo, MAX((TO_DAYS(#{receiving_time}) - TO_DAYS(receiving_time)) - a.payment_day) AS diff_date
         FROM table_order a, table_company_profile b WHERE 1 = 1
         <if test="type == 1">
             AND a.company_id_buyer = b.id
@@ -342,7 +342,7 @@
     <select id="SelectReconciliationNoPaidByBuyerId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
         SELECT a.company_id_seller, b.company_logo, b.company_name, COUNT(*) AS no_paid_order_number, sum(total_price_buyer) AS no_paid_money
         FROM table_order a, table_company_profile b
-        where is_reconciliation=1 AND paid_price=0 AND user_id_buyer=#{user_id_buyer} AND a.company_id_seller=b.id
+        where is_reconciliation=1 AND paid_price!=a.total_price_buyer AND user_id_buyer=#{user_id_buyer} AND a.company_id_seller=b.id
         AND a.receiving_time IS NOT NULL
         GROUP by user_id_buyer, company_id_seller
     </select>
@@ -351,8 +351,18 @@
     <select id="SelectReconciliationNoPaidBySellerId" parameterType="com.eaccount.domain.Order" resultMap="OrderResult">
         SELECT a.company_id_buyer, b.company_logo, b.company_name, COUNT(*) AS no_paid_order_number, sum(total_price_seller) AS no_paid_money
         FROM table_order a, table_company_profile b
-        where is_reconciliation=1 AND paid_price=0 AND user_id_seller=#{user_id_seller} AND a.company_id_buyer=b.id
+        where is_reconciliation=1 AND paid_price!=a.total_price_buyer AND user_id_seller=#{user_id_seller} AND a.company_id_buyer=b.id
         AND a.receiving_time IS NOT NULL
         GROUP by user_id_seller, company_id_buyer
     </select>
+
+    <update id="UpdateReconciliation" parameterType="java.lang.String">
+        UPDATE table_order SET is_reconciliation = 1 WHERE order_id = #{order_id}
+    </update>
+
+    <update id="InsertPhoto" parameterType="com.eaccount.domain.Order">
+        INSERT INTO table_photo(order_id, photo_type)
+        values(#{order_id}, 1);
+    </update>
+
 </mapper>

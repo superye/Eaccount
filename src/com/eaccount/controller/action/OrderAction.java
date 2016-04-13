@@ -110,7 +110,7 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         //发送拒收消息
         IGetOrderService getOrderService = new GetOrderService();
         List<Order> list = new ArrayList<>();
-        list = getOrderService.GetOrderByOrderId(order_id, "1");
+        list = getOrderService.GetOrderByOrderId(order_id, "2");
 
         Message_list message_list = new Message_list();
         message_list.setMessage_sender(list.get(0).getUser_id_buyer());
@@ -327,8 +327,13 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
 
         for (int i = 0; i < len; i++) {
             json = new JSONObject();
-            json.put("company_id", list.get(i).getCompany_id_buyer());
+            if ("1".equals(type)) {
+                json.put("company_id", list.get(i).getCompany_id_buyer());
+            } else {
+                json.put("company_id", list.get(i).getCompany_id_seller());
+            }
             json.put("company_name", list.get(i).getCompany_name());
+            json.put("company_logo", list.get(i).getCompany_logo());
             json.put("diff_date", list.get(i).getDiff_date());
             jsonArray.add(json);
         }
@@ -363,6 +368,17 @@ public class OrderAction extends SuperAction implements ModelDriven<Order>{
         }
 
         updateOrderService.UpdateTotalPrice(order_id);
+        return null;
+    }
+
+    public String CheckOrderIsMatter() {
+        String order_id = request.getParameter("order_id");
+
+        IGetOrderService orderService = new GetOrderService();
+        IUpdateOrderService updateOrderService = new UpdateOrderService();
+        if (orderService.CountMatterOrder(order_id.trim())) {
+           updateOrderService.UpdateReconciliation(order_id);
+        }
         return null;
     }
 

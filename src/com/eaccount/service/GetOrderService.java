@@ -295,4 +295,9 @@ public class GetOrderService implements IGetOrderService{
         return list;
     }
 
+    @Override
+    public boolean CountMatterOrder(String order_id) {
+        IOrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        return orderDetailDAO.CountMatterOrder(order_id);
+    }
 }

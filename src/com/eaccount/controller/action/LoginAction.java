@@ -63,6 +63,10 @@ public class LoginAction extends SuperAction implements ModelDriven<User_profile
         {
             jsonObject.put("loginState", "1");
             jsonObject.put("id", user_profiles.get(0).getId());
+
+            String company_id = getProfileService.GetCompanyIdByUserId(id);
+            jsonObject.put("company_id", company_id);
+
             jsonObject.put("user_name", user_profiles.get(0).getUser_name());
             jsonObject.put("user_photo", user_profiles.get(0).getUser_photo());
             jsonObject.put("permission_delivery", user_profiles.get(0).getPermission_delivery());

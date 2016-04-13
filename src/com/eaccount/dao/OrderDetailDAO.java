@@ -137,4 +137,26 @@ public class OrderDetailDAO implements IOrderDetailDAO{
         }
         return true;
     }
+
+    @Override
+    public boolean CountMatterOrder(String order_id) {
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        List<Integer> list = new ArrayList<>();
+        int num = 0;
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            list = sqlSession.selectList("Order_detail.CountMatterOrder", order_id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+
+        if (list == null || list.get(0) == 0) return true;
+        return false;
+    }
 }

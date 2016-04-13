@@ -293,6 +293,7 @@ public class OrderDAO implements IOrderDAO{
         try {
             sqlSession = dbAccess.getSqlSession();
             sqlSession.update("Order.InsertOrder", order);
+            sqlSession.update("Order.InsertPhoto", order);
             sqlSession.commit();
         } catch (IOException e) {
             e.printStackTrace();
@@ -406,6 +407,7 @@ public class OrderDAO implements IOrderDAO{
     @Override
     public boolean SetReceivingTime(Order order) {
         int flag = 0;
+        order.setOrder_id(order.getOrder_id().trim());
         DBAccess dbAccess = new DBAccess();
         SqlSession sqlSession = null;
         dbAccess.GetLog();
@@ -529,4 +531,24 @@ public class OrderDAO implements IOrderDAO{
         return list;
     }
 
+    @Override
+    public boolean UpdateReconciliation(String order_id) {
+        int flag = 1;
+        DBAccess dbAccess = new DBAccess();
+        SqlSession sqlSession = null;
+        dbAccess.GetLog();
+        try {
+            sqlSession = dbAccess.getSqlSession();
+            flag = sqlSession.update("Order.UpdateReconciliation", order_id);
+            sqlSession.commit();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        if (flag != 0) return true;
+        else return false;
+    }
 }

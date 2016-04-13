@@ -1,7 +1,10 @@
 <component name="libraryTable">
-  <library name="jstl">
+  <library name="jsp-api">
     <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../jar/jsp-api.jar!/" />
       <root url="jar://$PROJECT_DIR$/../jar/jstl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../jar/mybatis-3.2.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../jar/log4j-1.2.16.jar!/" />
       <root url="jar://$PROJECT_DIR$/../jar/servlet-api.jar!/" />
       <root url="jar://$PROJECT_DIR$/../jar/standard.jar!/" />
     </CLASSES>

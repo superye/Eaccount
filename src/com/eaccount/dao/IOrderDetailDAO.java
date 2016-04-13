@@ -15,4 +15,5 @@ public interface IOrderDetailDAO {
     public boolean BuyerSetQuantity(Order_detail order_detail);
     public String GetOrderIdBuyOrderDetailId(Order_detail order_detail);
     public boolean InsertOrderDetails(Order_detail order_detail);
+    public boolean CountMatterOrder(String order_id);
 }

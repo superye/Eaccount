@@ -42,4 +42,5 @@ public interface IGetOrderService {
     public String GetNewestOrderId();
     public String GetOrderIdByOrderDetailId(String id);
     public List<Order> GetOrderInfoByPayInfo(String company_id_seller, String company_id_buyer);
+    public boolean CountMatterOrder(String order_id);
 }

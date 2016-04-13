@@ -89,4 +89,10 @@ public class UpdateOrderService implements IUpdateOrderService{
         IOrderDAO orderDAO = new OrderDAO();
         return orderDAO.UpdatePaidPrice(order);
     }
+
+    @Override
+    public boolean UpdateReconciliation(String order_id) {
+        IOrderDAO orderDAO = new OrderDAO();
+        return orderDAO.UpdateReconciliation(order_id);
+    }
 }

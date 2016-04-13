@@ -103,6 +103,16 @@ public class Order_detailAction extends SuperAction{
       if ("1".equals(Is_Send_Message)) {
          sendMessageService.SendMessage(message_list);
       }
+
+      //判断该订单明细所在订单是否已对账
+      List<Order_detail> listD = new ArrayList<>();
+      listD = getOrderService.GetOrderDetailByMatterOrderId(order_id);
+      if (listD == null || listD.size() == 0) {
+         updateOrderService.UpdateReconciliation(order_id);
+      }
+
+      updateOrderService.UpdateTotalPrice(order_id);
+
       return null;
    }
 

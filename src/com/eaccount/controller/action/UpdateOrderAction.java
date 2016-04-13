@@ -23,7 +23,7 @@ public class UpdateOrderAction extends SuperAction implements ModelDriven<Order>
         String company_id_buyer = request.getParameter("company_id_buyer");
         String user_id_seller = request.getParameter("user_id_seller");
         String user_id_buyer = getProfileService.GetCompanyInfoByCompanyId(company_id_buyer).get(0).getManager_id();
-        String place_order_time = getNowTime.GetTime(1);
+        String place_order_time = getNowTime.GetTime(2);
         String receiving_time;
         String total_price_seller = request.getParameter("total_price_seller");
 

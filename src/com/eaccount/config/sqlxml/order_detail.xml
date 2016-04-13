@@ -62,4 +62,11 @@
         INSERT INTO table_order_detail(order_id, product_id, unit_price, quantity_delivery)
         VALUES(#{order_id}, #{product_id}, #{unit_price}, #{quantity_delivery})
     </select>
+
+    <select id="CountMatterOrder" parameterType="java.lang.String" resultType="int">
+        SELECT COUNT(*) FROM table_order_detail
+        WHERE order_id = #{order_id}
+        AND quantity_delivery != quantity_receiving
+    </select>
+
 </mapper>

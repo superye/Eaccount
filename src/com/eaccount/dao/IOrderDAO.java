@@ -49,4 +49,6 @@ public interface IOrderDAO {
     public List<Order> GetOrderInfoByPayInfo(Order order);
     public boolean UpdateTotalPrice(String order_id);
     public boolean UpdatePaidPrice(Order order);
+
+    public boolean UpdateReconciliation(String order_id);
 }

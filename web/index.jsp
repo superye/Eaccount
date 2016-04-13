@@ -127,8 +127,8 @@
     </form>
     图片测试
     <form action="upload_UploadImage.action" method="post" enctype="multipart/form-data">
-      <input type="text" name="username" >
-      <input type="file" name="myFile">
+      <input type="text" name="myFile">
+      <input type="text" name="username">
       <input type="submit" value="submit">
     </form>
     账期提醒,负数代表还款日期在X天之后，正数代表已超过X天
@@ -195,6 +195,32 @@
     <form action="order_UpdateTotalPrice.action">
       <input type="text" name="order_id" placeholder="order_id">
       <input type="text" name="order_detail_id" placeholder="order_detail_id">
+      <input type="submit" value="submit">
+    </form>
+
+    发送请求变更数量信息 1卖方发送　　２买方发送
+    <form action="messageList_SendChangeQuantity.action">
+      <input type="text" name="order_detail_id" placeholder="order_detail_id">
+      <input type="text" name="type" placeholder="type">
+      <input type="submit" value="submit">
+    </form>
+
+    发送催款信息
+    <form action="messageList_SendNeedMoney.action">
+      <input type="text" name="company_id_sender" placeholder="company_id_sender">
+      <input type="text" name="company_id_receiver" placeholder="company_id_receiver">
+      <input type="submit" value="submit">
+    </form>
+
+    发送确认收货信息
+    <form action="messageList_SendConfirmReceiving.action">
+      <input type="text" name="order_id" placeholder="order_id">
+      <input type="submit" value="submit">
+    </form>
+
+    确认是否无需对账
+    <form action="order_CheckOrderIsMatter.action">
+      <input type="text" name="order_id" placeholder="order_id">
       <input type="submit" value="submit">
     </form>
 

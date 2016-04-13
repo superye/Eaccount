@@ -15,4 +15,5 @@ public interface IUpdateOrderService {
     public boolean SetReceivingTime(String id, String time);
     public boolean UpdateTotalPrice(String order_id);
     public boolean UpdatePaidPrice(String order_id, String paid_price);
+    public boolean UpdateReconciliation(String order_id);
 }

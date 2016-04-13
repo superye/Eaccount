@@ -140,7 +140,7 @@ public class PayAction extends SuperAction{
         System.out.println(Money);
 
         updatePayInfoService.UpdatePayState(pay_id);
-        updatePayInfoService.UpdateAmountOfMoney(pay_id, String.valueOf(Money));
+       // updatePayInfoService.UpdateAmountOfMoney(pay_id, String.valueOf(Money));
 
         for (int i = 0; i <= rec; i++) {
             int PaidMoney = Integer.parseInt(OrderList.get(i).getPaid_price()) + PayMoney.get(i);
